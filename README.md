@@ -13,7 +13,7 @@ Andre Abreu Calfa
 ![alt tag](https://dl.dropboxusercontent.com/u/25990563/img_0118.jpg)
 Longfeng Li 
 
-
+![alt tag](https://dl.dropboxusercontent.com/u/98399182/IMG_1024.JPG)
 Xuelun Gong 
 
 ![alt tag](https://media.licdn.com/media/AAEAAQAAAAAAAAIvAAAAJGQ0NjRjOWIxLTY0MTgtNDU0ZS1iMzBkLTA5ZTg5ZWVlMjgyYg.jpg)
