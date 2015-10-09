@@ -1,0 +1,13 @@
+GitHub Flow Commands
+Ensure your master branch is up-to-date with the remote
+git pull
+
+Create a new branch for your feature
+git checkout -b feature_name
+
+Commit to the feature branch regularly
+git add [files...]
+git commit -m "Short useful description of changes."
+
+Push changes to your branch to the remote
+git push -u origin feature_name
