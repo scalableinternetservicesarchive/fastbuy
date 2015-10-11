@@ -1,0 +1,18 @@
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+
+<h1>Fastbuy Catalog</h1>
+
+<% @products.each do |product| %>
+  <div class="entry">
+    <%= image_tag(product.image_url) %>
+    <h3><%= product.title %></h3>
+    <p><%= sanitize(product.description) %></p>
+    <div class="price_line">
+      <span class="price">Price: <%= product.price %></span>
+      <span class="quantity">Quantity: <%= product.quantity%></span>
+      <span class="rating">Rating: <%= product.rating%></span>
+    </div>
+  </div>
+<% end %>
