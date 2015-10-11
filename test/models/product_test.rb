@@ -15,7 +15,6 @@ class ProductTest < ActiveSupport::TestCase
     product = Product.new(title:       "My Book Title",
                           description: "yyy",
                           image_url:   "zzz.jpg",
-                          rating:      1.0,
                           quantity:     1)
     product.price = -1
     assert product.invalid?
@@ -35,7 +34,6 @@ class ProductTest < ActiveSupport::TestCase
     product = Product.new(title:       "My Book Title",
                           description: "yyy",
                           image_url:   "zzz.jpg",
-                          rating:      1.0,
                           price:     1)
     product.quantity = -1
     assert product.invalid?
@@ -79,18 +77,18 @@ class ProductTest < ActiveSupport::TestCase
                 quantity:    1)
   end
 
-  #test "image url" do
-  #  ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg
-  #           http://a.b.c/x/y/z/fred.gif }
-  #  bad = %w{ fred.doc fred.gif/more fred.gif.more }
-  #  
-  #  ok.each do |name|
-  #    assert new_product(name).valid?, "#{name} should be valid"
-  #  end
+  test "image url" do
+    ok = %w{ fred.gif fred.jpg fred.png FRED.JPG FRED.Jpg
+             http://a.b.c/x/y/z/fred.gif }
+    bad = %w{ fred.doc fred.gif/more fred.gif.more }
+    
+    ok.each do |name|
+      assert new_product(name).valid?, "#{name} should be valid"
+    end
 
-  #  bad.each do |name|
-  #    assert new_product(name).invalid?, "#{name} shouldn't be valid"
-  #  end
-  #end
+    bad.each do |name|
+      assert new_product(name).invalid?, "#{name} shouldn't be valid"
+    end
+  end
   
 end
