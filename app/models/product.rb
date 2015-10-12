@@ -13,6 +13,12 @@ class Product < ActiveRecord::Base
   has_many :line_items
 
   before_destroy :ensure_not_referenced_by_any_line_item
+  
+  after_initialize :init
+
+    def init
+      self.rating  ||= 0.0           #will set the default value only if it's nil
+    end
 
   private
   # ensure that there are no line items referencing this product
