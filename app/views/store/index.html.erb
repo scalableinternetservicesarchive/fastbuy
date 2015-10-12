@@ -13,6 +13,7 @@
       <span class="price">Price: <%= number_to_currency(product.price) %></span>
       <span class="quantity">Quantity: <%= sprintf("%d", product.quantity) %></span>
       <span class="rating">Rating: <%= sprintf("%0.01f", product.rating) %></span>
+      <%= button_to 'Add to Cart', line_items_path(product_id: product) %>
     </div>
   </div>
 <% end %>
