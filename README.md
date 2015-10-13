@@ -16,6 +16,6 @@ Longfeng Li ([@longfeng-li](https://github.com/longfeng-li))
 ![alt tag](https://dl.dropboxusercontent.com/u/98399182/IMG_1024.JPG)  
 Xuelun Gong ([@Gongxl](https://github.com/Gongxl))  
 
-![alt tag](https://photos-2.dropbox.com/t/2/AADKVWLwiJvY4TBCuDtQWjirYiQlzWDZJpHkKl0ozt5zwA/12/376474328/jpeg/32x32/1/1444636800/0/2/AppleHQ.JPG/CNiVwrMBIAEgAiADIAYgBygC/tO8dSGSa2gMrZTe2yrV0XWTLF2lS3K9mbPwkiKmOSoI?size_mode=5)  
+![alt tag](https://dl.dropboxusercontent.com/s/g3z59ebf2fp5y1j/AppleHQ.JPG)  
 Shenghan Gao ([@ShenghanGao](https://github.com/ShenghanGao))  
 
