@@ -17,4 +17,6 @@
 <%= button_to 'Empty cart', cart, method: :delete,
     data: { confirm: 'Are you sure?' } %>
 <br/>
-<%= link_to 'Back', '/' %>
+<% if request.path == "/orders/new" %>
+  <%= link_to 'Back', '/' %>
+<% end %>
