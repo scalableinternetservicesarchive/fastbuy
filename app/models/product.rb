@@ -17,7 +17,11 @@ class Product < ActiveRecord::Base
   after_initialize :init
 
     def init
-      self.rating  ||= 0.0           #will set the default value only if it's nil
+      self.rating ||= 0.0           #will set the default value only if it's nil
+    end
+
+    def self.latest
+        Product.order(:updated_at).last
     end
 
   private
