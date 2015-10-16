@@ -45,3 +45,5 @@ group :development do
   gem 'spring'
 end
 
+#Measuring Test Coverage with Code Climate
+gem "codeclimate-test-reporter", group: :test, require: nil
