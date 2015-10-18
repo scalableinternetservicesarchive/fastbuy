@@ -37,20 +37,20 @@
 }
 
 #columns {
-  background: #66ccff;
+  background: #66ccfe;
 
   #main {
-    margin-left: 17em;
+    margin-left: 24em;
     padding: 1em;
-    background: white;
+    background: yellow;
   }
 
 //#START:side
   #side {
     float: left;
-    padding: 1em 2em;
-    width: 13em;
-    background: #66ccff;
+    padding: 0.5em 1em;
+    width: 22em;
+    background: #ff6666;
 
 /* START_HIGHLIGHT */
     form, div {
