@@ -36,7 +36,8 @@ class LineItemsControllerTest < ActionController::TestCase
 
   test "should update line_item" do
     patch :update, id: @line_item, line_item: { product_id: @line_item.product_id }
-    assert_redirected_to line_item_path(assigns(:line_item))
+    #assert_redirected_to line_item_path(assigns(:line_item))
+    assert_redirected_to store_url
   end
 
   test "should destroy line_item" do
@@ -44,7 +45,7 @@ class LineItemsControllerTest < ActionController::TestCase
       delete :destroy, id: @line_item
     end
 
-    assert_redirected_to line_items_path
+    assert_redirected_to store_url
   end
 
   test "should create line_item via ajax" do

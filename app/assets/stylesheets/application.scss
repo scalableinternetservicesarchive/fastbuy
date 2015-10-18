@@ -14,6 +14,10 @@
  *= require_tree .
  */
 
+$sidePaddingUpBottom: 0.5em;
+$sidePaddingLeftRight: 1em;
+$sideWidth: 25em;
+
 #banner {
   background: #9c9;
   padding: 10px;
@@ -40,17 +44,17 @@
   background: #66ccff;
 
   #main {
-    margin-left: 17em;
+    margin-left: $sideWidth + 2 * $sidePaddingLeftRight;
     padding: 1em;
-    background: white;
+    background: yellow;
   }
 
 //#START:side
   #side {
     float: left;
-    padding: 1em 2em;
-    width: 13em;
-    background: #66ccff;
+    padding: $sidePaddingUpBottom $sidePaddingLeftRight;
+    width: $sideWidth;
+    background: #ff6666;
 
 /* START_HIGHLIGHT */
     form, div {
