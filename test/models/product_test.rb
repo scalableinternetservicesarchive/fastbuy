@@ -37,12 +37,7 @@ class ProductTest < ActiveSupport::TestCase
                           price:     1)
     product.quantity = -1
     assert product.invalid?
-    assert_equal ["must be greater than or equal to 1"],
-      product.errors[:quantity]
-
-    product.quantity = 0
-    assert product.invalid?
-    assert_equal ["must be greater than or equal to 1"], 
+    assert_equal ["must be greater than or equal to 0"],
       product.errors[:quantity]
 
     product.quantity = 1

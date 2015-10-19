@@ -3,6 +3,7 @@ require 'test_helper'
 class CartTest < ActiveSupport::TestCase
   test "cart add products test" do
     product = Product.new(id: 1)
+    product.quantity = 1
     cart = Cart.new(id: 1)
     line_item = LineItem.new(product: product, cart: cart)
     line_item.product_id = product.id
