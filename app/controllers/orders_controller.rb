@@ -36,6 +36,10 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
+        # Before deleting the cart, we need to update the quantity of the products
+        # related to the line items of this cart
+        update_product_count()
+
         Cart.destroy(session[:cart_id])
         session[:cart_id] = nil
 		
@@ -84,5 +88,12 @@ class OrdersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def order_params
       params.require(:order).permit(:name, :address, :email, :pay_type)
+    end
+
+    def update_product_count
+        @order.line_items.each do |item|
+        item.product.quantity -= item.quantity
+        item.product.save
+        end
     end
 end
