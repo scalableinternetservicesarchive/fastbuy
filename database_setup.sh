@@ -4,5 +4,5 @@
 
 bundle
 bundle exec rake db:drop
-bundle exec rake db:create db:migrate
+bundle exec rake db:create db:migrate db:seed
 
