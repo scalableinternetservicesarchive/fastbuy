@@ -5,9 +5,6 @@ class LineItemTest < ActiveSupport::TestCase
      product = Product.new(id: 1)
      product.quantity = 1
      line_item = LineItem.new(product: product)
-     assert line_item.invalid?
-     # we do not have a cart associated with this line_item
-     assert line_item.errors[:cart_id].any?
      # but we do have a product associated with this line_item
      assert line_item.errors[:product_id].none?
    end
