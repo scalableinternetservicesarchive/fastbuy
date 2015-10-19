@@ -15,6 +15,17 @@
           <span class="price">Price: <%= number_to_currency(product.price) %></span>
           <span class="quantity">Quantity: <%= sprintf("%d", product.quantity) %></span>
           <span class="rating">Rating: <%= sprintf("%0.01f", product.rating) %></span>
+	  <%= form_tag(line_items_path(product_id: product)) do %>
+	    <% if current_product = @cart.line_items.find_by(product_id: product.id) %>
+	      <%= number_field_tag(:quantity, params[:quantity], in: 1..product.quantity \
+		  - current_product.quantity \
+		  ) %>
+	    <% else %>
+	      <%= number_field_tag(:quantity, params[:quantity], in: 1..product.quantity \
+		  ) %>
+	    <% end %>
+            <%= submit_tag("Submit") %>
+	  <% end %>
           <% if product.quantity > 0 %>
             <%= button_to 'Add to Cart', line_items_path(product_id: product), remote: true %>
           <% else %>
@@ -25,3 +36,4 @@
     <% end %>
   <% end %>
 <% end %>
+

@@ -6,6 +6,7 @@ class LineItemsController < ApplicationController
   # GET /line_items
   # GET /line_items.json
   def index
+    puts "INDEX"
     @line_items = LineItem.all
   end
 
@@ -26,8 +27,11 @@ class LineItemsController < ApplicationController
   # POST /line_items
   # POST /line_items.json
   def create
+    puts "CREATE"
+    puts params[:quantity]
     product = Product.find(params[:product_id])
-    @line_item = @cart.add_product(product.id)
+
+    @line_item = @cart.add_product(product.id, params[:quantity].to_i)
 
     respond_to do |format|
       if @line_item.save
