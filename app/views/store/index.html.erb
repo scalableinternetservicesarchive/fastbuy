@@ -17,9 +17,13 @@
           <span class="rating">Rating: <%= sprintf("%0.01f", product.rating) %></span>
 	  <%= form_tag(line_items_path(product_id: product)) do %>
 	    <% if current_product = @cart.line_items.find_by(product_id: product.id) %>
-	      <%= number_field_tag(:quantity, params[:quantity], in: 1..product.quantity \
-		  - current_product.quantity \
-		  ) %>
+	      <% if product.quantity - current_product.quantity == 0 %>
+	        <%= number_field_tag(:quantity, params[:quantity], in: 0..0) %>
+	      <% else %>
+	        <%= number_field_tag(:quantity, params[:quantity], in: 1..product.quantity \
+		    - current_product.quantity \
+		    ) %>
+	      <% end %>
 	    <% else %>
 	      <%= number_field_tag(:quantity, params[:quantity], in: 1..product.quantity \
 		  ) %>

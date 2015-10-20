@@ -59,3 +59,4 @@ class LineItemsControllerTest < ActionController::TestCase
     end
   end
 end
+
