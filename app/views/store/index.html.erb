@@ -3,7 +3,16 @@
 <% end %>
 
 <h1>FastBuy Catalog</h1>
-
+<span class="auth">
+   <%= if (current_buyer == nil)
+       link_to 'Sign In', new_buyer_session_path
+       else
+         current_buyer.email
+       end%>
+   <%= link_to 'Cart', cart_path(id: current_buyer.cart_id) if current_buyer != nil %>
+   <%= link_to 'Sign Up', new_buyer_registration_path if current_buyer == nil %>
+   <%= link_to 'Sign Out', destroy_buyer_session_path, method: :delete, data: { confirm: 'Are you sure?'} if current_buyer != nil %>
+</span>
 <% cache ['store', Product.latest] do %>
   <% @products.each do |product| %>
     <% cache ['entry', product] do %>

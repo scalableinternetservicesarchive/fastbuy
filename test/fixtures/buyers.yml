@@ -4,4 +4,7 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+one:
+  email: a@g.com
+  encrypted_password: <%= Buyer.new.send(:password_digest, '12345678') %>
+  cart_id: 1
