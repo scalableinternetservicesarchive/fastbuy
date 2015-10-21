@@ -6,7 +6,6 @@ class LineItemsController < ApplicationController
   # GET /line_items
   # GET /line_items.json
   def index
-    puts "INDEX"
     @line_items = LineItem.all
   end
 
@@ -27,16 +26,14 @@ class LineItemsController < ApplicationController
   # POST /line_items
   # POST /line_items.json
   def create
-    puts "CREATE"
-    puts params[:quantity]
     product = Product.find(params[:product_id])
-
+    
     @line_item = @cart.add_product(product.id, params[:quantity].to_i)
 
     respond_to do |format|
       if @line_item.save
         format.html { redirect_to store_url }
-        format.js   { @current_item = @line_item } 
+        format.js   { @current_item = @line_item }
         format.json { render action: 'show', status: :created, location: @line_item }
       else
         format.html { render action: 'new' }
