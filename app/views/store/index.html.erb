@@ -24,26 +24,27 @@
           <span class="price">Price: <%= number_to_currency(product.price) %></span>
           <span class="quantity">Quantity: <%= sprintf("%d", product.quantity) %></span>
           <span class="rating">Rating: <%= sprintf("%0.01f", product.rating) %></span>
-          
-          <% if current_line_item = @cart.line_items.find_by(product_id: product.id) %>
-            <!-- the product can be found in the cart, use PUT-->
-            <%= form_tag(line_item_path(current_line_item.id), method: :put) do %>
-	      <% if product.quantity - current_line_item.quantity == 0 %>
-	        <%= number_field_tag(:delta, nil, in: 0..0) %>
-	        <%= submit_tag("Submit", disabled: true)%>
-	      <% else %>
-	        <%= number_field_tag(:delta, nil, in: 1..product.quantity \
-		    - current_line_item.quantity \
-		    ) %>
-	        <%= submit_tag("Submit") %>
+          <% if @cart.class == Cart %> <!-- Need Fixes Here -->
+            <% if current_line_item = @cart.line_items.find_by(product_id: product.id) %>
+              <!-- the product can be found in the cart, use PUT-->
+              <%= form_tag(line_item_path(current_line_item.id), method: :put) do %>
+	            <% if product.quantity - current_line_item.quantity == 0 %>
+	              <%= number_field_tag(:delta, nil, in: 0..0) %>
+	              <%= submit_tag("Submit", disabled: true)%>
+	            <% else %>
+  	              <%= number_field_tag(:delta, nil, in: 1..product.quantity \
+		          - current_line_item.quantity \
+		          ) %>
+	              <%= submit_tag("Submit") %>
+                <% end %>
               <% end %>
-            <% end %>
             <% else %>
-            <!-- the product cannot be found in the cart, use POST-->
-            <%= form_tag (line_items_path(product_id: product)) do %>
-	        <%= number_field_tag(:quantity, nil, in: 1..product.quantity) %>
-	        <%= submit_tag("Submit") %>
+              <!-- the product cannot be found in the cart, use POST-->
+              <%= form_tag (line_items_path(product_id: product)) do %>
+	          <%= number_field_tag(:quantity, nil, in: 1..product.quantity) %>
+	          <%= submit_tag("Submit") %>
             <% end %>
+		  <% end %>
 	  <% end %>
 
           <% if product.quantity > 0 %>

@@ -27,40 +27,46 @@ class LineItemsController < ApplicationController
   # POST /line_items.json
   def create
     product = Product.find(params[:product_id])
-    
-    @line_item = @cart.add_product(product.id, params[:quantity].to_i)
-
-    respond_to do |format|
-      if @line_item.save
-        format.html { redirect_to store_url }
-        format.js   { @current_item = @line_item }
-        format.json { render action: 'show', status: :created, location: @line_item }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+    if @cart.class == Hash
+	  @cart[product.id] = @cart[product.id] ? @cart[product.id] + 1 : 1
+	  respond_to do |format|
+	    format.html { redirect_to store_url }
+		# Need Fixes Here
+	  end
+	else
+      @line_item = @cart.add_product(product.id, params[:quantity].to_i)
+      respond_to do |format|
+        if @line_item.save
+          format.html { redirect_to store_url }
+          format.js   { @current_item = @line_item }
+          format.json { render action: 'show', status: :created, location: @line_item }
+        else
+          format.html { render action: 'new' }
+          format.json { render json: @line_item.errors, status: :unprocessable_entity }
+        end
       end
-    end
+	end
   end
 
   # PATCH/PUT /line_items/1
   # PATCH/PUT /line_items/1.json
   def update
-    
-    @line_item.quantity += params[:delta].to_i
-
-    respond_to do |format|
-      if @line_item.quantity > 0 && @line_item.save
-	format.html { redirect_to store_url, notice: 'Line item was successfully updated.' }
-        format.json { render :show, status: :ok, location: @line_item }
-      elsif @line_item.quantity > @line_item.product.quantity
-        format.html { redirect_to store_url, notice: 'No more items available for this product.' }
-        format.json { render :show, status: :ok, location: @line_item }
-      else
-        @line_item.destroy
-        format.html { redirect_to store_url, notice: 'Line item was deleted.' }
-        format.json { render :show, status: :ok, location: @line_item }
+    if @line_item
+      @line_item.quantity += params[:delta].to_i
+      respond_to do |format|
+        if @line_item.quantity > 0 && @line_item.save
+          format.html { redirect_to store_url, notice: 'Line item was successfully updated.' }
+          format.json { render :show, status: :ok, location: @line_item }
+        elsif @line_item.quantity > @line_item.product.quantity
+          format.html { redirect_to store_url, notice: 'No more items available for this product.' }
+          format.json { render :show, status: :ok, location: @line_item }
+        else
+          @line_item.destroy
+          format.html { redirect_to store_url, notice: 'Line item was deleted.' }
+          format.json { render :show, status: :ok, location: @line_item }
+        end
       end
-    end
+	end
   end
 
   # DELETE /line_items/1

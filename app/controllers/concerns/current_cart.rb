@@ -19,7 +19,7 @@ module CurrentCart
 		puts '@@-Current User ' + current_buyer.id.to_s + ' Cart ID ' + current_buyer.cart_id.to_s + '-@@'
       end
       rescue ActiveRecord::RecordNotFound
-        @cart = Cart.create(user_id: current_buyer.id)
+        @cart = Cart.create(buyer: current_buyer)
         current_buyer.cart_id = @cart.id
 	    current_buyer.save
 	    puts '@@-Create User '+ current_buyer.id.to_s +  ' Cart ID ' + current_buyer.cart_id.to_s + '-@@'
