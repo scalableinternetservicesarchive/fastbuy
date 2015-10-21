@@ -8,7 +8,7 @@ class CartTest < ActiveSupport::TestCase
     line_item = LineItem.new(product: product, cart: cart)
     line_item.product_id = product.id
     assert line_item.valid?
-    cart.add_product(product.id)
+    cart.add_product(product.id, 1)
     assert cart.valid?
   end
 
