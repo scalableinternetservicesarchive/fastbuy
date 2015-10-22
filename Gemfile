@@ -48,3 +48,7 @@ end
 
 #Measuring Test Coverage with Code Climate
 gem "codeclimate-test-reporter", group: :test, require: nil
+
+gem 'execjs'
+
+gem 'therubyracer'
