@@ -46,5 +46,11 @@ group :development do
   gem 'spring'
 end
 
-#Measuring Test Coverage with Code Climate
+# Measuring Test Coverage with Code Climate
 gem "codeclimate-test-reporter", group: :test, require: nil
+
+# Use Devise for user authorization
+gem 'devise'
+
+# tzinfo-data is needed under Windows OS
+gem 'tzinfo-data'

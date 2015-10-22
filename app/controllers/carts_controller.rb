@@ -1,6 +1,7 @@
 class CartsController < ApplicationController
+  include CurrentCart
   before_action :set_cart, only: [:show, :edit, :update, :destroy]
-  rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
+  
   # GET /carts
   # GET /carts.json
   def index
@@ -10,6 +11,13 @@ class CartsController < ApplicationController
   # GET /carts/1
   # GET /carts/1.json
   def show
+	if @cart.class == Hash
+	  respond_to do |format|
+	    format.html { redirect_to store_url, notice: 'Sorry, temp cart currently is not visable.' }
+	  end
+    elsif @cart.id.to_i != params[:id].to_i
+      invalid_cart
+    end
   end
 
   # GET /carts/new
@@ -19,6 +27,13 @@ class CartsController < ApplicationController
 
   # GET /carts/1/edit
   def edit
+    if @cart.class == Hash
+	  respond_to do |format|
+	    format.html { redirect_to store_url, notice: 'Sorry, temp cart currently is not editable.' }
+	  end
+    elsif @cart.id.to_i != params[:id].to_i
+      invalid_cart
+    end
   end
 
   # POST /carts
@@ -53,10 +68,12 @@ class CartsController < ApplicationController
 
   # DELETE /carts/1
   # DELETE /carts/1.json
-
   def destroy
-    @cart.destroy if @cart.id == session[:cart_id]
-    session[:cart_id] = nil
+    if @cart.class == Hash
+	  session[:cart_id] = nil
+	else @cart.class == Cart
+      @cart.destroy
+	end
     respond_to do |format|
       format.html { redirect_to store_url  }
       format.json { head :no_content }
@@ -64,11 +81,7 @@ class CartsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cart
-      @cart = Cart.find(params[:id])
-    end
-
+  
     # Never trust parameters from the scary internet, only allow the white list through.
     def cart_params
       params[:cart]
