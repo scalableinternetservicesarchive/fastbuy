@@ -2,7 +2,4 @@
 #To run:
 #sh database_setup.sh
 
-bundle
-bundle exec rake db:drop
-bundle exec rake db:create db:migrate db:seed
-
+rake db:migrate:reset db:seed

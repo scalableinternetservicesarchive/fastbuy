@@ -21,7 +21,9 @@
     <% elsif @cart.class == Hash %>
 	  <%= hidden_div_if(@cart.empty?, id: 'cart') do %>
 	    <!-- Need Fixes Here -->
-        <%#= render @cart %>
+        <% @cart.each do |key,value| %>
+           <%= Product.find(key).title %> <%= value %> <br />
+        <% end %> 
       <% end %>
 	<% end %>
     <!-- END:hidden_div -->

@@ -11,8 +11,11 @@ class CartsController < ApplicationController
   # GET /carts/1
   # GET /carts/1.json
   def show
-    puts '@@-Current Cart ' + @cart.id.to_s  + ' to show ' + params[:id].to_s + '-@@'
-    if @cart.id.to_i != params[:id].to_i
+	if @cart.class == Hash
+	  respond_to do |format|
+	    format.html { redirect_to store_url, notice: 'Sorry, temp cart currently is not visable.' }
+	  end
+    elsif @cart.id.to_i != params[:id].to_i
       invalid_cart
       puts "@@-Cart not match-@@"
     end
@@ -25,6 +28,14 @@ class CartsController < ApplicationController
 
   # GET /carts/1/edit
   def edit
+    if @cart.class == Hash
+	  respond_to do |format|
+	    format.html { redirect_to store_url, notice: 'Sorry, temp cart currently is not editable.' }
+	  end
+    elsif @cart.id.to_i != params[:id].to_i
+      invalid_cart
+      puts "@@-Cart not match-@@"
+    end
   end
 
   # POST /carts
@@ -60,8 +71,11 @@ class CartsController < ApplicationController
   # DELETE /carts/1
   # DELETE /carts/1.json
   def destroy
-    @cart.destroy if @cart.id == session[:cart_id]
-    session[:cart_id] = nil
+    if @cart.class == Hash
+	  session[:cart_id] = nil
+	else @cart.class == Cart
+      @cart.destroy
+	end
     respond_to do |format|
       format.html { redirect_to store_url  }
       format.json { head :no_content }

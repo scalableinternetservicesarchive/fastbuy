@@ -1,6 +1,4 @@
 class Buyers::RegistrationsController < Devise::RegistrationsController
-  include CurrentCart
-  before_action :set_cart, only: [:new, :show, :create]
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
 

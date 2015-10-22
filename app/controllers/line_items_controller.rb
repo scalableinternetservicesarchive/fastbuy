@@ -1,6 +1,6 @@
 class LineItemsController < ApplicationController
   include CurrentCart
-  before_action :set_cart, only: [:create]
+  before_action :set_cart, only: [:show, :edit, :create, :update, :destroy]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
   # GET /line_items
@@ -12,6 +12,11 @@ class LineItemsController < ApplicationController
   # GET /line_items/1
   # GET /line_items/1.json
   def show
+	if @cart.class == Hash
+	  respond_to do |format|
+	    format.html { redirect_to store_url, notice: 'Sorry, item in temp cart currently is not visable.' }
+	  end
+	end
   end
 
   # GET /line_items/new
@@ -21,6 +26,11 @@ class LineItemsController < ApplicationController
 
   # GET /line_items/1/edit
   def edit
+  	if @cart.class == Hash
+	  respond_to do |format|
+	    format.html { redirect_to store_url, notice: 'Sorry, item in temp cart currently is not editable.' }
+	  end
+	end
   end
 
   # POST /line_items
@@ -28,13 +38,15 @@ class LineItemsController < ApplicationController
   def create
     product = Product.find(params[:product_id])
     if @cart.class == Hash
-	  @cart[product.id] = @cart[product.id] ? @cart[product.id] + 1 : 1
-	  respond_to do |format|
-	    format.html { redirect_to store_url }
-		# Need Fixes Here
+	  if @cart[product.id.to_s]
+  	    @cart[product.id.to_s] = @cart[product.id.to_s].to_i + params[:quantity].to_i
+	  else 
+	    @cart[product.id.to_s] = 1
 	  end
+	  # Need Fixes Here
+	  redirect_to store_url
 	else
-      @line_item = @cart.add_product(product.id, params[:quantity].to_i)
+      @line_item = @cart.add_product(params[:product_id], params[:quantity].to_i)
       respond_to do |format|
         if @line_item.save
           format.html { redirect_to store_url }
@@ -51,8 +63,20 @@ class LineItemsController < ApplicationController
   # PATCH/PUT /line_items/1
   # PATCH/PUT /line_items/1.json
   def update
-    if @line_item
-      @line_item.quantity += params[:delta].to_i
+    if @line_item == nil
+	  product = Product.find(params[:product_id])
+	  @cart[product.id.to_s] = @cart[product.id.to_s].to_i + params[:quantity].to_i
+	  respond_to do |format|
+        if @cart[product.id.to_s] > 0
+          format.html { redirect_to store_url, notice: 'Line item was successfully updated.' }
+          format.json { render :show, status: :ok}
+        elsif @cart[product.id.to_s] > product.quantity
+          format.html { redirect_to store_url, notice: 'No more items available for this product.' }
+          format.json { render :show, status: :ok}
+        end
+      end
+	else
+      @line_item.quantity += params[:quantity].to_i
       respond_to do |format|
         if @line_item.quantity > 0 && @line_item.save
           format.html { redirect_to store_url, notice: 'Line item was successfully updated.' }
@@ -72,26 +96,31 @@ class LineItemsController < ApplicationController
   # DELETE /line_items/1
   # DELETE /line_items/1.json
   def destroy
-    @line_item.destroy
-    respond_to do |format|
-#      if @line_item != nil && @line_item.cart != nil
-        format.html { redirect_to store_url, notice: 'Line item was successfully destroyed.' }
-#      else
-#        format.html { redirect_to line_items_url, notice: 'Line item was successfully destroyed.' }
-#      end
-      format.json { head :no_content }
+    if @line_item == nil
+	  @cart.delete(params[:product_id])
+	else  
+      @line_item.destroy
     end
+	respond_to do |format|
+      format.html { redirect_to store_url, notice: 'Line item was successfully destroyed.' }
+      format.json { head :no_content }
+	end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_line_item
-      @line_item = LineItem.find(params[:id])
+	  if @cart.class == Hash
+	    @line_item = nil
+	  else 
+        @line_item = LineItem.find(params[:id])
+	  end
     end
 
    # Never trust parameters from the scary internet, only allow the white list through.
     def line_item_params
-      params.require(:line_item).permit(:product_id)
+	  # Need Fixes Here what is this used for?
+	  params.require(:line_item).permit(:product_id, :quantity)
     end
 
 end

@@ -5,6 +5,7 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
+  id: 1
   email: a@g.com
   encrypted_password: <%= Buyer.new.send(:password_digest, '12345678') %>
   cart_id: 1
