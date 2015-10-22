@@ -76,6 +76,7 @@ GEM
     jquery-ui-rails (5.0.5)
       railties (>= 3.2.16)
     json (1.8.3)
+    libv8 (3.16.14.13)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -118,8 +119,12 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
     rdoc (4.2.0)
+<<<<<<< HEAD
     responders (2.1.0)
       railties (>= 4.2.0, < 5)
+=======
+    ref (2.0.0)
+>>>>>>> master
     sass (3.4.18)
     sass-rails (5.0.4)
       railties (>= 4.0.0, < 5.0)
@@ -143,7 +148,13 @@ GEM
       activesupport (>= 3.0)
       sprockets (>= 2.8, < 4.0)
     sqlite3 (1.3.10)
+<<<<<<< HEAD
     sqlite3 (1.3.10-x86-mingw32)
+=======
+    therubyracer (0.12.2)
+      libv8 (~> 3.16.14.0)
+      ref
+>>>>>>> master
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.1)
@@ -172,7 +183,11 @@ DEPENDENCIES
   byebug
   codeclimate-test-reporter
   coffee-rails (~> 4.1.0)
+<<<<<<< HEAD
   devise
+=======
+  execjs
+>>>>>>> master
   jbuilder (~> 2.0)
   jquery-rails (= 4.0.5)
   jquery-ui-rails (= 5.0.5)
@@ -181,6 +196,7 @@ DEPENDENCIES
   sdoc (~> 0.4.0)
   spring
   sqlite3
+  therubyracer
   turbolinks
   tzinfo-data
   uglifier (>= 1.3.0)
