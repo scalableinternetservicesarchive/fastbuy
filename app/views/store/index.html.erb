@@ -3,7 +3,12 @@
 <% end %>
 
 <h1>FastBuy Catalog</h1>
-
+<div align = "right">
+<%= form_tag({ controller: 'store', action: 'sort'}, method: 'get') do %>
+<%= select_tag( 'sort', options_for_select([['title', "title"], ['price', "price"], ['quantity', "quantity"], ['rating', "rating"]])) %>
+<%= submit_tag "Sort", name:nil, class: 'btn' %>
+<% end %>
+</div>
 <% cache ['store', Product.latest] do %>
   <% @products.each do |product| %>
     <% cache ['entry', product] do %>
