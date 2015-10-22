@@ -55,6 +55,8 @@ gem 'devise'
 # tzinfo-data is needed under Windows OS
 gem 'tzinfo-data'
 
+# Used for AWS. Comment it under Windows
 gem 'execjs'
 
+# Used for AWS. Comment it under Windows
 gem 'therubyracer'
