@@ -56,7 +56,7 @@ gem 'devise'
 gem 'tzinfo-data'
 
 # Used for AWS. Comment it under Windows
-gem 'execjs'
+# gem 'execjs'
 
 # Used for AWS. Comment it under Windows
-gem 'therubyracer'
+# gem 'therubyracer'
