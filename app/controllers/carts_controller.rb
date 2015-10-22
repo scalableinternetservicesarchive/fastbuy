@@ -17,7 +17,6 @@ class CartsController < ApplicationController
 	  end
     elsif @cart.id.to_i != params[:id].to_i
       invalid_cart
-      puts "@@-Cart not match-@@"
     end
   end
 
@@ -34,7 +33,6 @@ class CartsController < ApplicationController
 	  end
     elsif @cart.id.to_i != params[:id].to_i
       invalid_cart
-      puts "@@-Cart not match-@@"
     end
   end
 

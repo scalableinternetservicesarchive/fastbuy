@@ -4,15 +4,12 @@ module CurrentCart
     private
 
     def set_cart
-      puts "@@-Set Cart-@@"
       if current_buyer == nil
         @cart = session[:cart]  
         if @cart == nil
     	   @cart = Hash.new
     	   session[:cart] = @cart
-           puts '@@-New Cart-@@'
         else
-           puts '@@-Get Cart-@@'
     	end
       else 
         begin	  
@@ -21,7 +18,6 @@ module CurrentCart
           @cart = Cart.create(buyer: current_buyer)
           current_buyer.cart_id = @cart.id
 	      current_buyer.save
-	      puts '@@-Create User '+ current_buyer.id.to_s +  ' Cart ID ' + current_buyer.cart_id.to_s + '-@@'
 		ensure
 	      if @cart.class == Cart && session[:cart]
             hashcart = session[:cart]
@@ -30,7 +26,6 @@ module CurrentCart
 			  @line_item.save
 		    end
 		    session[:cart] = nil
-		    puts '@@-Copy tempoary cart to User ' + current_buyer.id.to_s + ' Cart ID ' + current_buyer.cart_id.to_s + '-@@'
 		  end
 		end
       end
