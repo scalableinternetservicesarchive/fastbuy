@@ -54,3 +54,7 @@ gem 'devise'
 
 # tzinfo-data is needed under Windows OS
 gem 'tzinfo-data'
+
+gem 'execjs'
+
+gem 'therubyracer'
