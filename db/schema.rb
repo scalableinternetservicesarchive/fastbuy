@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20151021084128) do
     t.text     "description"
     t.string   "image_url"
     t.decimal  "price",       precision: 8, scale: 2
-    t.decimal  "rating",      precision: 1, scale: 1
+    t.decimal  "rating",      precision: 2, scale: 1
     t.integer  "quantity"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
