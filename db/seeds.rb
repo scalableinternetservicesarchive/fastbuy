@@ -25,7 +25,7 @@ for i in 1..num
     %{<p>
         #{describe}
       </p>},
-     image_url:   "#{i}.jpg",    
+     image_url:   "/assets/#{i}.jpg",    
      price: rand(0..9)*100 + rand(0..9)*10 + rand(1..9) + rand(1..99)/100.0,
      quantity: rand(1..100),
      rating: rand(1..4) + rand(1..9)/10.0)
