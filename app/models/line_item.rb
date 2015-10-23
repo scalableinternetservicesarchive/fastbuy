@@ -5,6 +5,7 @@ class LineItem < ActiveRecord::Base
 
   validates :product_id, presence: true, numericality: {greater_than_or_equal_to: 1}
   validates :quantity, presence: true, numericality: {greater_than_or_equal_to: 1, less_than_or_equal_to: :product_quantity}
+  
   def total_price
     product.price * quantity
   end

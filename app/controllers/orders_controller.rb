@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :authenticate_buyer!
   include CurrentCart
   before_action :set_cart, only: [:new, :create]
   before_action :set_order, only: [:show, :edit, :update, :destroy]
@@ -20,7 +21,6 @@ class OrdersController < ApplicationController
       redirect_to store_url, notice: "Your cart is empty"
       return
     end
-
     @order = Order.new
   end
 
@@ -40,8 +40,7 @@ class OrdersController < ApplicationController
         # related to the line items of this cart
         update_product_count()
 
-        Cart.destroy(session[:cart_id])
-        session[:cart_id] = nil
+        Cart.destroy(@cart.id)
 		
         format.html { redirect_to store_url, notice: 
           'Thank you for your order.' }
@@ -55,6 +54,7 @@ class OrdersController < ApplicationController
       end
     end
   end
+  
   # PATCH/PUT /orders/1
   # PATCH/PUT /orders/1.json
   def update

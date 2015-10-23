@@ -1,13 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  address: MyText
-  email: MyString
+  name: BuyerName1
+  address: BuyerAdd1
+  email: BuyerEmail1
   pay_type: Check
-
-two:
-  name: MyString
-  address: MyText
-  email: MyString
-  pay_type: MyString

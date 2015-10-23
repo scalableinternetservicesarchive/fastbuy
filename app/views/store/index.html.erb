@@ -4,11 +4,22 @@
 
 <h1>FastBuy Catalog</h1>
 <div align = "right">
-<%= form_tag({ controller: 'store', action: 'sort'}, method: 'get') do %>
-<%= select_tag( 'sort', options_for_select([['title', "title"], ['price', "price"], ['quantity', "quantity"], ['rating', "rating"]])) %>
-<%= submit_tag "Sort", name:nil, class: 'btn' %>
-<% end %>
+  <%= form_tag({ controller: 'store', action: 'sort'}, method: 'get') do %>
+    <%= select_tag( 'sort', options_for_select([['title', "title"], ['price', "price"], ['quantity', "quantity"], ['rating', "rating"]])) %>
+    <%= submit_tag "Sort", name:nil, class: 'btn' %>
+  <% end %>
 </div>
+<span class="auth">
+  <% if current_buyer != nil %>
+    <%= current_buyer.email %>
+    <%= link_to 'Cart', cart_path(id: current_buyer.cart_id) %>
+  <% else %>
+    <%= link_to 'Sign In', new_buyer_session_path %>
+    <%= link_to 'Cart', cart_path(id: 'temp') %>
+  <% end %>
+  <%= link_to 'Sign Up', new_buyer_registration_path if current_buyer == nil %>
+  <%= link_to 'Sign Out', destroy_buyer_session_path, method: :delete, data: { confirm: 'Are you sure?'} if current_buyer != nil %>
+</span>
 <% cache ['store', Product.latest] do %>
   <% @products.each do |product| %>
     <% cache ['entry', product] do %>
@@ -20,34 +31,39 @@
           <span class="price">Price: <%= number_to_currency(product.price) %></span>
           <span class="quantity">Quantity: <%= sprintf("%d", product.quantity) %></span>
           <span class="rating">Rating: <%= sprintf("%0.01f", product.rating) %></span>
-          
-          <% if current_line_item = @cart.line_items.find_by(product_id: product.id) %>
-            <!-- the product can be found in the cart, use PUT-->
-            <%= form_tag(line_item_path(current_line_item.id), method: :put) do %>
-	      <% if product.quantity - current_line_item.quantity == 0 %>
-	        <%= number_field_tag(:delta, nil, in: 0..0) %>
-	        <%= submit_tag("Submit", disabled: true)%>
-	      <% else %>
-	        <%= number_field_tag(:delta, nil, in: 1..product.quantity \
-		    - current_line_item.quantity \
-		    ) %>
-	        <%= submit_tag("Submit") %>
+          <% if @cart.class == Cart %> <!-- Need Fixes Here -->
+            <% if current_line_item = @cart.line_items.find_by(product_id: product.id) %>
+              <!-- the product can be found in the cart, use PUT-->
+              <%= form_tag(line_item_path(current_line_item.id), method: :put) do %>
+                <% if product.quantity - current_line_item.quantity == 0 %>
+                  <%= number_field_tag(:quantity, nil, in: 0..0) %>
+                  <%= submit_tag("Submit", disabled: true)%>
+                <% else %>
+                  <%= number_field_tag(:quantity, nil, in: 1..product.quantity \
+                  - current_line_item.quantity) %>
+                  <%= submit_tag("Submit") %>
+                <% end %>
               <% end %>
-            <% end %>
             <% else %>
             <!-- the product cannot be found in the cart, use POST-->
-            <%= form_tag (line_items_path(product_id: product)) do %>
-	        <%= number_field_tag(:quantity, nil, in: 1..product.quantity) %>
-	        <%= submit_tag("Submit") %>
+              <%= form_tag (line_items_path(product_id: product)) do %>
+                <% if product.quantity == 0 %>
+                  <%= number_field_tag(:quantity, nil, in: 0..0) %>
+                  <%= submit_tag("Submit", disabled: true)%>
+                <% else %>
+                  <%= number_field_tag(:quantity, nil, in: 1..product.quantity) %>
+                  <%= submit_tag("Submit") %>
+                <% end %>
+              <% end %>
             <% end %>
-	  <% end %>
-
+          <% else %>
+            <!-- TODO-->
+          <% end %>
           <% if product.quantity > 0 %>
-            <%= button_to 'Add to Cart', line_items_path(product_id: product, quantity: 1), remote: true %>
+          <%= button_to 'Add to Cart', line_items_path(product_id: product, quantity: 1), remote: true %>
           <% else %>
             <%= button_to 'Product Unavailable', '.', remote: true, disabled: true %>
           <% end %>
-
         </div>
       </div>
     <% end %>

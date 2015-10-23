@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :buyers, controllers: {registrations: "buyers/registrations", sessions: "buyers/sessions" }
   resources :orders
   resources :line_items
   resources :carts
