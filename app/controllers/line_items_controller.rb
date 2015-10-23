@@ -80,6 +80,7 @@ class LineItemsController < ApplicationController
       respond_to do |format|
         if @line_item.quantity > 0 && @line_item.save
           format.html { redirect_to store_url, notice: 'Line item was successfully updated.' }
+          format.js
           format.json { render :show, status: :ok, location: @line_item }
         elsif @line_item.quantity > @line_item.product.quantity
           format.html { redirect_to store_url, notice: 'No more items available for this product.' }
