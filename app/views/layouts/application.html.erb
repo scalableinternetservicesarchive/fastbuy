@@ -16,7 +16,6 @@
     <%= link_to "Sales", navigation_sales_path %>
     <%= link_to "Contact", navigation_contact_path %>
   </div>
-
   <div id="user">
     <% if buyer_signed_in? %>
       <%= link_to "#{current_buyer.email}", navigation_buyer_path %>
@@ -38,15 +37,11 @@
         <%= render @cart %>
       <% end %>
     <% elsif @cart.class == Hash %>
-	  <%= hidden_div_if(@cart.empty?, id: 'cart') do %>
-	    <!-- Need Fixes Here -->
-        <% @cart.each do |key,value| %>
-           <%= Product.find(key).title %> <%= value %> <br />
-        <% end %> 
+      <%= hidden_div_if(@cart.empty?, id: 'cart') do %>
+        <%= render 'carts/cart' %>
       <% end %>
-	<% end %>
+    <% end %>
     <!-- END:hidden_div -->
-
 <!-- END_HIGHLIGHT -->
     </div>
     <div id="main">

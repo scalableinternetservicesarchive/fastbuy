@@ -1,22 +1,52 @@
 <h2>Your Cart</h2>
 <table>
+<% if @cart.class == Cart %>
 <!-- START_HIGHLIGHT -->
-  <%= render(cart.line_items) %>
+  <%= render(@cart.line_items) %>
 <!-- END_HIGHLIGHT -->
-
+ <tr class="total_line">
+    <td colspan="2">Total</td>
+<!-- START_HIGHLIGHT -->
+    <td class="total_cell"><%= number_to_currency(@cart.total_price) %></td>
+<!-- END_HIGHLIGHT -->
+  </tr>
+<% else %>
+  <% total_price = 0 %>
+  <% @cart.each do |pid, quantity| %>
+    <% product = Product.find(pid) %>
+    <% item_total_price = quantity.to_i * product.price %> 
+    <% if @current_item == @product %>
+    <tr id="current_item">
+    <% else %>
+    <tr>
+    <% end %>
+    <td><%= quantity.to_i %>&times;</td>
+    <td><%= product.title %></td>
+    <td class="item_price"><%= number_to_currency(quantity.to_i * product.price) %></td>
+    <td><%= button_to '+', line_item_path(product.id), method: :put, params: { product_id: product.id, quantity: 1 }, remote: true %><td/>
+      <td><%= button_to '-', line_item_path(product.id), method: :put, params: { product_id: product.id, quantity: -1 }, remote: true %><td/>
+    <td><%= button_to 'Remove item', line_item_path(product.id), method: :delete, params: { product_id: product.id }, data: { confirm: 'Are you sure?' } %></td> 
+    <% total_price += item_total_price %>
+  <% end %> 
   <tr class="total_line">
     <td colspan="2">Total</td>
 <!-- START_HIGHLIGHT -->
-    <td class="total_cell"><%= number_to_currency(cart.total_price) %></td>
+    <td class="total_cell"><%= number_to_currency(total_price) %></td>
 <!-- END_HIGHLIGHT -->
-  </tr>
-
+  </tr> 
+<% end %>
 </table>
 
 <%= button_to "Checkout", new_order_path, method: :get %>
-<%= button_to 'Empty cart', cart, method: :delete,
+<% if @cart.class == Cart %>
+  <%= button_to 'Empty cart', @cart, method: :delete,
     data: { confirm: 'Are you sure?' } %>
-<br/>
+  <br/>
+<% else %>
+  <%= button_to 'Empty cart', cart_path(id: 'temp'), method: :delete,
+    data: { confirm: 'Are you sure?' } %>
+  <br/>
+<% end %>
 <% if request.path == new_order_path %>
   <%= link_to 'Back', store_path %>
 <% end %>

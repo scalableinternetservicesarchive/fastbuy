@@ -11,10 +11,10 @@ class CartsController < ApplicationController
   # GET /carts/1
   # GET /carts/1.json
   def show
-	if @cart.class == Hash
-	  respond_to do |format|
-	    format.html { redirect_to store_url, notice: 'Sorry, temp cart currently is not visable.' }
-	  end
+    if @cart.class == Hash
+      respond_to do |format|
+        format.html { redirect_to store_url, notice: 'Sorry, temp cart currently is not visable.' }
+      end
     elsif @cart.id.to_i != params[:id].to_i
       invalid_cart
     end
@@ -28,9 +28,9 @@ class CartsController < ApplicationController
   # GET /carts/1/edit
   def edit
     if @cart.class == Hash
-	  respond_to do |format|
-	    format.html { redirect_to store_url, notice: 'Sorry, temp cart currently is not editable.' }
-	  end
+      respond_to do |format|
+        format.html { redirect_to store_url, notice: 'Sorry, temp cart currently is not editable.' }
+      end
     elsif @cart.id.to_i != params[:id].to_i
       invalid_cart
     end
@@ -70,10 +70,10 @@ class CartsController < ApplicationController
   # DELETE /carts/1.json
   def destroy
     if @cart.class == Hash
-	  session[:cart_id] = nil
-	else @cart.class == Cart
+       session[:cart] = nil
+    else @cart.class == Cart
       @cart.destroy
-	end
+    end
     respond_to do |format|
       format.html { redirect_to store_url  }
       format.json { head :no_content }
