@@ -1,4 +1,9 @@
                    Prefix Verb   URI Pattern                        Controller#Action
+         navigation_store GET    /navigation/store(.:format)        navigation#store
+         navigation_sales GET    /navigation/sales(.:format)        navigation#sales
+          navigation_cart GET    /navigation/cart(.:format)         navigation#cart
+         navigation_buyer GET    /navigation/buyer(.:format)        navigation#buyer
+       navigation_contact GET    /navigation/contact(.:format)      navigation#contact
         new_buyer_session GET    /buyers/sign_in(.:format)          buyers/sessions#new
             buyer_session POST   /buyers/sign_in(.:format)          buyers/sessions#create
     destroy_buyer_session DELETE /buyers/sign_out(.:format)         buyers/sessions#destroy
@@ -39,6 +44,7 @@ cancel_buyer_registration GET    /buyers/cancel(.:format)           buyers/regis
                           PUT    /carts/:id(.:format)               carts#update
                           DELETE /carts/:id(.:format)               carts#destroy
               store_index GET    /store/index(.:format)             store#index
+               store_sort GET    /store/sort(.:format)              store#sort
        who_bought_product GET    /products/:id/who_bought(.:format) products#who_bought
                  products GET    /products(.:format)                products#index
                           POST   /products(.:format)                products#create
