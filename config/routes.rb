@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get 'navigation/store'
+
+  get 'navigation/sales'
+
+  get 'navigation/cart'
+
+  get 'navigation/buyer'
+
+  get 'navigation/contact'
+
   devise_for :buyers, controllers: {registrations: "buyers/registrations", sessions: "buyers/sessions" }
   resources :orders
   resources :line_items
