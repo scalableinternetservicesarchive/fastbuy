@@ -41,12 +41,14 @@ class OrdersController < ApplicationController
         update_product_count()
 
         Cart.destroy(@cart.id)
-		
+        
+        OrderNotifier.received(@order).deliver
+
         format.html { redirect_to store_url, notice: 
           'Thank you for your order.' }
         format.json { render action: 'show', status: :created,
           location: @order }
-		  
+
       else
         format.html { render action: 'new' }
         format.json { render json: @order.errors,
