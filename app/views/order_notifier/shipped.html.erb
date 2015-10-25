@@ -1,5 +1,29 @@
-<h1>OrderNotifier#shipped</h1>
+<h3>FastBuy Order Shipped</h3>
 
 <p>
-  <%= @greeting %>, find me in app/views/order_notifier/shipped.html.erb
+  This is just to let you know that we've shipped your recent order:
 </p>
+
+<table>
+
+  <tr>
+    <th colspan="2">Qty</th><th>Description</th>
+  </tr>
+  <br/>
+
+  <% @order.line_items.each do |line_item| %>
+    <tr>
+      <td><%= line_item.quantity %>&times;</td>
+      <td><%= line_item.product.title %></td>
+      <td class="item_price"><%= number_to_currency(line_item.total_price) %></td>
+    </tr>
+  <% end %>
+
+</table>
+
+<br/>
+
+<p>
+  <i>Thank you for choosing FastBuy!</i>
+</p>
+

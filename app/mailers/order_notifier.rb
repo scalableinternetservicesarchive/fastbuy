@@ -1,5 +1,5 @@
 class OrderNotifier < ApplicationMailer
-  default from: 'Hikari <hikari@gmail.com>'
+  default from: 'Hikari <fastbuy.noreply@gmail.com>'
   # Subject can be set in your I18n file at config/locales/en.yml
   # with the following lookup:
   #
@@ -8,7 +8,10 @@ class OrderNotifier < ApplicationMailer
   def received(order)
     @order = order
 
-    mail to: order.email, subject: 'Your Order Confirmation'
+    mail(to: order.email,
+         subject: 'Your Order Confirmation') do |format|
+      format.text { render 'received'}
+    end
   end
 
   # Subject can be set in your I18n file at config/locales/en.yml
@@ -19,7 +22,11 @@ class OrderNotifier < ApplicationMailer
   def shipped(order)
     @order = order
 
-    mail to: order.email, subject: 'Your Order Shipped'
+    mail(to: order.email,
+         subject: 'Your Order Shipped') do |format|
+      format.html { render 'shipped'}
+    end
   end
+
 end
 
