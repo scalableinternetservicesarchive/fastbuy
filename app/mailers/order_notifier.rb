@@ -9,7 +9,7 @@ class OrderNotifier < ApplicationMailer
     @order = order
 
     mail(to: order.email,
-         subject: 'Your Order Confirmation') do |format|
+         subject: 'Your FastBuy Order Confirmation') do |format|
       format.text { render 'received'}
     end
   end
@@ -23,7 +23,7 @@ class OrderNotifier < ApplicationMailer
     @order = order
 
     mail(to: order.email,
-         subject: 'Your Order Shipped') do |format|
+         subject: 'Your FastBuy Order Shipped') do |format|
       format.html { render 'shipped'}
     end
   end
