@@ -5,3 +5,4 @@ class BuyerTest < ActiveSupport::TestCase
   #   assert true
   # end
 end
+

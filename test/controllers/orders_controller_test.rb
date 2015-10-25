@@ -3,9 +3,9 @@ require 'test_helper'
 class OrdersControllerTest < ActionController::TestCase
   setup do
     @order = orders(:one)
-	@buyer = buyers(:one)
-	@cart = carts(:one)
-	sign_in Buyer.first
+    @buyer = buyers(:one)
+    @cart = carts(:one)
+    sign_in Buyer.first
   end
 
   test "should get index" do
@@ -58,3 +58,4 @@ class OrdersControllerTest < ActionController::TestCase
     assert_redirected_to orders_path
   end
 end
+

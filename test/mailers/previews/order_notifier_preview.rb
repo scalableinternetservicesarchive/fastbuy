@@ -12,3 +12,4 @@ class OrderNotifierPreview < ActionMailer::Preview
   end
 
 end
+
