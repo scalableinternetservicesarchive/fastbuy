@@ -53,17 +53,15 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
     line_item = order.line_items[0]
     assert_equal ruby_book, line_item.product
 
-=begin
-    mail = ActionMailer::Base.deliveries.last(2)
+    mail = ActionMailer::Base.deliveries[-2]
     assert_equal ["sam@site.tw"], mail.to
-    assert_equal ["fastbuy.noreply@gmail.com"], mail.from
+    assert_equal "Hikari <fastbuy.noreply@gmail.com>", mail[:from].value
     assert_equal "Your FastBuy Order Confirmation", mail.subject
 
-    mail = ActionMailer::Base.deliveries.last
+    mail = ActionMailer::Base.deliveries[-1]
     assert_equal ["sam@site.tw"], mail.to
-    assert_equal ["fastbuy.noreply@gmail.com"], mail.from
+    assert_equal "Hikari <fastbuy.noreply@gmail.com>", mail[:from].value
     assert_equal "Your FastBuy Order Shipped", mail.subject
-=end
 
     logout(:buyer)
 

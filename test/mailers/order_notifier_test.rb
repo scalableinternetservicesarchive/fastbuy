@@ -5,7 +5,6 @@ class OrderNotifierTest < ActionMailer::TestCase
     mail = OrderNotifier.received(orders(:one))
     assert_equal "Your FastBuy Order Confirmation", mail.subject
     assert_equal ["john@site.tw"], mail.to
-    puts mail.to.class
     assert_equal ["fastbuy.noreply@gmail.com"], mail.from
     # TODO: NEED EMAIL CONTENTS CHECKING
     assert_match /Dear John,\s/, mail.body.encoded
