@@ -1,0 +1,33 @@
+<h1>Listing Sale Products</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Start Time</th>
+      <th>Expiration Time</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sale_products.each do |sale_product| %>
+      <tr>
+        <td><%= sale_product.product_id %></td>
+        <td><%= sale_product.price %></td>
+        <td><%= sale_product.quantity %></td>
+        <td><%= sale_product.started_at %></td>
+        <td><%= sale_product.expired_at %></td>
+        <td><%= link_to 'Show', sale_product %></td>
+        <td><%= link_to 'Edit', edit_sale_product_path(sale_product) %></td>
+        <td><%= link_to 'Destroy', sale_product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sale product', new_sale_product_path %>
