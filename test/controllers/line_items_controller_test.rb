@@ -4,7 +4,7 @@ class LineItemsControllerTest < ActionController::TestCase
   setup do
     @product = products(:one)
     @line_item = line_items(:one)
-	@buyer = buyers(:one)
+    @buyer = buyers(:one)
   end
 
   test "should get index" do
@@ -20,7 +20,7 @@ class LineItemsControllerTest < ActionController::TestCase
 
   test "should create product in hash cart" do
     post :create, product_id: @product.id, quantity: 1
-	assert_redirected_to store_path
+    assert_redirected_to store_path
   end
   
   test "should create line_item" do
@@ -48,7 +48,7 @@ class LineItemsControllerTest < ActionController::TestCase
   end
   
   test "should get edit" do
-	sign_in Buyer.first
+    sign_in Buyer.first
     get :edit, id: @line_item
     assert_response :success
   end
@@ -57,7 +57,7 @@ class LineItemsControllerTest < ActionController::TestCase
     cart = Hash.new
     cart[@product.id] = 1
     session[:cart] = cart
-	
+
     patch :update, id: @product, product_id: @product.id, quantity: 2
     assert_redirected_to store_url
   end
@@ -70,8 +70,8 @@ class LineItemsControllerTest < ActionController::TestCase
   
   test "should destroy hash cart item" do
     delete :destroy, id: @product.id
-	cart = session[:cart]
-	assert_nil cart[products(:one).id.to_s]
+    cart = session[:cart]
+    assert_nil cart[products(:one).id.to_s]
     assert_redirected_to store_url
   end
   

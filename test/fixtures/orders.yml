@@ -1,7 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: BuyerName1
-  address: BuyerAdd1
-  email: BuyerEmail1
+  name: John
+  address: Taipei
+  email: john@site.tw
   pay_type: Check
+

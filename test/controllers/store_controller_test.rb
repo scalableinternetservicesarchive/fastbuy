@@ -18,3 +18,4 @@ class StoreControllerTest < ActionController::TestCase
   end
 
 end
+

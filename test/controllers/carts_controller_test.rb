@@ -3,7 +3,7 @@ require 'test_helper'
 class CartsControllerTest < ActionController::TestCase
   setup do
     @cart = carts(:one)
-	@buyer = buyers(:one)
+    @buyer = buyers(:one)
   end
 
   test "should get index" do
@@ -27,24 +27,24 @@ class CartsControllerTest < ActionController::TestCase
 
   test "should show hash cart" do
     get :show, id: 'temp'
-	assert_redirected_to store_path
+    assert_redirected_to store_path
   end
   
   test "should show buyer cart" do
-	sign_in Buyer.first
-	get :show, id: @buyer.cart_id
+    sign_in Buyer.first
+    get :show, id: @buyer.cart_id
     assert_response :success
   end
   
   test "should not show buyer cart" do
-	sign_in Buyer.first
-	get :show, id: @buyer.cart_id + 1
+    sign_in Buyer.first
+    get :show, id: @buyer.cart_id + 1
     assert_redirected_to store_path
   end
 
   test "should get hash edit" do
     get :edit, id: 'temp'
-	assert_redirected_to store_path
+    assert_redirected_to store_path
   end
   
   test "should get buyer edit" do
@@ -56,7 +56,7 @@ class CartsControllerTest < ActionController::TestCase
   test "should not get buyer edit" do
     sign_in Buyer.first
     get :edit, id: @cart.id + 1
-	assert_redirected_to store_path
+    assert_redirected_to store_path
   end
 
   test "should update cart" do
@@ -78,3 +78,4 @@ class CartsControllerTest < ActionController::TestCase
     assert_redirected_to store_path
   end
 end
+
