@@ -3,7 +3,11 @@ $('#notice').hide();
 if ($('#cart tr').length == 1) { $('#cart').show('blind', 1000); }
 
 //#END_HIGHLIGHT
-$('#cart').html("<%= escape_javascript render(@cart) %>");
+<% if @cart.class == Cart %>
+ $('#cart').html("<%= escape_javascript render(@cart) %>");
+<% else %>
+ $('#cart').html("<%= escape_javascript render('carts/cart') %>");
+<% end %>
 
 $('#current_item').css({'background-color':'#88ff88'}).
   animate({'background-color':'#114411'}, 1000);
