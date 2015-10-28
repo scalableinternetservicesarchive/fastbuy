@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151026151758) do
+ActiveRecord::Schema.define(version: 20151028024734) do
 
   create_table "buyers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -65,8 +65,9 @@ ActiveRecord::Schema.define(version: 20151026151758) do
     t.decimal  "price",       precision: 8, scale: 2
     t.decimal  "rating",      precision: 2, scale: 1
     t.integer  "quantity"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.boolean  "on_sale",                             default: false
   end
 
   create_table "sale_products", force: :cascade do |t|
