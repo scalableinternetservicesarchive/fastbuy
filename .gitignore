@@ -15,7 +15,7 @@
 /log/*
 !/log/.keep
 /tmp
-.keep
 
 # Ignore public assets, mainly images
-/public/assets
+/public/*
+!/public/assets/images
