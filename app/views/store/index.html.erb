@@ -15,7 +15,7 @@
     <% cache ['entry', product] do %>
       <div class="entry">
         <%= image_tag(product.image_url) %>
-        <h3><%= product.title %></h3>
+        <h3><%= link_to product.title, product_path(product.id) %></h3>
         <p><%= sanitize(product.description) %></p>
         <div class="price_line">
           <span class="price">Price: <%= number_to_currency(product.price) %></span>

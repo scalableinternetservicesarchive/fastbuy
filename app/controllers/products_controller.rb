@@ -1,4 +1,6 @@
 class ProductsController < ApplicationController
+  include CurrentCart
+  before_action :set_cart, only: [:show]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products

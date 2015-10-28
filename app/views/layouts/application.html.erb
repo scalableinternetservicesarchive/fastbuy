@@ -28,6 +28,7 @@
     <% end %>
   </div>
 </div>
+<% if (/^\/products\/\d+$/ =~ request.path) == nil%>
   <div id="columns">
     <div id="side">
 <!-- START_HIGHLIGHT -->
@@ -48,6 +49,20 @@
       <%= yield %>
     </div>
   </div>
+<% else %>
+  <span id="cart_product">
+    <% if @cart.class == Cart %>
+      <%= hidden_div_if(@cart.line_items.empty?, id: 'cart') do %>
+        <%= render @cart %>
+      <% end %>
+    <% elsif @cart.class == Hash %>
+      <%= hidden_div_if(@cart.empty?, id: 'cart') do %>
+        <%= render 'carts/cart' %>
+      <% end %>
+    <% end %>
+  </span>
+    <%= yield %>
+<% end %>
 </body>
 </html>
 

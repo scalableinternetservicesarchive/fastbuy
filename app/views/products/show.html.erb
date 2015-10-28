@@ -1,34 +1,36 @@
-<p id="notice"><%= notice %></p>
+<!--p id="notice"><%= notice %></p-->
 
-<p>
+<div id='title'>
   <strong>Title:</strong>
   <%= @product.title %>
-</p>
+</title>
 
-<p>
+<div id='description'>
   <strong>Description:</strong>
-  <%= @product.description %>
-</p>
+  <%= sanitize(@product.description) %>
+</div>
 
-<p>
-  <strong>Image url:</strong>
-  <%= @product.image_url %>
-</p>
+<div>
+  <%= image_tag(@product.image_url) %>
+ 
+  <span id='product_button'><%= link_to 'Add to Cart', line_items_path(product_id: @product, quantity: 1), remote: true, method: :post, class: "btn"  %></span>
+</div>
 
-<p>
+<div id='product_price'>
   <strong>Price:</strong>
   <%= @product.price %>
-</p>
+</div>
 
-<p>
+<div id='product_rating'>
   <strong>Rating:</strong>
   <%= @product.rating %>
-</p>
+</div>
 
-<p>
+<div id= 'product_quantity'>
   <strong>Quantity:</strong>
   <%= @product.quantity %>
-</p>
+</div>
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
+<!--%= button_to 'Add to Cart', line_items_path(product_id: @product, quantity: 1), remote: true  %-->
+
+
