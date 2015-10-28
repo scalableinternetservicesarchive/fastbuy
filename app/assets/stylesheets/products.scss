@@ -5,8 +5,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 /* START_HIGHLIGHT */
-@import "bootstrap-sprockets";
-@import "bootstrap";
 .products {
   table {
     border-collapse: collapse;
@@ -55,13 +53,13 @@
 }
 /* END_HIGHLIGHT */
 
-#title{
+#product_title{
   font-size: 15px;
   margin-top: 30px;
   margin-left: 50px;
 }
 
-#description{
+#product_description{
   width: 600px;
   position: relative;
   top: 30px;
@@ -71,22 +69,34 @@
   display: inline;
   position: relative;
   left: 30px;
+  top: 20px;
 }
 
 #product_rating {
   display: inline;
   position: relative;
   left: 40px;
+  top: 20px;
 }
 
 #product_quantity {
   display: inline;
   position: relative;
   left: 50px;
+  top: 20px;
 }
 
-.btn{
+#product_image{
+  display: inline;
+  position: relative;
+  top: 20px
+}
+
+.product_button{
   background: #FF7F00;
   font-size: 2em;
-  color: #66ff66
+  font-family: Serif;
+  position: fixed;
+  top: 360px;
+  left: 550px;
 }
