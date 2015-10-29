@@ -19,3 +19,10 @@
 # Ignore public assets, mainly images
 /public/*
 !/public/assets/images
+
+# Ignore solr data
+solr/*
+!solr/conf
+!solr/solr.xml
+
+Gemfile.lock

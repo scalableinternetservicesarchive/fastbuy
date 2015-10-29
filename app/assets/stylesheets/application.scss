@@ -58,6 +58,21 @@ $sideWidth: 25em;
   float: left;
 }
 
+#search{
+  margin: 0 0 0 5%;
+  float: left;
+}
+
+#search input[type="text"] {
+  margin: 10px 0 0 -5%;
+  float: left;
+}
+
+#search input[type="submit"] {
+  margin: 10px 0 0 5%;
+  float: right;
+}
+
 #user{
   float: right;
   margin: 0 5% 0 0;

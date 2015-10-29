@@ -53,6 +53,11 @@ gem "codeclimate-test-reporter", group: :test, require: nil
 # Use Devise for user authorization
 gem 'devise'
 
+# Support solr search
+gem 'sunspot_rails'
+gem 'sunspot_solr'
+gem 'progress_bar'
+
 # tzinfo-data is needed under Windows OS
 gem 'tzinfo-data'
 
