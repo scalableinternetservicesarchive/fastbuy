@@ -54,5 +54,15 @@ class ProductsControllerTest < ActionController::TestCase
 
     assert_redirected_to products_path
   end
+
+  test "should get product page" do
+    get :show, id: @product
+    assert_response :success
+    assert_not_nil '#product_description'
+    assert_not_nil '#product_image'
+    assert_select '#product_price', /\$[,\d]+\.\d\d/
+    assert_select '#product_rating', /\d\.\d/
+    assert_select '#product_quantity', /\d+/
+  end
 end
 

@@ -92,11 +92,8 @@
   top: 20px
 }
 
-.product_button{
-  background: #FF7F00;
-  font-size: 2em;
-  font-family: Serif;
-  position: fixed;
-  top: 360px;
-  left: 550px;
+#product_button{
+  display: inline;
+  position: relative;
+  left: 400px;
 }
