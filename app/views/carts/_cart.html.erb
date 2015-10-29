@@ -15,7 +15,7 @@
   <% @cart.each do |pid, quantity| %>
     <% product = Product.find(pid) %>
     <% item_total_price = quantity.to_i * product.price %> 
-    <% if @current_item == @product %>
+    <% if @current_item == product %>
     <tr id="current_item">
     <% else %>
     <tr>
