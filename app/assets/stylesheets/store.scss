@@ -47,19 +47,24 @@
     .price {
       color: #44a;
       font-weight: bold;
-      margin-right: 3em;
+      margin-right: 5em;
     }
 
     .quantity {
       color: #44a;
       font-weight: bold;
-      margin-left: 5em;
+      margin-right: 5em;
     }
    
     .rating {
       color: #44a;
       font-weight: bold;
-      margin-left: 6em;
+      margin-right: 5em;
+    }
+    
+    .on_sale {
+      color: #ff6666;
+      font-weight: bold;
     }
   }
 }

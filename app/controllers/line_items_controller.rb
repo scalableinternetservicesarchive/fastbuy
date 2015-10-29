@@ -135,7 +135,6 @@ class LineItemsController < ApplicationController
 
    # Never trust parameters from the scary internet, only allow the white list through.
     def line_item_params
-     # Need Fixes Here what is this used for?
       params.require(:line_item).permit(:product_id, :quantity)
     end
 end

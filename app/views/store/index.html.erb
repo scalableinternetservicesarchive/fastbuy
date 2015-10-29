@@ -26,6 +26,7 @@
           <% else %>
             <%= button_to 'Product Unavailable', '.', remote: true, disabled: true %>
           <% end %>
+         <div class="on_sale"><% if product.on_sale == true %>On Sale<% end %></div>
         </div>
       </div>
     <% end %>
