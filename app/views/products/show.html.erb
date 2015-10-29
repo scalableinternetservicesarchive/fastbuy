@@ -36,33 +36,8 @@
 </div>
 
 <div id= 'product_button'>
- <% if @cart.class == Cart %> <!-- Need Fixes Here i-->
-   <% if current_line_item = @cart.line_items.find_by(product_id: @product.id) %>
-     <!-- the product can be found in the cart, use PUT-->
-     <%= form_tag line_item_path(current_line_item.id), method: :put, remote: true, class: "product_button" do %>
-       <% if @product.quantity - current_line_item.quantity == 0 %>
-         <%= number_field_tag(:quantity, nil, in: 0..0) %>
-         <%= submit_tag("Add to Cart", disabled: true)%>
-       <% else %>
-         <%= number_field_tag(:quantity, nil, in: 1..@product.quantity \
-         - current_line_item.quantity) %>
-         <%= submit_tag("Add to Cart") %>
-       <% end %>
-     <% end %>
-   <% else %>
-   <!-- the product cannot be found in the cart, use POST-->
-     <%= form_tag line_items_path(product_id: @product), remote: true, class: "product_button" do %>
-       <% if @product.quantity == 0 %>
-         <%= number_field_tag(:quantity, nil, in: 0..0) %>
-         <%= submit_tag("Product Unavailable", disabled: true)%>
-       <% else %>
-         <%= number_field_tag(:quantity, nil, in: 1..@product.quantity) %>
-         <%= submit_tag("Add to Cart") %>
-       <% end %>
-     <% end %>
-   <% end %>
- <% else %>
-
-   <!-- TODO-->
- <% end %>
+  <%= form_tag line_items_path(product_id: @product), remote: true, class: "product_button" do %>
+    <%= number_field_tag(:quantity, 1, in: 1..@product.quantity) %>
+    <%= submit_tag("Add to Cart") %>
+  <% end %>
 </div>

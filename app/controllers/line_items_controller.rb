@@ -39,27 +39,31 @@ class LineItemsController < ApplicationController
     product = Product.find(params[:product_id])
     if @cart.class == Hash
       if @cart[product.id.to_s]
-        @cart[product.id.to_s] = @cart[product.id.to_s].to_i + params[:quantity].to_i
+        update
       else 
         @cart[product.id.to_s] = 1
       end
       respond_to do |format|
         format.html { redirect_to store_url }
-        format.js   { @current_item = @product }
+        format.js   { @current_item = product }
         format.json { render action: 'show', status: :created }
       end
    else
-      @line_item = @cart.add_product(params[:product_id], params[:quantity].to_i)
-      respond_to do |format|
-        if @line_item.save
-          format.html { redirect_to store_url }
-          format.js   { @current_item = @line_item }
-          format.json { render action: 'show', status: :created, location: @line_item }
-        else
-          format.html { render action: 'new' }
-          format.json { render json: @line_item.errors, status: :unprocessable_entity }
-        end
-      end
+     if @cart.line_items && @line_item = @cart.line_items.find_by(product_id: product.id)
+       update
+     else
+       @line_item = @cart.add_product(params[:product_id])
+       respond_to do |format|
+         if @line_item.save
+           format.html { redirect_to store_url }
+           format.js   { @current_item = @line_item }#Fixes Here
+           format.json { render action: 'show', status: :created, location: @line_item }
+         else
+           format.html { render action: 'new' }
+           format.json { render json: @line_item.errors, status: :unprocessable_entity }
+         end
+       end
+     end
    end
   end
 
@@ -71,16 +75,16 @@ class LineItemsController < ApplicationController
       new_quantity =  @cart[product.id.to_s].to_i + params[:quantity].to_i
       respond_to do |format|
         if  new_quantity > 0 && new_quantity <=  product.quantity
-          @cart[product.id.to_s] = @cart[product.id.to_s].to_i + params[:quantity].to_i
+          @cart[product.id.to_s] = new_quantity
           format.html { redirect_to store_url, notice: 'Line item was successfully updated.' }
-          format.js   { @current_item = @product }
+          format.js   { @current_item = product }
           format.json { render :show, status: :ok}
         elsif new_quantity > product.quantity
           format.html { redirect_to store_url, notice: 'No more items available for this product.' }
           format.json { render :show, status: :ok}
         else
           @cart.delete(params[:product_id])
-          format.js   { @current_item = @product }
+          format.js   { @current_item = product }
           format.html { redirect_to store_url, notice: 'Line item was deleted.' }
           format.json { render :show, status: :ok}
         end
@@ -88,8 +92,7 @@ class LineItemsController < ApplicationController
     else
       @line_item.quantity += params[:quantity].to_i
       respond_to do |format|
-        # Need fixes Here, save first???
-        if @line_item.quantity > 0 && @line_item.save
+        if @line_item.save
           format.html { redirect_to store_url, notice: 'Line item was successfully updated.' }
           format.js
           format.json { render :show, status: :ok, location: @line_item }
