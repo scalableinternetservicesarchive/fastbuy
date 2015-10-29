@@ -6,3 +6,5 @@ addons:
     repo_token: b9f88d12628c03bc6deb1db3c3ac4c54c6e1cee59ff7c282e3b7878c77c9f180
 script:
     - RAILS_ENV=test rake sunspot:solr:start
+after_script:
+    - rake test
