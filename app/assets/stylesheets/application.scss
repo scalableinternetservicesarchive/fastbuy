@@ -59,23 +59,26 @@ $sideWidth: 25em;
 }
 
 #search{
-  margin: 0 0 0 5%;
+  margin: 0 0 0 10%;
   float: left;
 }
 
 #search input[type="text"] {
-  margin: 10px 0 0 -5%;
+  margin: 10px 0 0 0; 
+  width: 400px;
   float: left;
 }
 
 #search input[type="submit"] {
-  margin: 10px 0 0 5%;
+  margin: 10px 0 0 0;
+  padding-right: 20px;
   float: right;
+  background: url(/assets/icons/search_24px.png) no-repeat 0 -3px;
 }
 
 #user{
-  float: right;
   margin: 0 5% 0 0;
+  float: right;
 }
 
 #user a:hover{
@@ -88,7 +91,7 @@ $sideWidth: 25em;
   #main {
     margin-left: $sideWidth + 2 * $sidePaddingLeftRight;
     padding: 1em;
-    background: yellow;
+    background: #F5F5F5;
   }
 
 //#START:side
