@@ -2,8 +2,16 @@ class StoreController < ApplicationController
   SORT_TYPE = { "title" => :title, "price" => :price, "quantity" => :quantity, "rating" => :rating}
   include CurrentCart
   before_action :set_cart
+  
   def index
-    @products = Product.order(:title)
+    if params[:search] == nil
+      @products = Product.order(:title)
+    else
+      @search = Product.search do
+        fulltext params[:search]
+      end
+    @products = @search.results
+    end
   end
   
   def sort
