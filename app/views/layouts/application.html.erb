@@ -10,11 +10,17 @@
 </head>
 <!-- END:head -->
 <body class="<%= controller.controller_name %>">
-<div id="nav"">
+<div id="nav">
   <div id="page_nav">
     <%= link_to "Store", navigation_store_path %>
     <%= link_to "Sales", navigation_sales_path %>
     <%= link_to "Contact", navigation_contact_path %>
+  </div>
+  <div id="search">
+      <%= form_tag products_path, :method => :get do %>
+          <%= text_field_tag :search, params[:search] %>
+          <%= submit_tag "", :name => nil %>
+    <% end %>
   </div>
   <div id="user">
     <% if buyer_signed_in? %>
