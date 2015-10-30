@@ -5,6 +5,8 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.4'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
+# Use mysql2 as the database for production. The 0.4 doesn't fit rails 4.2.4 yet.
+gem 'mysql2', '~> 0.3.13', platforms: :ruby
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -61,7 +63,7 @@ gem 'progress_bar'
 # tzinfo-data is needed under Windows OS
 gem 'tzinfo-data'
 
-# Used for AWS. Comment it under Windows
+# Used for AWS. Not used for launch. Comment it under Windows
 # gem 'execjs'
 
 # Used for AWS. Comment it under Windows
