@@ -55,9 +55,7 @@ gem 'devise'
 
 # Support solr search
 gem 'sunspot_rails'
-group :development do
-  gem 'sunspot_solr'
-end
+gem 'sunspot_solr'
 gem 'progress_bar'
 
 # tzinfo-data is needed under Windows OS
