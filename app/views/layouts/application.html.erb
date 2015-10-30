@@ -17,10 +17,10 @@
     <%= link_to "Contact", navigation_contact_path %>
   </div>
   <div id="search">
-      <%= form_tag products_path, :method => :get do %>
-          <%= text_field_tag :search, params[:search] %>
-          <%= submit_tag "", :name => nil %>
-    <% end %>
+      <%= form_tag store_path, :method => :get do %>
+        <%= text_field_tag :search, params[:search] %>
+        <%= submit_tag "", :name => nil %>
+      <% end %>
   </div>
   <div id="user">
     <% if buyer_signed_in? %>
