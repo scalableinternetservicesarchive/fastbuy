@@ -19,7 +19,7 @@ words = 50
 if Rails.env == 'production'
   num = 100
 else
-  num = 6
+  num = 20
 end
 for i in 1..num
   describe=""
