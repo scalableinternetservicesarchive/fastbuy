@@ -17,7 +17,7 @@
     <%= link_to "Contact", navigation_contact_path %>
   </div>
   <div id="search">
-      <%= form_tag store_path, :method => :get do %>
+      <%= form_tag seller_signed_in? ?  products_path : store_path, :method => :get do %>
         <%= text_field_tag :search, params[:search] %>
         <%= submit_tag "", :name => nil %>
       <% end %>
@@ -27,10 +27,14 @@
       <%= link_to "#{current_buyer.email}", navigation_buyer_path %>
       <%= link_to 'Sign Out', destroy_buyer_session_path, method: :delete, data: { confirm: 'Are you sure?'} %>
      <%= link_to 'Cart', cart_path(id: current_buyer.cart_id) %>
+    <% elsif seller_signed_in? %>
+      <%= link_to "#{current_seller.email}", navigation_seller_path %>
+      <%= link_to 'Sign Out', destroy_seller_session_path, method: :delete, data: { confirm: 'Are you sure?'} %>
     <% else %>
       <%= link_to 'Sign In', new_buyer_session_path %>
       <%= link_to 'Sign Up', new_buyer_registration_path %>
       <%= link_to 'Cart', cart_path(id: 'temp') %>
+      <%= link_to 'Seller', navigation_seller_path %> 
     <% end %>
   </div>
 </div>

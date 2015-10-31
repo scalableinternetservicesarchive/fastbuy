@@ -1,4 +1,7 @@
-FactoryGirl.define do
+FactoryGirl.define do  factory :seller do
+    
+  end
+
   factory :buyer do
   email 'test@example.com'
   password 'f4k3p455w0rd'
