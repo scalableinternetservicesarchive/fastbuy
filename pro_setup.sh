@@ -12,6 +12,7 @@ export SECRET_KEY_BASE=$(rake secret RAILS_ENV=production)
 rake sunspot:solr:stop RAILS_ENV=production
 rake sunspot:solr:start RAILS_ENV=production
 rake db:drop db:create db:migrate RAILS_ENV=production
+sleep 10
 rake db:seed RAILS_ENV=production
 rake sunspot:reindex RAILS_ENV=production
 rake assets:precompile RAILS_ENV=production
