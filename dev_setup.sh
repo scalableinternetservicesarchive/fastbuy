@@ -1,5 +1,5 @@
 #To run:
-#sh dev_setup.sh
+#sh dev_setup.sh or . dev_setup
 #Notice: In VM, the env is development as default.
 
 RAILS_ENV=development rake sunspot:solr:stop

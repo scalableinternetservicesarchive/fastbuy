@@ -34,4 +34,5 @@ for i in 1..num
      quantity: rand(1..100),
      rating: rand(1..4) + rand(1..9)/10.0)
 end
-
+Buyer.create(email: "a@g.com", password: "12345678")
+Seller.create(email: "b@g.com", password: "12345678")
