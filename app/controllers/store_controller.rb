@@ -10,7 +10,7 @@ class StoreController < ApplicationController
       @search = Product.search do
         fulltext params[:search]
       end
-    @products = @search.results
+      @products = @search.results
     end
   end
   
