@@ -1,4 +1,6 @@
+<% if notice %>
 <p id="notice"><%= notice %></p>
+<% end %>
 
 <div id='product_title'>
   <strong>Title:</strong>
@@ -21,8 +23,14 @@
 <br/>
 
 <div id='product_price'>
+<% if @product.on_sale == false %>
   <strong>Price:</strong>
   <%= number_to_currency(@product.price) %>
+<% else %>
+  <strong>Price:</strong>
+  <s><%= number_to_currency(@product.price) %></s>
+  <span class='sale_price'><%= number_to_currency(@product.sale_products.first.price) %></span>
+<% end %>
 </div>
 
 <div id='product_rating'>
@@ -31,8 +39,13 @@
 </div>
 
 <div id= 'product_quantity'>
+<% if @product.on_sale == false %>  
   <strong>Quantity:</strong>
   <%= @product.quantity %>
+<% else %>
+   <strong>Quantity:</strong>
+   <%= @product.sale_products.first.quantity %>
+<% end %>
 </div>
 
 <div id= 'product_button'>
