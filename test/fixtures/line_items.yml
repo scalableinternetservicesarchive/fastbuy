@@ -4,4 +4,6 @@ one:
   product_id: 1
   order: one
   cart: one
+  quantity: 1
+  price: 8.88
 

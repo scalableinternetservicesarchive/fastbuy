@@ -22,15 +22,15 @@ class StoreController < ApplicationController
     end
     @sale_products = SaleProduct.order(:started_at)
     @sale_products.each do |sale_product|
-      _current_time = DateTime.now
-      _new_product = Product.find(sale_product.product_id)
-      if sale_product.started_at <= _current_time && sale_product.expired_at > _current_time
-        _new_product.on_sale = true
-      elsif sale_product.expired_at <= _current_time
+      current_time = DateTime.now
+      new_product = Product.find(sale_product.product_id)
+      if sale_product.started_at <= current_time && sale_product.expired_at > current_time
+        new_product.on_sale = true
+      elsif sale_product.expired_at <= current_time
         sale_product.destroy
-        _new_product.on_sale = false
+        new_product.on_sale = false
       end
-    _new_product.save
+    new_product.save
     end 
   end
   

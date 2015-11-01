@@ -21,8 +21,10 @@ module CurrentCart
         ensure
           if @cart.class == Cart && session[:cart]
             hashcart = session[:cart]
-            hashcart.each do |product_id, quantity|
-              @line_item = Cart.add_product(@cart, product_id.to_i, quantity.to_i)
+            hashcart.each do |product_id, attributes|
+              quantity =  attributes.split(':')[0].to_i 
+              price =  attributes.split(':')[1].to_f
+              @line_item = Cart.add_product(@cart, product_id.to_i, quantity, price)
               @line_item.save
             end
         session[:cart] = nil

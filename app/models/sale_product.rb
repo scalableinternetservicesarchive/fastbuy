@@ -25,8 +25,8 @@ class SaleProduct < ActiveRecord::Base
 
   def sale_price_cannot_be_greater_than_original_price
     if product_id.present? 
-      _product = Product.find(product_id)
-      if _product.price < price
+      product = Product.find(product_id)
+      if product.price < price
         errors.add(:price, "can't be greater than original price")
       end
     end
