@@ -2,6 +2,7 @@
 
 FASTBUY_DIR=$PWD
 cd ..
+sudo yum install tcl
 wget http://download.redis.io/redis-stable.tar.gz
 tar xvzf redis-stable.tar.gz
 rm redis-stable.tar.gz
