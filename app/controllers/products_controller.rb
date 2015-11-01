@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:show]
-  before_action :authenticate_seller!
+  before_action :authenticate_seller!, except: [:show]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
