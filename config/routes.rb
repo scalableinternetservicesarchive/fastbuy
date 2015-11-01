@@ -1,10 +1,5 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
   resources :sale_products
-  get 'navigation/store'
-=======
->>>>>>> master
-
   get 'navigation/store'
   get 'navigation/sales'
   get 'navigation/cart'

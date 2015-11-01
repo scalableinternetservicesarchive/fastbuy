@@ -38,6 +38,8 @@ ActiveRecord::Schema.define(version: 20151031015240) do
     t.integer  "buyer_id"
   end
 
+  add_index "carts", ["buyer_id"], name: "index_carts_on_buyer_id"
+
   create_table "line_items", force: :cascade do |t|
     t.integer  "product_id"
     t.integer  "cart_id"
@@ -65,9 +67,22 @@ ActiveRecord::Schema.define(version: 20151031015240) do
     t.decimal  "price",       precision: 8, scale: 2
     t.decimal  "rating",      precision: 2, scale: 1
     t.integer  "quantity"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.boolean  "on_sale",                             default: false
   end
+
+  create_table "sale_products", force: :cascade do |t|
+    t.decimal  "price",      precision: 8, scale: 2
+    t.integer  "quantity"
+    t.datetime "started_at"
+    t.datetime "expired_at"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "product_id"
+  end
+
+  add_index "sale_products", ["product_id"], name: "index_sale_products_on_product_id"
 
   create_table "sellers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
