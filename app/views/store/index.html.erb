@@ -10,9 +10,7 @@
 <!--%= submit_tag "Sort", name:nil, class: 'btn' %-->
 <% end %>
 </div>
-<% cache ['store', Product.latest] do %>
   <% @products.each do |product| %>
-    <% cache ['entry', product] do %>
       <div class="entry">
         <%= image_tag(product.image_url) %>
         <h3><%= link_to product.title, product_path(product.id) %></h3>
@@ -29,7 +27,5 @@
          <div class="on_sale"><% if product.on_sale == true %>On Sale<% end %></div>
         </div>
       </div>
-    <% end %>
-  <% end %>
 <% end %>
 

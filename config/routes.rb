@@ -1,16 +1,19 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
   resources :sale_products
   get 'navigation/store'
+=======
+>>>>>>> master
 
+  get 'navigation/store'
   get 'navigation/sales'
-
   get 'navigation/cart'
-
   get 'navigation/buyer'
-
+  get 'navigation/seller'
   get 'navigation/contact'
 
   devise_for :buyers, controllers: {registrations: "buyers/registrations", sessions: "buyers/sessions" }
+  devise_for :sellers, controllers: {registrations: "sellers/registrations", sessions: "sellers/sessions" }
   resources :orders
   resources :line_items
   resources :carts

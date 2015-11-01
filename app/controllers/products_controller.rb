@@ -1,12 +1,20 @@
 class ProductsController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:show]
+  before_action :authenticate_seller!
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    if params[:search] == nil
+      @products = Product.all
+    else
+      @search = Product.search do
+        fulltext params[:search]
+      end
+    @products = @search.results
+    end
   end
 
   # GET /products/1

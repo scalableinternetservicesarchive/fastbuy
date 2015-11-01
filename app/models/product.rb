@@ -8,6 +8,10 @@ class Product < ActiveRecord::Base
     with:    %r{\.(gif|jpg|png)\Z}i,
     message: 'must be a URL for GIF, JPG or PNG image.'
   }
+  # Solr Search
+  searchable do
+    text :title, :as => :title_textp
+  end
 
   # Link with line_item table
   has_many :line_items
