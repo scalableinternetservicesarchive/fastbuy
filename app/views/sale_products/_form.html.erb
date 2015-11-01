@@ -13,15 +13,15 @@
 
   <div class="field">
     <%= f.label :product_id %><br>
-    <%= f.collection_select :product_id, Product.order(:title),:id,:title, prompt: true %>
+    <%= f.collection_select :product_id, Product.order(:title),:id,:title, selected: @sale_product.product_id, prompt: true %>
   </div>
   <div class="field">
     <%= f.label :price %><br>
-    <%= f.text_field :price %>
+    <%= f.text_field :price, value: @sale_product.price %>
   </div>
   <div class="field">
     <%= f.label :quantity %><br>
-    <%= f.number_field :quantity %>
+    <%= f.number_field :quantity, max: @sale_product.quantity %>
   </div>
   <div class="field">
      <%= f.label :started_at %><br>
