@@ -50,12 +50,12 @@
 
 <div id= 'product_button'>
 <% if @product.on_sale == false %>
-  <%= form_tag line_items_path(product_id: @product, quantity: 1, price: @product.price), remote: true, class: "product_button" do %>
+  <%= form_tag line_items_path(product_id: @product, price: @product.price), remote: true, class: "product_button" do %>
     <%= number_field_tag(:quantity, 1, in: 1..@product.quantity) %>
     <%= submit_tag("Add to Cart") %>
   <% end %>
 <% else %>
-  <%= form_tag line_items_path(product_id: @product, quantity: 1, price: @product.sale_products.first.price), remote: true, class: "product_button" do %>
+  <%= form_tag line_items_path(product_id: @product,  price: @product.sale_products.first.price), remote: true, class: "product_button" do %>
     <%= number_field_tag(:quantity, 1, in: 1..@product.quantity) %>
     <%= submit_tag("Add to Cart") %>
   <% end %>
