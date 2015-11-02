@@ -11,6 +11,6 @@ class LineItem < ActiveRecord::Base
   end
 
   def product_quantity
-      product.quantity
+    product.quantity
   end
 end
