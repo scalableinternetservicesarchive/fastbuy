@@ -10,10 +10,18 @@ class ProductsController < ApplicationController
     if params[:search] == nil
       @products = Product.all
     else
-      @search = Product.search do
-        fulltext params[:search]
+      if params[:search] == 'sale'
+        @search = Product.search do
+          any_of do
+            with(:on_sale, true)
+          end
+        end
+      else
+        @search = Product.search do
+          fulltext params[:search]
+        end
       end
-    @products = @search.results
+      @products = @search.results
     end
   end
 

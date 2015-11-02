@@ -11,6 +11,7 @@ class Product < ActiveRecord::Base
   # Solr Search
   searchable do
     text :title, :as => :title_textp
+    boolean :on_sale
   end
 
   # Link with line_item table
