@@ -26,3 +26,4 @@ solr/*
 !solr/solr.xml
 
 Gemfile.lock
+

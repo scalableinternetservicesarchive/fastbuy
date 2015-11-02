@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  resources :sale_products
   get 'navigation/store'
   get 'navigation/sales'
   get 'navigation/cart'

@@ -1,4 +1,12 @@
                     Prefix Verb   URI Pattern                        Controller#Action
+             sale_products GET    /sale_products(.:format)           sale_products#index
+                           POST   /sale_products(.:format)           sale_products#create
+          new_sale_product GET    /sale_products/new(.:format)       sale_products#new
+         edit_sale_product GET    /sale_products/:id/edit(.:format)  sale_products#edit
+              sale_product GET    /sale_products/:id(.:format)       sale_products#show
+                           PATCH  /sale_products/:id(.:format)       sale_products#update
+                           PUT    /sale_products/:id(.:format)       sale_products#update
+                           DELETE /sale_products/:id(.:format)       sale_products#destroy
           navigation_store GET    /navigation/store(.:format)        navigation#store
           navigation_sales GET    /navigation/sales(.:format)        navigation#sales
            navigation_cart GET    /navigation/cart(.:format)         navigation#cart

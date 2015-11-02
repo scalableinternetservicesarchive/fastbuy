@@ -21,13 +21,13 @@ class OrdersControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
-    LineItem.create(cart: @cart, product: products(:ruby))
+    LineItem.create(cart: @cart, product: products(:ruby), quantity: 1, price: 5.00)
     get :new
     assert_response :success
   end
 
   test "should create order" do
-    LineItem.create(cart: @cart, product: products(:ruby))
+    LineItem.create(cart: @cart, product: products(:ruby), quantity: 1, price: 5.00)
     assert_difference('Order.count') do
       post :create, order: { address: @order.address, email: @order.email, name: @order.name, pay_type: @order.pay_type }
     end

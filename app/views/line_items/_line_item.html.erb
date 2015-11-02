@@ -8,8 +8,8 @@
   <td><%= line_item.quantity %>&times;</td>
   <td><%= line_item.product.title %></td>
   <td class="item_price"><%= number_to_currency(line_item.total_price) %></td>
-  <td><%= button_to '+', line_item_path(line_item.id), method: :put, params: { quantity: 1 }, remote: true %><td/>
-  <td><%= button_to '-', line_item_path(line_item.id), method: :put, params: { quantity: -1 }, remote: true %><td/>
+  <td><%= button_to '+', line_item_path(line_item.id), method: :put, params: { product_id: line_item.product.id, quantity: 1, price: line_item.price }, remote: true %><td/>
+  <td><%= button_to '-', line_item_path(line_item.id), method: :put, params: { product_id: line_item.product.id, quantity: -1, price: line_item.price }, remote: true %><td/>
   <td><%= button_to 'Remove item', line_item, method: :delete,
         data: { confirm: 'Are you sure?' } %></td> 
 </tr>

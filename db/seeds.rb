@@ -34,5 +34,17 @@ for i in 1..num
      quantity: rand(1..100),
      rating: rand(1..4) + rand(1..9)/10.0)
 end
-Buyer.create(email: "a@g.com", password: "12345678")
-Seller.create(email: "b@g.com", password: "12345678")
+
+# Seed buyers and sellers
+psswd = "12345678"
+Buyer.create(email: "1@g.com", password: "#{psswd}")
+Seller.create(email: "2@g.com", password: "#{psswd}")
+
+usernames = (1..1000).to_a
+provider = ('a'..'a').to_a
+for j in 0...provider.length
+  for i in 0...usernames.length
+    Buyer.create(email: "#{usernames[i]}"+"@#{provider[j]}.com", password: "#{psswd}")
+    Seller.create(email: "#{usernames[i]}"+"@#{provider[j]}.com", password: "#{psswd}")
+  end
+end

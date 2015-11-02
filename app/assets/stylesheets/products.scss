@@ -52,3 +52,53 @@
   }
 }
 /* END_HIGHLIGHT */
+
+#product_title{
+  font-size: 15px;
+  margin-top: 30px;
+  margin-left: 50px;
+}
+
+#product_description{
+  width: 600px;
+  position: relative;
+  top: 30px;
+}
+
+#product_price {
+  display: inline;
+  position: relative;
+  left: 30px;
+  top: 20px;
+}
+
+#product_rating {
+  display: inline;
+  position: relative;
+  left: 40px;
+  top: 20px;
+}
+
+#product_quantity {
+  display: inline;
+  position: relative;
+  left: 50px;
+  top: 20px;
+}
+
+#product_image{
+  display: inline;
+  position: relative;
+  top: 20px
+}
+
+#product_button{
+  display: inline;
+  position: relative;
+  left: 500px;
+}
+
+.sale_price {
+     color: #ff6666;
+     font_weight: bold;
+}

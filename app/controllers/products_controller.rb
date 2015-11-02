@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
-  before_action :authenticate_seller!
+  include CurrentCart
+  before_action :set_cart, only: [:show]
+  before_action :authenticate_seller!, except: [:show]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
@@ -8,10 +10,18 @@ class ProductsController < ApplicationController
     if params[:search] == nil
       @products = Product.all
     else
-      @search = Product.search do
-        fulltext params[:search]
+      if params[:search] == 'sale'
+        @search = Product.search do
+          any_of do
+            with(:on_sale, true)
+          end
+        end
+      else
+        @search = Product.search do
+          fulltext params[:search]
+        end
       end
-    @products = @search.results
+      @products = @search.results
     end
   end
 
