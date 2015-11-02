@@ -11,6 +11,7 @@ class Product < ActiveRecord::Base
   # Solr Search
   searchable do
     text :title, :as => :title_textp
+    text :description, :as => :description_textp
     boolean :on_sale
   end
 
