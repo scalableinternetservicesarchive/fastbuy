@@ -9,7 +9,8 @@ class NavigationControllerTest < ActionController::TestCase
   test "should get sales" do
     sign_in Seller.first
     get :sales
-    assert_redirected_to sale_products_path
+    #assert_redirected_to sale_products_path
+    assert_response :success
   end
 
   test "should get cart" do
