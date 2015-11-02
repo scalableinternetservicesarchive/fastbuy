@@ -11,13 +11,14 @@ class Product < ActiveRecord::Base
   # Solr Search
   searchable do
     text :title, :as => :title_textp
+    text :description, :as => :description_textp
+    boolean :on_sale
   end
 
   # Link with line_item table
   has_many :line_items
-
   has_many :orders, through: :line_items
-
+  has_many :sale_products
   before_destroy :ensure_not_referenced_by_any_line_item
   
   after_initialize :init

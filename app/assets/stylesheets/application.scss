@@ -175,3 +175,8 @@ $sideWidth: 25em;
   }
 }
 //#END:form
+
+#cart_product {
+  float: right;
+  form, div{display: inline};
+}

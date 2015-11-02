@@ -8,7 +8,7 @@ class CartTest < ActiveSupport::TestCase
   end
   
   test "cart add products test" do
-    @cart.add_product(@product.id, 1)
+    Cart.add_product(@cart, @product.id, 1)
     assert @cart.valid?
   end
 

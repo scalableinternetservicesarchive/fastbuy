@@ -7,11 +7,31 @@ class StoreController < ApplicationController
     if params[:search] == nil
       @products = Product.order(:title)
     else
-      @search = Product.search do
-        fulltext params[:search]
-      end
-      @products = @search.results
+      if params[:search] == 'sale'
+        @search = Product.search do
+          any_of do
+            with(:on_sale, true)
+          end
+        end
+      else
+        @search = Product.search do
+          fulltext params[:search]
+        end
+       end
+       @products = @search.results
     end
+    @sale_products = SaleProduct.order(:started_at)
+    @sale_products.each do |sale_product|
+      current_time = DateTime.now
+      new_product = Product.find(sale_product.product_id)
+      if sale_product.started_at <= current_time && sale_product.expired_at > current_time
+        new_product.on_sale = true
+      elsif sale_product.expired_at <= current_time
+        sale_product.destroy
+        new_product.on_sale = false
+      end
+    new_product.save
+    end 
   end
   
   def sort

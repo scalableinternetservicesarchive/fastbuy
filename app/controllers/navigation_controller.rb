@@ -4,6 +4,11 @@ class NavigationController < ApplicationController
   end
 
   def sales
+    if seller_signed_in?    
+      redirect_to sale_products_path
+    else 
+      redirect_to store_path(search: "sale")
+    end
   end
 
   def cart

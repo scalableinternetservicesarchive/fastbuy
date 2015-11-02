@@ -1,22 +1,27 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   title: Product1
   description: This is product 1.
   image_url: product1.jpg
   price: 9.99
   rating: 3.9
   quantity: 51
+  on_sale: false
 
 two:
+  id: 2
   title: Product2
   description: This is product 2.
   image_url: product2.jpg
   price: 9.99
   rating: 4.4
   quantity: 41
+  on_sale: false
 
 ruby:
+  id: 3
   title: Programming Ruby 1.9 
   description:
     Ruby is the fastest growing and most exciting dynamic
@@ -26,4 +31,4 @@ ruby:
   image_url: ruby.png
   rating: 9.9
   quantity: 5
-
+  on_sale: false
