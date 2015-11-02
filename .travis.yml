@@ -3,7 +3,6 @@ rvm:
  - "2.2.1"
 script:
     - RAILS_ENV=test rake sunspot:solr:start
-after_script:
     - rake test
 addons:
   code_climate:
