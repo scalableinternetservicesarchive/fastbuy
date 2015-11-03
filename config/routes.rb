@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'navigation/contact'
 
   devise_for :buyers, controllers: { registrations: "buyers/registrations", sessions: "buyers/sessions", passwords: "buyers/passwords" }
-  devise_for :sellers, controllers: { registrations: "sellers/registrations", sessions: "sellers/sessions", passwords: "buyers/passwords" }
+  devise_for :sellers, controllers: { registrations: "sellers/registrations", sessions: "sellers/sessions", passwords: "sellers/passwords" }
   resources :orders
   resources :line_items
   resources :carts
