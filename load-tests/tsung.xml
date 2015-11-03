@@ -75,7 +75,7 @@
           url='/buyers/sign_in'
           version='1.1'
           method='POST'
-          contents='email=%%username%%&amp;password=12345678&amp;remember_me=0&amp;commit=Log+in'>
+          contents='buyer%5Bemail%5D=%%username%%&amp;buyer%5Bpassword%5D=12345678&amp;buyer%5Bremember_me%5D=0&amp;commit=Log+in'>
         </http>
       </request>
 
