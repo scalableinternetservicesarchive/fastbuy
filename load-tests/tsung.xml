@@ -63,7 +63,7 @@
       <thinktime value="2" random="true"></thinktime>
 
       <!-- create a random number to represent username -->
-      <setdynvars sourcetype="random_number" start="1" end="1000">
+      <setdynvars sourcetype="random_number" start="1" end="500">
         <var name="username" />
       </setdynvars>
 

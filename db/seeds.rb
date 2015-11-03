@@ -43,7 +43,7 @@ Seller.create(email: "2@g.com", password: "#{psswd}")
 # For progress bar
 progress = 'Seeding ['
 
-usernames = (1..1000).to_a
+usernames = (1..500).to_a
 provider = ('a'..'a').to_a
 for j in 0...provider.length
   for i in 0...usernames.length
