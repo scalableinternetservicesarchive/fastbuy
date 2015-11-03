@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/home/ec2-user/opt/tsung-1.5.0/share/tsung/tsung-1.0.dtd">
+<tsung loglevel="notice" version="1.0">
+
+  <!-- Client side setup -->
+  <clients>
+    <client host="localhost" use_controller_vm="true" maxusers='15000'/>
+  </clients>
+
+  <!-- Server side setup -->
+  <servers>
+    <server host="ec2-54-148-61-114.us-west-2.compute.amazonaws.com" port="80" type="tcp"></server>
+  </servers>
+
+
+  <load>
+    <arrivalphase phase="1" duration="30" unit="second">
+      <users arrivalrate="1" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="2" duration="30" unit="second">
+      <users arrivalrate="2" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="3" duration="30" unit="second">
+      <users arrivalrate="4" unit="second"></users>
+    </arrivalphase>
+   <arrivalphase phase="4" duration="30" unit="second">
+     <users arrivalrate="8" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="5" duration="30" unit="second">
+     <users arrivalrate="16" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="6" duration="35" unit="second">
+     <users arrivalrate="2" unit="second"></users>
+   </arrivalphase>
+  </load>
+
+  <options>
+    <!-- Set connection timeout to 2 seconds -->
+    <option name="global_ack_timeout" value="2000"></option>
+
+    <option type="ts_http" name="user_agent">
+      <user_agent probability="100">Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
+    </option>
+  </options>
+
+  <sessions>
+    <session name="http-example" probability="100" type="ts_http">
+
+      <!-- start out at the dashboard. -->
+      <request>
+        <http url='/' version='1.1' method='GET'></http>
+      </request>
+
+      <!-- wait for up to 2 seconds, user is looking at products -->
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- visit the login page -->
+      <request>
+        <http url='/buyers/sign_in' version='1.1' method='GET'></http>
+      </request>
+
+      <!-- wait for up to 2 seconds, user is filling out login information -->
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- create a random number to represent username -->
+      <setdynvars sourcetype="random_number" start="1" end="1000">
+        <var name="username" />
+      </setdynvars>
+
+      <!-- TODO: make user sign in, add products to cart and checkout. --> 
+
+      <!-- Perform login -->
+      <request subst="true">
+        <http
+          url='/buyers/sign_in'
+          version='1.1'
+          method='POST'
+          contents='email=%%username%%&amp;password=12345678&amp;remember_me=0&amp;commit=Log+in'>
+        </http>
+      </request>
+
+      <!-- wait for up to 2 seconds, user is deciding which product to buy -->
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- pick a product randomly -->
+      <setdynvars sourcetype="random_number" start="1" end="100">
+        <var name="random_product" />
+      </setdynvars>
+
+      <request subst="true">
+        <http
+          url='/line_items?product_id=%%random_product%%'
+          version='1.1'
+          method='POST'
+          contents='quantity=1&amp;product_id=%%random_product%%&amp;commit=Add+to+Cart'>
+        </http>
+      </request>
+
+      <!-- wait for up to 2 seconds, user decides to checkout -->
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- Checkout action -->
+      <request>
+        <http url='/orders/new' version='1.1' method='GET'></http>
+      </request>
+
+      <!-- wait for up to 10 seconds, user is filling out the delivery information -->
+      <thinktime value="10" random="true"></thinktime>
+
+      <!-- Place order -->
+      <request subst="true">
+        <http
+          url='/orders'
+          version='1.1'
+          method='POST'
+          contents='order%5Bname%5D=Joe+Gaucho&amp;order%5Baddress%5D=Santa+Barbara+CA+93106&amp;order%5Bemail%5D=a%40a.com&amp;order%5Bpay_type%5D=Check&amp;commit=Place+Order'>
+        </http>
+      </request>
+
+      <!-- Uncomment the following to debug print your dynamic variables  --> 
+      <!--
+      <setdynvars sourcetype="eval" code="fun( {Pid, DynVars} ) ->
+        io:format([126, $p, 126, $n, 126, $n], [DynVars]),
+        ok end.">
+        <var name="dump" />
+      </setdynvars>
+      -->
+
+    </session>
+  </sessions>
+</tsung>
