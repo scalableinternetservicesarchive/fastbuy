@@ -49,12 +49,12 @@ for j in 0...provider.length
   for i in 0...usernames.length
     Buyer.create(email: "#{usernames[i]}"+"@#{provider[j]}.com", password: "#{psswd}")
     Seller.create(email: "#{usernames[i]}"+"@#{provider[j]}.com", password: "#{psswd}")
-    if i % 10 == 0
+    if i % 5 == 0
       progress << "="
       # move the cursor to the beginning of the line with \r
       print "\r"
       # puts add \n to the end of string, use print instead
-      print progress + " #{i / 10} %"
+      print progress + " #{i / 5} %"
       # force the output to appear immediately when using print
       # by default when \n is printed to the standard output, the buffer is flushed.
       $stdout.flush
