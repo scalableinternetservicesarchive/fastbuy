@@ -36,6 +36,8 @@ for i in 1..num
 end
 
 # Seed buyers and sellers
+Buyer.skip_callback(:create)
+Seller.skip_callback(:create)
 psswd = "12345678"
 Buyer.create(email: "1@g.com", password: "#{psswd}")
 Seller.create(email: "2@g.com", password: "#{psswd}")
@@ -43,22 +45,26 @@ Seller.create(email: "2@g.com", password: "#{psswd}")
 # For progress bar
 progress = 'Seeding ['
 
-usernames = (1..500).to_a
-provider = ('a'..'a').to_a
-for j in 0...provider.length
-  for i in 0...usernames.length
-    Buyer.create(email: "#{usernames[i]}"+"@#{provider[j]}.com", password: "#{psswd}")
-    Seller.create(email: "#{usernames[i]}"+"@#{provider[j]}.com", password: "#{psswd}")
-    if i % 5 == 0
-      progress << "="
-      # move the cursor to the beginning of the line with \r
-      print "\r"
-      # puts add \n to the end of string, use print instead
-      print progress + " #{i / 5} %"
-      # force the output to appear immediately when using print
-      # by default when \n is printed to the standard output, the buffer is flushed.
-      $stdout.flush
+ActiveRecord::Base.transaction do
+  usernames = (1..1000).to_a
+  provider = ('a'..'a').to_a
+  for j in 0...provider.length
+    for i in 0...usernames.length
+      buyer = Buyer.new(email: "#{usernames[i]}"+"@#{provider[j]}.com", password: "#{psswd}")
+      buyer.save(validate: false)
+      #Seller.create(email: "#{usernames[i]}"+"@#{provider[j]}.com", password: "#{psswd}")
+      if i % 10 == 0
+        progress << "="
+        # move the cursor to the beginning of the line with \r
+        print "\r"
+        # puts add \n to the end of string, use print instead
+        print progress + " #{i / 10} %"
+        # force the output to appear immediately when using print
+        # by default when \n is printed to the standard output, the buffer is flushed.
+        $stdout.flush
+      end
     end
   end
 end
-puts "\nDone!"
+Buyer.set_callback(:create)
+Seller.set_callback(:create)

@@ -67,16 +67,19 @@
         <var name="username" />
       </setdynvars>
 
-      <!-- TODO: make user sign in, add products to cart and checkout. --> 
+      <!-- Get authenticity token -->
+      <request>
+        <dyn_variable name="authenticity_token" ></dyn_variable>
+        <http url="/buyers/sign_in" version="1.1" method="GET"></http>
+      </request>
 
       <!-- Perform login -->
       <request subst="true">
-        <dyn_variable name="authenticity_token"></dyn_variable>
         <http
           url='/buyers/sign_in'
           version='1.1'
           method='POST'
-          contents='utf8=%E2%9C%93&amp;authenticity_token=&amp;buyer%5Bemail%5D=username&amp;buyer%5Bpassword%5D=12345678&amp;buyer%5Bremember_me%5D=0&amp;commit=Log+in'>
+          contents='utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;buyer%5Bemail%5D=%%_username%%%40a.com&amp;buyer%5Bpassword%5D=12345678&amp;buyer%5Bremember_me%5D=0&amp;commit=Log+in'>
         </http>
       </request>
 
