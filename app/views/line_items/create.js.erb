@@ -1,5 +1,5 @@
 //#START_HIGHLIGHT
-$('#notice').hide();
+//$('#notice').hide();
 if ($('#cart tr').length == 1) { $('#cart').show('blind', 1000); }
 
 //#END_HIGHLIGHT
@@ -11,4 +11,10 @@ if ($('#cart tr').length == 1) { $('#cart').show('blind', 1000); }
 
   $('#current_item').css({'background-color':'#88ff88'}).
     animate({'background-color':'#ff6666'}, 1000);
+<% if @current_item == 2 %>
+  $('#notice').show();
+  $('#notice').html("<%= "Exceed the product quantity" %>");
+<% else %>
+  $('#notice').hide();
+<% end %>
 
