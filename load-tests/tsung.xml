@@ -14,10 +14,10 @@
 
 
   <load>
-    <arrivalphase phase="1" duration="30" unit="second">
+    <arrivalphase phase="1" duration="60" unit="second">
       <users arrivalrate="1" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="2" duration="30" unit="second">
+    <arrivalphase phase="2" duration="60" unit="second">
       <users arrivalrate="2" unit="second"></users>
     </arrivalphase>
     <arrivalphase phase="3" duration="30" unit="second">
@@ -44,8 +44,7 @@
   </options>
 
   <sessions>
-    <session name="http-example" probability="100" type="ts_http">
-
+    <session name="User login and buy product" probability="100" type="ts_http">
       <!-- start out at the dashboard. -->
       <request>
         <http url='/' version='1.1' method='GET'></http>
@@ -61,7 +60,6 @@
 
       <!-- visit the login page -->
       <request>
-        <dyn_variable name="authenticity_token" ></dyn_variable>
         <http url="/buyers/sign_in" version="1.1" method="GET"></http>
       </request>
 
@@ -74,7 +72,7 @@
           url='/buyers/sign_in'
           version='1.1'
           method='POST'
-          contents='utf8=%E2%9C%93&amp;authenticity_token=%%_authenticity_token%%&amp;buyer%5Bemail%5D=%%_username%%%40a.com&amp;buyer%5Bpassword%5D=12345678&amp;buyer%5Bremember_me%5D=0&amp;commit=Log+in'>
+          contents='utf8=%E2%9C%93&amp;buyer%5Bemail%5D=%%_username%%%40a.com&amp;buyer%5Bpassword%5D=12345678&amp;buyer%5Bremember_me%5D=0&amp;commit=Log+in'>
         </http>
       </request>
 
@@ -91,12 +89,13 @@
         <var name="random_price" />
       </setdynvars>
 
+      <!-- Add product to cart -->
       <request subst="true">
         <http
           url='/line_items?price=%%_random_price%%&amp;product_id=%%_random_product%%&amp;quantity=1'
           version='1.1'
           method='POST'
-          contents='price=%%_random_price&amp;product_id=%%_random_product%%&amp;quantity=1&amp;commit=Add+to+Cart'>
+          contents='price=%%_random_price%%&amp;product_id=%%_random_product%%&amp;quantity=1&amp;commit=Add+to+Cart'>
         </http>
       </request>
 
@@ -109,7 +108,7 @@
       </request>
 
       <!-- wait for up to 10 seconds, user is filling out the delivery information -->
-      <thinktime value="10" random="true"></thinktime>
+      <thinktime value="3" random="true"></thinktime>
 
       <!-- Place order -->
       <request subst="true">
@@ -129,6 +128,60 @@
         <var name="dump" />
       </setdynvars>
       -->
+
+    </session>
+
+    <session name="Seller delete product" probability="20" type="ts_http">
+      <!-- start out at the dashboard. -->
+      <request>
+        <http url='/' version='1.1' method='GET'></http>
+      </request>
+
+      <!-- create a random number to represent username -->
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="username" />
+      </setdynvars>
+
+      <!-- visit the login page -->
+      <request>
+        <http url="/sellers/sign_in" version="1.1" method="GET"></http>
+      </request>
+
+      <!-- wait for up to 2 seconds, user is filling out login information -->
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- Perform login -->
+      <request subst="true">
+        <http
+          url='/sellers/sign_in'
+          version='1.1'
+          method='POST'
+          contents='utf8=%E2%9C%93&amp;seller%5Bemail%5D=%%_username%%%40a.com&amp;seller%5Bpassword%5D=12345678&amp;seller%5Bremember_me%5D=0&amp;commit=Log+in'>
+        </http>
+      </request>
+
+      <!-- wait for up to 2 seconds, seller decides to delete an existing product -->
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- visit the products page -->
+      <request>
+        <http url="/products" version="1.1" method="GET"></http>
+      </request>
+
+      <!-- pick a product randomly -->
+      <setdynvars sourcetype="random_number" start="1" end="100">
+        <var name="random_product" />
+      </setdynvars>
+
+      <!-- Delete product -->
+      <request subst="true">
+        <http
+          url='/products/%%_random_product%%'
+          version='1.1'
+          method='DELETE'
+          contents='product_id=%%_random_product%%'>
+        </http>
+      </request>
 
     </session>
   </sessions>
