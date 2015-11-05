@@ -1,5 +1,8 @@
 <h2>Seller Log in</h2>
-
+  <%= devise_error_messages! %>
+    <% flash.each do |key, value| %>
+       <div class="flash <%= key %>", style="color: #F15D2E"><%= value %></div>
+    <% end %>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="field">
     <%= f.label :email %><br />

@@ -1,7 +1,10 @@
 class ProductsController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:show]
-  before_action :authenticate_seller!, except: [:show]
+  before_action do
+    sign_out current_buyer if !current_buyer.nil?
+  end
+  before_action :authenticate_seller! 
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
@@ -13,7 +16,6 @@ class ProductsController < ApplicationController
 	format.html #index.html.erb
         format.json { render json: @products }
       end
-
     if params[:search] == nil
       @products = Product.all
     else

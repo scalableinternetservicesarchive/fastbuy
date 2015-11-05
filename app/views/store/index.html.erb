@@ -25,13 +25,13 @@
           <span class="quantity">Quantity: <%= sprintf("%d", product.quantity) %></span>
           <% end %>
           <span class="rating">Rating: <%= sprintf("%0.01f", product.rating) %></span>
-          <% if product.quantity > 0 %>
+          <% if product.quantity > 0 && current_seller.nil? %>
             <% if product.on_sale == true %>
             <%= button_to 'Add to Cart', line_items_path(product_id: product, quantity: 1, price: product.sale_products.first.price), remote: true %>
             <% else %>
             <%= button_to 'Add to Cart', line_items_path(product_id: product, quantity: 1, price: product.price), remote: true %>
             <% end %>
-          <% else %>
+          <% elsif current_seller.nil?%>
             <%= button_to 'Product Unavailable', '.', remote: true, disabled: true %>
           <% end %>
          <div class="on_sale"><% if product.on_sale == true %>On Sale<% end %></div>
