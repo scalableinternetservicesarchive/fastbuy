@@ -18,18 +18,6 @@ $sidePaddingUpBottom: 0.5em;
 $sidePaddingLeftRight: 1em;
 $sideWidth: 25em;
 
-#banner {
-  background: #9c9;
-  padding: 10px;
-  border-bottom: 2px solid;
-  font: small-caps 40px/40px "Times New Roman", serif;
-  color: #282;
-  text-align: center;
-
-  img {
-    float: left;
-  }
-}
 
 #notice {
   color: #000 !important;
@@ -43,7 +31,7 @@ $sideWidth: 25em;
 #nav{
   width: 100%;
   height: 40px;
-  background: #000;
+  background: #9c6a8d;
 }
 
 #page_nav a, #user a{
@@ -86,12 +74,12 @@ $sideWidth: 25em;
 }
 
 #columns {
-  background: #66ccff;
+  background: #b6dedc;
 
   #main {
     margin-left: $sideWidth + 2 * $sidePaddingLeftRight;
     padding: 1em;
-    background: #F5F5F5;
+    background: #faf9f4;
   }
 
 //#START:side
@@ -99,7 +87,7 @@ $sideWidth: 25em;
     float: left;
     padding: $sidePaddingUpBottom $sidePaddingLeftRight;
     width: $sideWidth;
-    background: #ff6666;
+    background: #52b4af;
 
 /* START_HIGHLIGHT */
     form, div {
