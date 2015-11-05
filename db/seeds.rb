@@ -10,12 +10,13 @@ Buyer.delete_all
 Seller.delete_all
 Cart.delete_all
 if Rails.env == 'production'
-  num = 4326
+  num = 4387
   usernames = (1..500).to_a
   provider = (1..20).to_a
 else
-  num = 50
-  usernames = (1..10).to_a
+  num = 4387
+  
+usernames = (1..10).to_a
   provider = (1..2).to_a
 end
 words = 50
@@ -32,9 +33,12 @@ num.times do |i|
   quantity = rand(1..100)
   rating = rand(1..4) + rand(1..9)/10.0
   inserts << "('Item#{i}', '#{describe}', '#{image_url}', #{price}, #{rating}, #{quantity}, '2015-11-04 23:56:02', '2015-11-04 23:56:02')"
+  if i % 500 == 0
+    sql = "INSERT INTO products (title, description, image_url, price, rating, quantity, created_at, updated_at) VALUES #{inserts.join(", ")}"
+    Product.connection.execute sql
+    inserts = []
+  end
 end
-sql = "INSERT INTO products (title, description, image_url, price, rating, quantity, created_at, updated_at) VALUES #{inserts.join(", ")}"
-Product.connection.execute sql
 end_time = Time.now
 elapse = (end_time - start_time)
 puts "#{num} products in #{elapse}s!"
