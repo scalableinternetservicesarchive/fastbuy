@@ -44,7 +44,7 @@
   </options>
 
   <sessions>
-    <session name="User login and buy product" probability="100" type="ts_http">
+    <session name="User login and buy product" probability="80" type="ts_http">
       <!-- start out at the dashboard. -->
       <request>
         <http url='/' version='1.1' method='GET'></http>
@@ -131,7 +131,7 @@
 
     </session>
 
-    <session name="Seller delete product" probability="20" type="ts_http">
+    <session name="Seller edit products" probability="20" type="ts_http">
       <!-- start out at the dashboard. -->
       <request>
         <http url='/' version='1.1' method='GET'></http>
@@ -180,6 +180,33 @@
           version='1.1'
           method='DELETE'
           contents='product_id=%%_random_product%%'>
+        </http>
+      </request>
+
+      <!-- Now create product -->
+      <request>
+          <http url="/products/new" version="1.1" method="GET"></http>
+      </request>
+
+      <setdynvars sourcetype="random_string" length="5">
+          <var name="prod_name" />
+      </setdynvars>
+      <setdynvars sourcetype="random_string" length="15">
+          <var name="prod_desc" />
+      </setdynvars>
+      <setdynvars sourcetype="random_number" start="100" end="1000">
+        <var name="price" />
+      </setdynvars>
+      <setdynvars sourcetype="random_number" start="1" end="100">
+        <var name="quantity" />
+      </setdynvars>
+
+      <request subst="true">
+        <http
+          url='/products'
+          version='1.1'
+          method='POST'
+          contents='utf8=%E2%9C%93&amp;product%5Btitle%5D=%%_prod_name%%&amp;product%5Bdescription%5D=%%_prod_desc%%&amp;product%5Bimage_url%5D=a.jpg&amp;product%5Bprice%5D=%%_price%%&amp;product%5Bquantity%5D=%%_quantity%%&amp;commit=Create+Product'>
         </http>
       </request>
 
