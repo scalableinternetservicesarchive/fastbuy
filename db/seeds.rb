@@ -27,7 +27,8 @@ start_time = Time.now
 num.times do |i|
   describe=""
   words.times{ describe << string[rand(0...string.length)] +" "} 
-  image_url = "/assets/images/#{i}.jpg"    
+  #image_url = "/assets/images/#{i}.jpg"    
+  image_url = "https://raw.githubusercontent.com/scalableinternetservices/fastbuy/images/public/assets/images/#{i}.jpg"
   price = rand(0..9)*100 + rand(0..9)*10 + rand(1..9) + rand(1..99)/100.0
   quantity = rand(1..100)
   rating = rand(1..4) + rand(1..9)/10.0
@@ -38,6 +39,8 @@ num.times do |i|
     inserts = []
   end
 end
+sql = "INSERT INTO products (title, description, image_url, price, rating, quantity, created_at, updated_at) VALUES #{inserts.join(", ")}"
+Product.connection.execute sql
 end_time = Time.now
 elapse = (end_time - start_time)
 puts "#{num} products in #{elapse}s!"
