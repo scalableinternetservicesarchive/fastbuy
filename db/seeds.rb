@@ -32,9 +32,12 @@ num.times do |i|
   quantity = rand(1..100)
   rating = rand(1..4) + rand(1..9)/10.0
   inserts << "('Item#{i}', '#{describe}', '#{image_url}', #{price}, #{rating}, #{quantity}, '2015-11-04 23:56:02', '2015-11-04 23:56:02')"
+  if i % 500 == 0
+    sql = "INSERT INTO products (title, description, image_url, price, rating, quantity, created_at, updated_at) VALUES #{inserts.join(", ")}"
+    Product.connection.execute sql
+    inserts = []
+  end
 end
-sql = "INSERT INTO products (title, description, image_url, price, rating, quantity, created_at, updated_at) VALUES #{inserts.join(", ")}"
-Product.connection.execute sql
 end_time = Time.now
 elapse = (end_time - start_time)
 puts "#{num} products in #{elapse}s!"
