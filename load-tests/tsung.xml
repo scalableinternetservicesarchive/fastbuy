@@ -86,12 +86,17 @@
         <var name="random_product" />
       </setdynvars>
 
+      <!-- pick a product price randomly -->
+      <setdynvars sourcetype="random_number" start="100" end="1000">
+        <var name="random_price" />
+      </setdynvars>
+
       <request subst="true">
         <http
-          url='/line_items?product_id=%%random_product%%'
+          url='/line_items?price=%%_random_price%%&amp;product_id=%%_random_product%%&amp;quantity=1'
           version='1.1'
           method='POST'
-          contents='quantity=1&amp;product_id=%%random_product%%&amp;commit=Add+to+Cart'>
+          contents='price=%%_random_price&amp;product_id=%%_random_product%%&amp;quantity=1&amp;commit=Add+to+Cart'>
         </http>
       </request>
 
