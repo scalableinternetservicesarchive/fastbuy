@@ -53,7 +53,7 @@ class LineItemsController < ApplicationController
           format.json { render :show, status: :ok, location: @line_item }
         else 
           format.html { redirect_to store_url }
-          format.js
+          format.js { @current_item = 2 }
         end
       end
     end
@@ -79,7 +79,7 @@ class LineItemsController < ApplicationController
           format.json { render :show, status: :ok, location: @line_item }
         else 
           format.html { redirect_to store_url }
-          format.js
+          format.js  { @current_item = 2 }
         end
       end
     end

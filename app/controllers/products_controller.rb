@@ -7,6 +7,13 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
+    @products = Product.paginate(:page => params[:page], :per_page => 5)
+
+      respond_to do |format|
+	format.html #index.html.erb
+        format.json { render json: @products }
+      end
+
     if params[:search] == nil
       @products = Product.all
     else
