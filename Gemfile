@@ -71,3 +71,6 @@ gem 'tzinfo-data'
 
 # Used for AWS. Comment it under Windows
 # gem 'therubyracer'
+
+gem 'sidekiq'
+

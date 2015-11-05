@@ -5,3 +5,8 @@ class Buyer < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   has_one :cart
 end
+
+def send_reset_password_instructions(reset_password_instructions, *args)
+  devise_mailer.send(reset_password_instructions, *args).deliver_later(wait: 2.second)
+end
+

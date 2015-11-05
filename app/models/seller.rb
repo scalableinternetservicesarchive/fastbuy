@@ -4,3 +4,8 @@ class Seller < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 end
+
+def send_reset_password_instructions(reset_password_instructions, *args)
+  devise_mailer.send(reset_password_instructions, *args).deliver_later(wait: 2.second)
+end
+

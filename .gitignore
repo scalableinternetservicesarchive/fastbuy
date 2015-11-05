@@ -26,4 +26,5 @@ solr/*
 !solr/solr.xml
 
 Gemfile.lock
+dump.rdb
 
