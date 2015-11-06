@@ -1,33 +1,29 @@
 class ProductsController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:show]
-  before_action do
+  before_action except: [:show ] do
     sign_out current_buyer if !current_buyer.nil?
   end
-  before_action :authenticate_seller! 
+  before_action :authenticate_seller!, except: [:show] 
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
   # GET /products.json
   def index
-    @products = Product.paginate(:page => params[:page], :per_page => 5)
-
-      respond_to do |format|
-	format.html #index.html.erb
-        format.json { render json: @products }
-      end
     if params[:search] == nil
-      @products = Product.all
+      @products = current_seller.products
     else
       if params[:search] == 'sale'
         @search = Product.search do
           any_of do
+            with(:seller_id, current_seller.id)
             with(:on_sale, true)
           end
         end
       else
         @search = Product.search do
           fulltext params[:search]
+          with(:seller_id, current_seller.id)
         end
       end
       @products = @search.results
@@ -52,6 +48,7 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
+    @product.seller_id = current_seller.id
 
     respond_to do |format|
       if @product.save

@@ -8,9 +8,13 @@ class Buyers::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create    
+    super do
+      cart = resource.create_cart
+      resource.cart_id = cart.id
+      resource.save
+    end
+  end
 
   # GET /resource/edit
   # def edit

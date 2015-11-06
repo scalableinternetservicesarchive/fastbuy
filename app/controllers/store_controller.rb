@@ -4,15 +4,8 @@ class StoreController < ApplicationController
   before_action :set_cart
   
   def index
-    @products = Product.paginate(:page => params[:page], :per_page => 5)
-
-      respond_to do |format|
-	format.html #index.html.erb
-        format.json { render json: @products }
-      end
-
     if params[:search] == nil
-      @products = Product.order(:title)
+      @products = Product.paginate(:page => params[:page], :per_page => 5)
     else
       if params[:search] == 'sale'
         @search = Product.search do

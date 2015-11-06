@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151101122857) do
+ActiveRecord::Schema.define(version: 20151105190349) do
 
   create_table "buyers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20151101122857) do
     t.integer  "cart_id"
   end
 
+  add_index "buyers", ["cart_id"], name: "index_buyers_on_cart_id"
   add_index "buyers", ["email"], name: "index_buyers_on_email", unique: true
   add_index "buyers", ["reset_password_token"], name: "index_buyers_on_reset_password_token", unique: true
 
@@ -71,7 +72,10 @@ ActiveRecord::Schema.define(version: 20151101122857) do
     t.datetime "created_at",                                          null: false
     t.datetime "updated_at",                                          null: false
     t.boolean  "on_sale",                             default: false
+    t.integer  "seller_id"
   end
+
+  add_index "products", ["seller_id"], name: "index_products_on_seller_id"
 
   create_table "sale_products", force: :cascade do |t|
     t.decimal  "price",      precision: 8, scale: 2

@@ -1,6 +1,8 @@
 class Product < ActiveRecord::Base
+  belongs_to :seller
+
   # Validation restrictions
-  validates :title, :description, :image_url, :quantity, presence: true
+  validates :title, :description, :image_url, :quantity, :seller_id, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 0.01}
   validates :rating, allow_blank: true, numericality: {greater_than_or_equal_to: 0.0, less_than_or_equal_to: 5.0}
   validates :quantity, numericality: {greater_than_or_equal_to: 0}
@@ -13,6 +15,7 @@ class Product < ActiveRecord::Base
     text :title, :as => :title_textp
     text :description, :as => :description_textp
     boolean :on_sale
+    integer :seller_id
   end
 
   # Link with line_item table
