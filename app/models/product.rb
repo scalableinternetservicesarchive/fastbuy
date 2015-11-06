@@ -13,6 +13,12 @@ class Product < ActiveRecord::Base
     text :title, :as => :title_textp
     text :description, :as => :description_textp
     boolean :on_sale
+    integer :quantity
+    double  :rating
+    double  :price
+    string  :title_sort do
+      title.downcase
+    end
   end
 
   # Link with line_item table

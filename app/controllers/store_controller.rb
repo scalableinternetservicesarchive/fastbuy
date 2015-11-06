@@ -4,28 +4,30 @@ class StoreController < ApplicationController
   before_action :set_cart
   
   def index
-    @products = Product.paginate(:page => params[:page], :per_page => 20)
-
-      respond_to do |format|
-	format.html #index.html.erb
-        format.json { render json: @products }
-      end
-
     if params[:search] == nil
-      @products = Product.order(:title)
+      @search = Product.search do
+        order_by :title_sort
+        paginate :page => params[:page], :per_page => 20
+      end 
+       @products = @search.results
     else
       if params[:search] == 'sale'
         @search = Product.search do
           any_of do
             with(:on_sale, true)
+            paginate :page => params[:page], :per_page => 20
           end
         end
       else
         @search = Product.search do
           fulltext params[:search]
+      #      order_by :price
+            paginate :page => params[:page], :per_page => 20
         end
-       end
+
+      end
        @products = @search.results
+ 
     end
     @sale_products = SaleProduct.order(:started_at)
     @sale_products.each do |sale_product|
@@ -38,12 +40,18 @@ class StoreController < ApplicationController
         new_product.on_sale = false
       end
     new_product.save
-    end 
+    end
+    
   end
   
   def sort
+#    @products.search do
+#      order_by SORT_TYPE[params[:sort]]
+#      paginate :page => params[:page], :per_page => 20
+#    end
     sort_type = SORT_TYPE[params[:sort]]
-    @products = Product.order(sort_type)
+#    @products = Product.order(sort_type)
+    @products = Product.order(sort_type).paginate(page:params[:page], per_page:20)
     render 'index'
   end
 end
