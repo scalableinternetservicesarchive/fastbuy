@@ -1,31 +1,29 @@
 class ProductsController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:show]
-  before_action :authenticate_seller!, except: [:show]
+  before_action except: [:show ] do
+    sign_out current_buyer if !current_buyer.nil?
+  end
+  before_action :authenticate_seller!, except: [:show] 
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
   # GET /products.json
   def index
-    @products = Product.paginate(:page => params[:page], :per_page => 10)
-=begin
-      respond_to do |format|
-	format.html #index.html.erb
-        format.json { render json: @products }
-      end
-=end
     if params[:search] == nil
-   #   @products = Product.all
+      @products = current_seller.products
     else
       if params[:search] == 'sale'
         @search = Product.search do
           any_of do
+            with(:seller_id, current_seller.id)
             with(:on_sale, true)
           end
         end
       else
         @search = Product.search do
           fulltext params[:search]
+          with(:seller_id, current_seller.id)
         end
       end
       @products = @search.results
@@ -50,7 +48,10 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
-
+    @product.seller_id = current_seller.id
+    if @product.image != nil
+      @product.image_url = @product.image.url
+    end
     respond_to do |format|
       if @product.save
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
@@ -86,16 +87,6 @@ class ProductsController < ApplicationController
     end
   end
 
-  def who_bought
-    @product = Product.find(params[:id])
-    @latest_order = @product.orders.order(:updated_at).last
-    if stale?(@latest_order)
-      respond_to do |format|
-        format.atom
-      end
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
@@ -104,6 +95,6 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:title, :description, :image_url, :price, :rating, :quantity)
+      params.require(:product).permit(:title, :description, :image_url, :price, :rating, :quantity, :image)
     end
 end

@@ -9,13 +9,15 @@ class ProductTest < ActiveSupport::TestCase
     assert product.errors[:price].any?
     assert product.errors[:image_url].any?
     assert product.errors[:quantity].any?
+    assert product.errors[:seller_id].any?
   end
 
   test "product price must be positive" do
     product = Product.new(title:       "My Book Title",
                           description: "yyy",
                           image_url:   "zzz.jpg",
-                          quantity:     1)
+                          quantity:     1,
+                          seller_id: 1)
     product.price = -1
     assert product.invalid?
     assert_equal ["must be greater than or equal to 0.01"],
@@ -34,7 +36,8 @@ class ProductTest < ActiveSupport::TestCase
     product = Product.new(title:       "My Book Title",
                           description: "yyy",
                           image_url:   "zzz.jpg",
-                          price:     1)
+                          price:     1,
+                          seller_id: 1)
     product.quantity = -1
     assert product.invalid?
     assert_equal ["must be greater than or equal to 0"],
@@ -49,7 +52,8 @@ class ProductTest < ActiveSupport::TestCase
                           description: "yyy",
                           image_url:   "zzz.jpg",
                           quantity:    1,
-                          price:     1)
+                          price:     1,
+                          seller_id: 1)
     product.rating = -1
     assert product.invalid?
     assert_equal ["must be greater than or equal to 0.0"],
@@ -69,7 +73,8 @@ class ProductTest < ActiveSupport::TestCase
                 description: "yyy",
                 price:       1,
                 image_url:   image_url,
-                quantity:    1)
+                quantity:    1,
+                seller_id:   1)
   end
 
   test "image url" do
@@ -87,4 +92,3 @@ class ProductTest < ActiveSupport::TestCase
   end
   
 end
-

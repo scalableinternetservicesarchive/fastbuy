@@ -7,12 +7,11 @@
 <%= form_tag({ controller: 'store', action: 'sort'}, method: 'get') do %>
 <nobr>Sort by</nobr>
 <%= select_tag( 'sort', options_for_select([['title', "title"], ['price', "price"], ['quantity', "quantity"], ['rating', "rating"]]), :onchange => "this.form.submit();", :include_blank => "please select" ) %>
-<!--%= submit_tag "Sort", name:nil, class: 'btn' %-->
 <% end %>
 </div>
   <% @products.each do |product| %>
       <div class="entry">
-        <%= link_to( image_tag(product.image_url), product_path(product.id)) %>
+        <%= link_to image_tag(product.image_url), product_path(product.id) %>
         <h3><%= link_to product.title, product_path(product.id) %></h3>
         <p><%= sanitize(product.description) %></p>
         <div class="price_line">

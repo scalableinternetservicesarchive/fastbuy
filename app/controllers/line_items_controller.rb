@@ -1,5 +1,8 @@
 class LineItemsController < ApplicationController
   include CurrentCart
+  before_action do
+    redirect_to store_path if !current_seller.nil?
+  end
   before_action :set_cart, only: [:show, :edit, :create, :update, :destroy]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 

@@ -21,13 +21,10 @@ class StoreController < ApplicationController
       else
         @search = Product.search do
           fulltext params[:search]
-      #      order_by :price
             paginate :page => params[:page], :per_page => 20
         end
-
       end
        @products = @search.results
- 
     end
     @sale_products = SaleProduct.order(:started_at)
     @sale_products.each do |sale_product|
@@ -45,12 +42,7 @@ class StoreController < ApplicationController
   end
   
   def sort
-#    @products.search do
-#      order_by SORT_TYPE[params[:sort]]
-#      paginate :page => params[:page], :per_page => 20
-#    end
     sort_type = SORT_TYPE[params[:sort]]
-#    @products = Product.order(sort_type)
     @products = Product.order(sort_type).paginate(page:params[:page], per_page:20)
     render 'index'
   end

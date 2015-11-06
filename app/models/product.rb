@@ -1,6 +1,8 @@
 class Product < ActiveRecord::Base
+  belongs_to :seller
+  has_attached_file :image, use_timestamp: false
   # Validation restrictions
-  validates :title, :description, :image_url, :quantity, presence: true
+  validates :title, :description, :image_url, :quantity, :seller_id, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 0.01}
   validates :rating, allow_blank: true, numericality: {greater_than_or_equal_to: 0.0, less_than_or_equal_to: 5.0}
   validates :quantity, numericality: {greater_than_or_equal_to: 0}
@@ -8,11 +10,13 @@ class Product < ActiveRecord::Base
     with:    %r{\.(gif|jpg|png)\Z}i,
     message: 'must be a URL for GIF, JPG or PNG image.'
   }
+  validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   # Solr Search
   searchable do
     text :title, :as => :title_textp
     text :description, :as => :description_textp
     boolean :on_sale
+    integer :seller_id
     integer :quantity
     double  :rating
     double  :price
@@ -44,6 +48,7 @@ class Product < ActiveRecord::Base
       return true
     else
       errors.add(:base, 'Line Items present')
+      logger.error "Line Items Present, Destroy it First"
       return false
     end
   end

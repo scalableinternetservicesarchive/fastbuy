@@ -5,8 +5,16 @@
 # below each fixture, per the syntax in the comments below
 #
 one:
-  id: 1
-  email: a@g.com
+  email: buyer1@gg.com
   encrypted_password: <%= Buyer.new.send(:password_digest, '12345678') %>
-  cart_id: 1
+  cart_id: 1 
 
+two:
+  email: buyer2@gg.com
+  encrypted_password: <%= Buyer.new.send(:password_digest, '12345678') %>
+  cart_id: 2
+
+three:
+  email: buyer3@gg.com
+  encrypted_password: <%= Buyer.new.send(:password_digest, '12345678') %>
+  cart_id: 3
