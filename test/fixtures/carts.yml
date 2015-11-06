@@ -6,4 +6,12 @@
 #
 one:
   id: 1
+  buyer: one
 
+two:
+  id: 2
+  buyer: two
+
+three:
+  id: 3
+  buyer: three

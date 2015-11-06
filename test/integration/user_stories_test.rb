@@ -11,7 +11,7 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
   test "buying a product" do
     LineItem.delete_all
     Order.delete_all
-    ruby_book = products(:ruby)
+    ruby_book = products(:three)
 
     get "/"
     assert_response :success

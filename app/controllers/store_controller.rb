@@ -5,7 +5,7 @@ class StoreController < ApplicationController
   
   def index
     if params[:search] == nil
-      @products = Product.order(:title)
+      @products = Product.paginate(:page => params[:page], :per_page => 5)
     else
       if params[:search] == 'sale'
         @search = Product.search do

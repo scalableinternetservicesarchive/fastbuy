@@ -12,10 +12,8 @@ class CartsController < ApplicationController
   # GET /carts/1.json
   def show
     if @cart.class == Hash
-      respond_to do |format|
-        format.html { redirect_to store_url, notice: 'Sorry, temp cart currently is not visable.' }
-      end
-    elsif @cart.id.to_i != params[:id].to_i
+      render "carts/_cart" 
+    elsif @cart.id.to_i != cart_params[:id].to_i
       invalid_cart
     end
   end
@@ -28,10 +26,8 @@ class CartsController < ApplicationController
   # GET /carts/1/edit
   def edit
     if @cart.class == Hash
-      respond_to do |format|
-        format.html { redirect_to store_url, notice: 'Sorry, temp cart currently is not editable.' }
-      end
-    elsif @cart.id.to_i != params[:id].to_i
+      render "carts/_cart" 
+    elsif @cart.id.to_i != cart_params[:id].to_i
       invalid_cart
     end
   end
@@ -40,7 +36,6 @@ class CartsController < ApplicationController
   # POST /carts.json
   def create
     @cart = Cart.new(cart_params)
-
     respond_to do |format|
       if @cart.save
         format.html { redirect_to @cart, notice: 'Cart was successfully created.' }
@@ -84,7 +79,7 @@ class CartsController < ApplicationController
   
     # Never trust parameters from the scary internet, only allow the white list through.
     def cart_params
-      params[:cart]
+      params.require(:cart).permit(:id)
     end
     def invalid_cart
       logger.error "Attempt to access invalid cart #{params[:id]}"

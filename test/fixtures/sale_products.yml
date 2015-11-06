@@ -1,14 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  product_id: 1
+  product: one
   price: 5.99
   quantity: 10
   started_at: 2010-02-11 11:02:57
   expired_at: 2010-02-12 11:02:57
 
 two:
-  product_id: 2
+  product: two
   price: 6.99
   quantity: 100
   started_at: 2010-03-11 11:02:57
