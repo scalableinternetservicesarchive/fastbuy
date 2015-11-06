@@ -40,7 +40,7 @@ num.times do |i|
   describe=""
   words.times{ describe << string[rand(0...string.length)] +" "} 
   #image_url = "/assets/images/#{i}.jpg"    
-  image_url = "https://raw.githubusercontent.com/scalableinternetservices/fastbuy/images/public/assets/images/#{i}.jpg"
+  image_url = "https://raw.githubusercontent.com/Geurney/fastbuyimages/master/public/assets/images/#{i}.jpg"
   price = rand(0..9)*100 + rand(0..9)*10 + rand(1..9) + rand(1..99)/100.0
   quantity = rand(1..100)
   rating = rand(1..4) + rand(1..9)/10.0
