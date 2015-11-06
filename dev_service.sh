@@ -1,9 +1,15 @@
 # Start Solr Server in Development Mode
 # To run:
-# sh dev_solr.sh or . dev_solr.sh
+# . dev_service.sh
 # Notice: In VM, the env is development as default.
-
-rake sunspot:solr:stop RAILS_ENV=development
-rake sunspot:solr:start RAILS_ENV=development
-export REDIS_PATH=$PWD/../redis-stable/src
-bash start_sidekiq.sh
+if ps -ef | grep solr | grep -q development; then
+  echo Solr Development is running!
+else
+  rake sunspot:solr:start RAILS_ENV=development
+fi
+if ps -ef | grep redis | grep -q server; then
+  echo Redis is running!
+else
+  export REDIS_PATH=$PWD/../redis-stable/src
+  bash start_sidekiq.sh
+fi

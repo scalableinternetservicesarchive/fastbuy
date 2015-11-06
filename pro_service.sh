@@ -6,8 +6,19 @@
 # sudo yum install mariadb mariadb-server
 sudo systemctl start mariadb.service
 
-rake sunspot:solr:stop RAILS_ENV=production
-rake sunspot:solr:start RAILS_ENV=production
+if ! [ -z "$SECRET_KEY_BASE" ]; then
+  echo Generating Secret Key...
+  export SECRET_KEY_BASE=$(rake secret RAILS_ENV=production)
+fi
+if ps -ef | grep solr | grep -q production; then
+  echo Solr Production is running!
+else
+  rake sunspot:solr:start RAILS_ENV=production
+fi
+if ps -ef | grep redis | grep -q server; then
+  echo Redis is running!
+else
+  export REDIS_PATH=$PWD/../redis-stable/src
+  bash start_sidekiq.sh
+fi
 rake assets:precompile RAILS_ENV=production
-export SECRET_KEY_BASE=$(rake secret RAILS_ENV=production)
-bash start_sidekiq.sh
