@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105190349) do
+ActiveRecord::Schema.define(version: 20151106021407) do
 
   create_table "buyers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -66,13 +66,17 @@ ActiveRecord::Schema.define(version: 20151105190349) do
     t.string   "title"
     t.text     "description"
     t.string   "image_url"
-    t.decimal  "price",       precision: 8, scale: 2
-    t.decimal  "rating",      precision: 2, scale: 1
+    t.decimal  "price",              precision: 8, scale: 2
+    t.decimal  "rating",             precision: 2, scale: 1
     t.integer  "quantity"
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
-    t.boolean  "on_sale",                             default: false
+    t.datetime "created_at",                                                 null: false
+    t.datetime "updated_at",                                                 null: false
+    t.boolean  "on_sale",                                    default: false
     t.integer  "seller_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "products", ["seller_id"], name: "index_products_on_seller_id"

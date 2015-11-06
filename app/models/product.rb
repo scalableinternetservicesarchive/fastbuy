@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   belongs_to :seller
-
+  has_attached_file :image 
   # Validation restrictions
   validates :title, :description, :image_url, :quantity, :seller_id, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 0.01}
@@ -10,6 +10,7 @@ class Product < ActiveRecord::Base
     with:    %r{\.(gif|jpg|png)\Z}i,
     message: 'must be a URL for GIF, JPG or PNG image.'
   }
+  validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
   # Solr Search
   searchable do
     text :title, :as => :title_textp

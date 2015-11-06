@@ -74,3 +74,6 @@ gem 'tzinfo-data'
 
 gem 'sidekiq'
 
+# Used for file attachment
+# sudo yum install ImageMagick
+gem "paperclip", "~> 4.3"
