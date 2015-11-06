@@ -1,81 +1,72 @@
-                    Prefix Verb   URI Pattern                        Controller#Action
-             sale_products GET    /sale_products(.:format)           sale_products#index
-                           POST   /sale_products(.:format)           sale_products#create
-          new_sale_product GET    /sale_products/new(.:format)       sale_products#new
-         edit_sale_product GET    /sale_products/:id/edit(.:format)  sale_products#edit
-              sale_product GET    /sale_products/:id(.:format)       sale_products#show
-                           PATCH  /sale_products/:id(.:format)       sale_products#update
-                           PUT    /sale_products/:id(.:format)       sale_products#update
-                           DELETE /sale_products/:id(.:format)       sale_products#destroy
-          navigation_store GET    /navigation/store(.:format)        navigation#store
-          navigation_sales GET    /navigation/sales(.:format)        navigation#sales
-           navigation_cart GET    /navigation/cart(.:format)         navigation#cart
-          navigation_buyer GET    /navigation/buyer(.:format)        navigation#buyer
-         navigation_seller GET    /navigation/seller(.:format)       navigation#seller
-        navigation_contact GET    /navigation/contact(.:format)      navigation#contact
-         new_buyer_session GET    /buyers/sign_in(.:format)          buyers/sessions#new
-             buyer_session POST   /buyers/sign_in(.:format)          buyers/sessions#create
-     destroy_buyer_session DELETE /buyers/sign_out(.:format)         buyers/sessions#destroy
-            buyer_password POST   /buyers/password(.:format)         devise/passwords#create
-        new_buyer_password GET    /buyers/password/new(.:format)     devise/passwords#new
-       edit_buyer_password GET    /buyers/password/edit(.:format)    devise/passwords#edit
-                           PATCH  /buyers/password(.:format)         devise/passwords#update
-                           PUT    /buyers/password(.:format)         devise/passwords#update
- cancel_buyer_registration GET    /buyers/cancel(.:format)           buyers/registrations#cancel
-        buyer_registration POST   /buyers(.:format)                  buyers/registrations#create
-    new_buyer_registration GET    /buyers/sign_up(.:format)          buyers/registrations#new
-   edit_buyer_registration GET    /buyers/edit(.:format)             buyers/registrations#edit
-                           PATCH  /buyers(.:format)                  buyers/registrations#update
-                           PUT    /buyers(.:format)                  buyers/registrations#update
-                           DELETE /buyers(.:format)                  buyers/registrations#destroy
-        new_seller_session GET    /sellers/sign_in(.:format)         sellers/sessions#new
-            seller_session POST   /sellers/sign_in(.:format)         sellers/sessions#create
-    destroy_seller_session DELETE /sellers/sign_out(.:format)        sellers/sessions#destroy
-           seller_password POST   /sellers/password(.:format)        devise/passwords#create
-       new_seller_password GET    /sellers/password/new(.:format)    devise/passwords#new
-      edit_seller_password GET    /sellers/password/edit(.:format)   devise/passwords#edit
-                           PATCH  /sellers/password(.:format)        devise/passwords#update
-                           PUT    /sellers/password(.:format)        devise/passwords#update
-cancel_seller_registration GET    /sellers/cancel(.:format)          sellers/registrations#cancel
-       seller_registration POST   /sellers(.:format)                 sellers/registrations#create
-   new_seller_registration GET    /sellers/sign_up(.:format)         sellers/registrations#new
-  edit_seller_registration GET    /sellers/edit(.:format)            sellers/registrations#edit
-                           PATCH  /sellers(.:format)                 sellers/registrations#update
-                           PUT    /sellers(.:format)                 sellers/registrations#update
-                           DELETE /sellers(.:format)                 sellers/registrations#destroy
-                    orders GET    /orders(.:format)                  orders#index
-                           POST   /orders(.:format)                  orders#create
-                 new_order GET    /orders/new(.:format)              orders#new
-                edit_order GET    /orders/:id/edit(.:format)         orders#edit
-                     order GET    /orders/:id(.:format)              orders#show
-                           PATCH  /orders/:id(.:format)              orders#update
-                           PUT    /orders/:id(.:format)              orders#update
-                           DELETE /orders/:id(.:format)              orders#destroy
-                line_items GET    /line_items(.:format)              line_items#index
-                           POST   /line_items(.:format)              line_items#create
-             new_line_item GET    /line_items/new(.:format)          line_items#new
-            edit_line_item GET    /line_items/:id/edit(.:format)     line_items#edit
-                 line_item GET    /line_items/:id(.:format)          line_items#show
-                           PATCH  /line_items/:id(.:format)          line_items#update
-                           PUT    /line_items/:id(.:format)          line_items#update
-                           DELETE /line_items/:id(.:format)          line_items#destroy
-                     carts GET    /carts(.:format)                   carts#index
-                           POST   /carts(.:format)                   carts#create
-                  new_cart GET    /carts/new(.:format)               carts#new
-                 edit_cart GET    /carts/:id/edit(.:format)          carts#edit
-                      cart GET    /carts/:id(.:format)               carts#show
-                           PATCH  /carts/:id(.:format)               carts#update
-                           PUT    /carts/:id(.:format)               carts#update
-                           DELETE /carts/:id(.:format)               carts#destroy
-               store_index GET    /store/index(.:format)             store#index
-                store_sort GET    /store/sort(.:format)              store#sort
-        who_bought_product GET    /products/:id/who_bought(.:format) products#who_bought
-                  products GET    /products(.:format)                products#index
-                           POST   /products(.:format)                products#create
-               new_product GET    /products/new(.:format)            products#new
-              edit_product GET    /products/:id/edit(.:format)       products#edit
-                   product GET    /products/:id(.:format)            products#show
-                           PATCH  /products/:id(.:format)            products#update
-                           PUT    /products/:id(.:format)            products#update
-                           DELETE /products/:id(.:format)            products#destroy
-                     store GET    /                                  store#index
+                    Prefix Verb   URI Pattern                       Controller#Action
+             sale_products GET    /sale_products(.:format)          sale_products#index
+                           POST   /sale_products(.:format)          sale_products#create
+          new_sale_product GET    /sale_products/new(.:format)      sale_products#new
+         edit_sale_product GET    /sale_products/:id/edit(.:format) sale_products#edit
+              sale_product GET    /sale_products/:id(.:format)      sale_products#show
+                           PATCH  /sale_products/:id(.:format)      sale_products#update
+                           PUT    /sale_products/:id(.:format)      sale_products#update
+                           DELETE /sale_products/:id(.:format)      sale_products#destroy
+          navigation_store GET    /navigation/store(.:format)       navigation#store
+          navigation_sales GET    /navigation/sales(.:format)       navigation#sales
+           navigation_cart GET    /navigation/cart(.:format)        navigation#cart
+          navigation_buyer GET    /navigation/buyer(.:format)       navigation#buyer
+         navigation_seller GET    /navigation/seller(.:format)      navigation#seller
+        navigation_contact GET    /navigation/contact(.:format)     navigation#contact
+         new_buyer_session GET    /buyers/sign_in(.:format)         buyers/sessions#new
+             buyer_session POST   /buyers/sign_in(.:format)         buyers/sessions#create
+     destroy_buyer_session DELETE /buyers/sign_out(.:format)        buyers/sessions#destroy
+            buyer_password POST   /buyers/password(.:format)        buyers/passwords#create
+        new_buyer_password GET    /buyers/password/new(.:format)    buyers/passwords#new
+       edit_buyer_password GET    /buyers/password/edit(.:format)   buyers/passwords#edit
+                           PATCH  /buyers/password(.:format)        buyers/passwords#update
+                           PUT    /buyers/password(.:format)        buyers/passwords#update
+ cancel_buyer_registration GET    /buyers/cancel(.:format)          buyers/registrations#cancel
+        buyer_registration POST   /buyers(.:format)                 buyers/registrations#create
+    new_buyer_registration GET    /buyers/sign_up(.:format)         buyers/registrations#new
+   edit_buyer_registration GET    /buyers/edit(.:format)            buyers/registrations#edit
+                           PATCH  /buyers(.:format)                 buyers/registrations#update
+                           PUT    /buyers(.:format)                 buyers/registrations#update
+                           DELETE /buyers(.:format)                 buyers/registrations#destroy
+        new_seller_session GET    /sellers/sign_in(.:format)        sellers/sessions#new
+            seller_session POST   /sellers/sign_in(.:format)        sellers/sessions#create
+    destroy_seller_session DELETE /sellers/sign_out(.:format)       sellers/sessions#destroy
+           seller_password POST   /sellers/password(.:format)       sellers/passwords#create
+       new_seller_password GET    /sellers/password/new(.:format)   sellers/passwords#new
+      edit_seller_password GET    /sellers/password/edit(.:format)  sellers/passwords#edit
+                           PATCH  /sellers/password(.:format)       sellers/passwords#update
+                           PUT    /sellers/password(.:format)       sellers/passwords#update
+cancel_seller_registration GET    /sellers/cancel(.:format)         sellers/registrations#cancel
+       seller_registration POST   /sellers(.:format)                sellers/registrations#create
+   new_seller_registration GET    /sellers/sign_up(.:format)        sellers/registrations#new
+  edit_seller_registration GET    /sellers/edit(.:format)           sellers/registrations#edit
+                           PATCH  /sellers(.:format)                sellers/registrations#update
+                           PUT    /sellers(.:format)                sellers/registrations#update
+                           DELETE /sellers(.:format)                sellers/registrations#destroy
+                    orders GET    /orders(.:format)                 orders#index
+                           POST   /orders(.:format)                 orders#create
+                 new_order GET    /orders/new(.:format)             orders#new
+                edit_order GET    /orders/:id/edit(.:format)        orders#edit
+                     order GET    /orders/:id(.:format)             orders#show
+                           PATCH  /orders/:id(.:format)             orders#update
+                           PUT    /orders/:id(.:format)             orders#update
+                           DELETE /orders/:id(.:format)             orders#destroy
+                line_items GET    /line_items(.:format)             line_items#index
+                           POST   /line_items(.:format)             line_items#create
+             new_line_item GET    /line_items/new(.:format)         line_items#new
+            edit_line_item GET    /line_items/:id/edit(.:format)    line_items#edit
+                 line_item GET    /line_items/:id(.:format)         line_items#show
+                           PATCH  /line_items/:id(.:format)         line_items#update
+                           PUT    /line_items/:id(.:format)         line_items#update
+                           DELETE /line_items/:id(.:format)         line_items#destroy
+                     carts GET    /carts(.:format)                  carts#index
+                           POST   /carts(.:format)                  carts#create
+                  new_cart GET    /carts/new(.:format)              carts#new
+                 edit_cart GET    /carts/:id/edit(.:format)         carts#edit
+                      cart GET    /carts/:id(.:format)              carts#show
+                           PATCH  /carts/:id(.:format)              carts#update
+                           PUT    /carts/:id(.:format)              carts#update
+                           DELETE /carts/:id(.:format)              carts#destroy
+               store_index GET    /store/index(.:format)            store#index
+                store_sort GET    /store/sort(.:format)             store#sort
+                     store GET    /                                 store#index
