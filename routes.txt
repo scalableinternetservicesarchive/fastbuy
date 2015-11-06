@@ -67,6 +67,14 @@ cancel_seller_registration GET    /sellers/cancel(.:format)         sellers/regi
                            PATCH  /carts/:id(.:format)              carts#update
                            PUT    /carts/:id(.:format)              carts#update
                            DELETE /carts/:id(.:format)              carts#destroy
+                  products GET    /products(.:format)               products#index
+                           POST   /products(.:format)               products#create
+               new_product GET    /products/new(.:format)           products#new
+              edit_product GET    /products/:id/edit(.:format)      products#edit
+                   product GET    /products/:id(.:format)           products#show
+                           PATCH  /products/:id(.:format)           products#update
+                           PUT    /products/:id(.:format)           products#update
+                           DELETE /products/:id(.:format)           products#destroy
                store_index GET    /store/index(.:format)            store#index
                 store_sort GET    /store/sort(.:format)             store#sort
                      store GET    /                                 store#index

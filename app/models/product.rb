@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   belongs_to :seller
-  has_attached_file :image 
+  has_attached_file :image, :path => ":rails_root/public/images"
   # Validation restrictions
   validates :title, :description, :image_url, :quantity, :seller_id, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 0.01}
@@ -42,6 +42,7 @@ class Product < ActiveRecord::Base
       return true
     else
       errors.add(:base, 'Line Items present')
+      logger.error "Line Items Present, Destroy it First"
       return false
     end
   end
