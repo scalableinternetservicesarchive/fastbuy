@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   belongs_to :seller
-  has_attached_file :image, :path => ":rails_root/public/images"
+  has_attached_file :image, use_timestamp: false
   # Validation restrictions
   validates :title, :description, :image_url, :quantity, :seller_id, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 0.01}
