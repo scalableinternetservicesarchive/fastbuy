@@ -3,6 +3,7 @@ class Seller < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  has_many :products
 end
 
 def send_reset_password_instructions(reset_password_instructions, *args)

@@ -5,12 +5,10 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 /* START_HIGHLIGHT */
-.products {
-  table {
-    border-collapse: collapse;
-  }
+.products_table {
+  border-collapse: collapse;
 
-  table tr td {
+  tr td {
     padding: 5px;
     vertical-align: top;
   }
@@ -45,60 +43,55 @@
   }
 
   .list_line_even {
-    background:   #e0f8f8;
+    background:   #fff;
   }
   .list_line_odd {
-    background:   #f8b0f8;
+    background:   #fff5c3;
   }
 }
 /* END_HIGHLIGHT */
 
 #product_title{
-  font-size: 15px;
-  margin-top: 30px;
-  margin-left: 50px;
+  font-size: large;
 }
 
 #product_description{
-  width: 600px;
-  position: relative;
-  top: 30px;
-}
-
-#product_price {
-  display: inline;
-  position: relative;
-  left: 30px;
-  top: 20px;
-}
-
-#product_rating {
-  display: inline;
-  position: relative;
-  left: 40px;
-  top: 20px;
-}
-
-#product_quantity {
-  display: inline;
-  position: relative;
-  left: 50px;
-  top: 20px;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
 #product_image{
-  display: inline;
-  position: relative;
-  top: 20px
+  display: block;
+  margin: auto;
+  max-width: 300px;
+  float: left;
 }
 
-#product_button{
+.price_line {
   display: inline;
-  position: relative;
-  left: 500px;
+  margin-top: 1em;
+}
+
+#product_quantity {
+  margin-left: 5em;
+}
+
+#product_rating {
+  margin-left: 5em;
+  margin-right: 3em;
+}
+
+#add_button {
+  form {
+    display: inline;
+  }
 }
 
 .sale_price {
      color: #ff6666;
      font_weight: bold;
+}
+
+#notice{
+  width: 400px;
 }

@@ -8,5 +8,3 @@
 rake db:drop db:create db:migrate RAILS_ENV=development
 rake db:seed RAILS_ENV=development
 rake sunspot:solr:reindex RAILS_ENV=development
-#export REDIS_PATH=$PWD/../redis-stable/src
-

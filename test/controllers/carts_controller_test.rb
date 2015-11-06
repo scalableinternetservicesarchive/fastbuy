@@ -2,7 +2,6 @@ require 'test_helper'
 
 class CartsControllerTest < ActionController::TestCase
   setup do
-    @cart = carts(:one)
     @buyer = buyers(:one)
   end
 
@@ -19,7 +18,7 @@ class CartsControllerTest < ActionController::TestCase
 
   test "should create cart" do
     assert_difference('Cart.count') do
-      post :create, cart: {  }
+      post :create, cart: {id: 999}
     end
 
     assert_redirected_to cart_path(assigns(:cart))
@@ -27,41 +26,42 @@ class CartsControllerTest < ActionController::TestCase
 
   test "should show hash cart" do
     get :show, id: 'temp'
-    assert_redirected_to store_path
+    assert_response :success
   end
   
   test "should show buyer cart" do
-    sign_in Buyer.first
-    get :show, id: @buyer.cart_id
+    sign_in @buyer
+    get :show, id: @buyer.cart_id, cart: {id: @buyer.cart_id}
     assert_response :success
   end
   
   test "should not show buyer cart" do
-    sign_in Buyer.first
-    get :show, id: @buyer.cart_id + 1
+    sign_in @buyer
+    get :show, id: @buyer.cart_id + 1, cart: {id: @buyer.cart_id + 1} 
     assert_redirected_to store_path
   end
 
   test "should get hash edit" do
-    get :edit, id: 'temp'
-    assert_redirected_to store_path
+    get :edit, id: 'temp', cart: {id: 'temp'}
+    assert_response :success
   end
   
   test "should get buyer edit" do
-    sign_in Buyer.first
-    get :edit, id: @cart
+    sign_in @buyer
+    get :edit, id: @buyer.cart_id, cart: {id: @buyer.cart_id}
     assert_response :success
   end
   
   test "should not get buyer edit" do
-    sign_in Buyer.first
-    get :edit, id: @cart.id + 1
+    sign_in @buyer
+    get :edit, id: @buyer.cart_id + 1, cart: {id: @buyer.cart_id + 1}
     assert_redirected_to store_path
   end
 
   test "should update cart" do
-    patch :update, id: @cart, cart: {  }
-    assert_redirected_to cart_path(assigns(:cart))
+    sign_in @buyer
+    patch :update, id: @buyer.cart_id, cart: {id: @buyer.cart_id}
+    assert_redirected_to cart_path(id: @buyer.cart_id)
   end
 
   test "should destroy hash cart" do
@@ -71,11 +71,10 @@ class CartsControllerTest < ActionController::TestCase
   end
   
   test "should destroy buyer cart" do
-    sign_in Buyer.first
+    sign_in @buyer
     assert_difference('Cart.count', -1) do
-      delete :destroy, id: @cart
+      delete :destroy, id: @buyer.cart_id, cart: {id: @buyer.cart_id}
     end
     assert_redirected_to store_path
   end
 end
-
