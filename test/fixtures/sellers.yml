@@ -1,4 +1,11 @@
 one:
-  id: 1
-  email: b@g.com
+  email: seller1@g.com
+  encrypted_password: <%= Buyer.new.send(:password_digest, '12345678') %>
+
+two:
+  email: seller2@g.com
+  encrypted_password: <%= Buyer.new.send(:password_digest, '12345678') %>
+
+three:
+  email: seller3@g.com
   encrypted_password: <%= Buyer.new.send(:password_digest, '12345678') %>

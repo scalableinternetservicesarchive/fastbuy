@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export REDIS_PATH=$HOME/redis-stable/src
-
 echo "Starting Redis..."
 $REDIS_PATH/redis-server > /dev/null 2>&1 &
 #sleep 3

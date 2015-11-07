@@ -1,5 +1,8 @@
 class LineItemsController < ApplicationController
   include CurrentCart
+  before_action do
+    redirect_to store_path if !current_seller.nil?
+  end
   before_action :set_cart, only: [:show, :edit, :create, :update, :destroy]
   before_action :set_line_item, only: [:show, :edit, :update, :destroy]
 
@@ -53,7 +56,7 @@ class LineItemsController < ApplicationController
           format.json { render :show, status: :ok, location: @line_item }
         else 
           format.html { redirect_to store_url }
-          format.js
+          format.js { @current_item = 2 }
         end
       end
     end
@@ -79,7 +82,7 @@ class LineItemsController < ApplicationController
           format.json { render :show, status: :ok, location: @line_item }
         else 
           format.html { redirect_to store_url }
-          format.js
+          format.js  { @current_item = 2 }
         end
       end
     end
