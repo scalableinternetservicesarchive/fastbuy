@@ -4,7 +4,7 @@ class LineItemsController < ApplicationController
     redirect_to store_path if !current_seller.nil?
   end
   before_action :set_cart
-  before_action :set_line_item
+  before_action :set_line_item, only: [:destroy]
 
   # POST /line_items
   # POST /line_items.json
@@ -36,7 +36,7 @@ class LineItemsController < ApplicationController
   # DELETE /line_items/1.json
   def destroy
     if @line_item == nil
-      @cart.delete(params[:product_id])
+      @cart.delete(line_item_params[:product_id])
     else  
       @line_item.destroy
     end
