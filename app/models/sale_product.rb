@@ -1,7 +1,6 @@
 class SaleProduct < ActiveRecord::Base
   belongs_to :product
-  validates :product_id, :price, :quantity, :expired_at, :started_at, presence: true
-  validates :product_id, numericality: {greater_than: 0}
+  validates :product, :price, :quantity, :expired_at, :started_at, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 0.01}
   validates :quantity, numericality: {greater_than_or_equal_to: 0}
   validate :start_time_cannot_be_in_the_past, :expiration_time_cannot_be_earlier_than_start_time 
@@ -24,12 +23,9 @@ class SaleProduct < ActiveRecord::Base
   end
 
   def sale_price_cannot_be_greater_than_original_price
-    if product_id.present? 
-      product = Product.find(product_id)
-      if product.price < price
+    if product && product.price < price
         errors.add(:price, "can't be greater than original price")
-      end
-    end
+     end
   end
 
 end
