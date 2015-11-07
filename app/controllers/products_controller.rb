@@ -11,19 +11,25 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     if params[:search] == nil
-      @products = current_seller.products
+      puts "11111111111111111111"
+        @products = current_seller.products.paginate(page:params[:page], per_page:20)
+   #    @products = current_seller.products
     else
       if params[:search] == 'sale'
+        puts "22222222222"
         @search = Product.search do
           any_of do
             with(:seller_id, current_seller.id)
             with(:on_sale, true)
           end
+          paginate :page => params[:page], :per_page => 20
         end
       else
+        puts "333333333333"
         @search = Product.search do
           fulltext params[:search]
           with(:seller_id, current_seller.id)
+          paginate :page => params[:page], :per_page => 20
         end
       end
       @products = @search.results

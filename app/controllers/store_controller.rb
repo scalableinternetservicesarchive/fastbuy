@@ -15,13 +15,13 @@ class StoreController < ApplicationController
         @search = Product.search do
           any_of do
             with(:on_sale, true)
-            paginate :page => params[:page], :per_page => 20
           end
+        paginate :page => params[:page], :per_page => 20
         end
       else
         @search = Product.search do
           fulltext params[:search]
-            paginate :page => params[:page], :per_page => 20
+          paginate :page => params[:page], :per_page => 20
         end
       end
        @products = @search.results
