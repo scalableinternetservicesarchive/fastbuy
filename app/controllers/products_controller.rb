@@ -1,17 +1,17 @@
 class ProductsController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:show]
+  before_action :authenticate_seller!, except: [:show] 
   before_action except: [:show ] do
     sign_out current_buyer if !current_buyer.nil?
   end
-  before_action :authenticate_seller!, except: [:show] 
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
   # GET /products.json
   def index
     if params[:search] == nil
-        @products = current_seller.products.paginate(page:params[:page], per_page:20)
+        @products = current_seller.products.paginate(page: params[:page], per_page: 20)
     else
       if params[:search] == 'sale'
         @search = Product.search do
@@ -19,13 +19,13 @@ class ProductsController < ApplicationController
             with(:seller_id, current_seller.id)
             with(:on_sale, true)
           end
-          paginate :page => params[:page], :per_page => 20
+          paginate page: params[:page], per_page: 20
         end
       else
         @search = Product.search do
           fulltext params[:search]
           with(:seller_id, current_seller.id)
-          paginate :page => params[:page], :per_page => 20
+          paginate page: params[:page], per_page: 20
         end
       end
       @products = @search.results

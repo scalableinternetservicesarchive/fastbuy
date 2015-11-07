@@ -7,11 +7,13 @@ Rails.application.routes.draw do
   get 'navigation/seller'
   get 'navigation/contact'
 
+  get 'cart', to: 'carts#show'
+
   devise_for :buyers, controllers: { registrations: "buyers/registrations", sessions: "buyers/sessions", passwords: "buyers/passwords" }
   devise_for :sellers, controllers: { registrations: "sellers/registrations", sessions: "sellers/sessions", passwords: "sellers/passwords" }
   resources :orders
   resources :line_items
-  resources :carts
+ # resources :carts
   resources :products
   get 'store/index'
   get 'store/sort' 
