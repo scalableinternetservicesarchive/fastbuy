@@ -26,7 +26,7 @@
     <% if buyer_signed_in? %>
       <%= link_to "#{current_buyer.email}", navigation_buyer_path %>
       <%= link_to 'Sign Out', destroy_buyer_session_path, method: :delete, data: { confirm: 'Are you sure?'} %>
-     <%= link_to 'Cart', cart_path(id: current_buyer.cart_id) %>
+     <%= link_to 'Cart', cart_path(current_buyer.cart) %>
     <% elsif seller_signed_in? %>
       <%= link_to "#{current_seller.email}", navigation_seller_path %>
       <%= link_to 'Sign Out', destroy_seller_session_path, method: :delete, data: { confirm: 'Are you sure?'} %>
@@ -38,7 +38,6 @@
     <% end %>
   </div>
 </div>
-<% if (/^\/products\/\d+$/ =~ request.path) == nil%>
   <div id="columns">
     <div id="side">
 <!-- START_HIGHLIGHT -->
@@ -59,20 +58,6 @@
       <%= yield %>
     </div>
   </div>
-<% else %>
-  <span id="cart_product">
-    <% if @cart.class == Cart %>
-      <%= hidden_div_if(@cart.line_items.empty?, id: 'cart') do %>
-        <%= render @cart %>
-      <% end %>
-    <% elsif @cart.class == Hash %>
-      <%= hidden_div_if(@cart.empty?, id: 'cart') do %>
-        <%= render 'carts/cart' %>
-      <% end %>
-    <% end %>
-  </span>
-    <%= yield %>
-<% end %>
 </body>
 </html>
 

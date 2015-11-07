@@ -1,17 +1,19 @@
 require 'test_helper'
 class ProductsControllerTest < ActionController::TestCase
   setup do
-    @product = products(:two)
+    @product = products(:one)
     @update = {
       title:       'Lorem Ipsum',
       description: 'Wibbles are fun!',
       image_url:   'lorem.jpg',
       quantity:    1,
       rating:      1.0,
-      price:       19.95
+      price:       19.95,
+      sale:        false,
+      seller:      @product.seller_id
     }
     @seller = sellers(:one)
-    sign_in Seller.first
+    sign_in @seller
   end
 
   test "should get index" do
@@ -50,6 +52,7 @@ class ProductsControllerTest < ActionController::TestCase
 
 
   test "should destroy product" do
+    LineItem.find(@product.id).destroy
     assert_difference('Product.count', -1) do
       delete :destroy, id: @product
     end

@@ -1,23 +1,24 @@
 Rails.application.routes.draw do
-  resources :sale_products
   get 'navigation/store'
   get 'navigation/sales'
   get 'navigation/cart'
   get 'navigation/buyer'
   get 'navigation/seller'
   get 'navigation/contact'
-
+  get 'store/index'
+  get 'store/sort' 
+  
+  resources :products
+  resources :sale_products
+  resources :line_items, only: [:create, :destroy]
+  resources :carts, only: [:show, :destroy]
+ 
   devise_for :buyers, controllers: { registrations: "buyers/registrations", sessions: "buyers/sessions", passwords: "buyers/passwords" }
   devise_for :sellers, controllers: { registrations: "sellers/registrations", sessions: "sellers/sessions", passwords: "sellers/passwords" }
   resources :orders
-  resources :line_items
-  resources :carts
-  get 'store/index'
-  get 'store/sort' 
- resources :products do
-    get :who_bought, on: :member
-  end
+
   root to: 'store#index' , as: 'store'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

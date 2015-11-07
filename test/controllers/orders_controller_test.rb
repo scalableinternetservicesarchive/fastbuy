@@ -3,9 +3,9 @@ require 'test_helper'
 class OrdersControllerTest < ActionController::TestCase
   setup do
     @order = orders(:one)
-    @buyer = buyers(:one)
-    @cart = carts(:one)
-    sign_in Buyer.first
+    @buyer = buyers(:three)
+    @cart = carts(:three)
+    sign_in @buyer
   end
 
   test "should get index" do
@@ -21,13 +21,13 @@ class OrdersControllerTest < ActionController::TestCase
   end
 
   test "should get new" do
-    LineItem.create(cart: @cart, product: products(:ruby), quantity: 1, price: 5.00)
+    LineItem.create(cart: @cart, product: products(:three), quantity: 1, price: 5.00)
     get :new
     assert_response :success
   end
 
   test "should create order" do
-    LineItem.create(cart: @cart, product: products(:ruby), quantity: 1, price: 5.00)
+    LineItem.create(cart: @cart, product: products(:three), quantity: 1, price: 5.00)
     assert_difference('Order.count') do
       post :create, order: { address: @order.address, email: @order.email, name: @order.name, pay_type: @order.pay_type }
     end

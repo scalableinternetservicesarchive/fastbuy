@@ -5,38 +5,41 @@ class StoreController < ApplicationController
   
   def index
     if params[:search] == nil
-      @products = Product.order(:title)
+        @products = Product.paginate(page:params[:page], per_page:20)
     else
       if params[:search] == 'sale'
         @search = Product.search do
           any_of do
             with(:on_sale, true)
           end
+        paginate :page => params[:page], :per_page => 20
         end
       else
         @search = Product.search do
           fulltext params[:search]
+          paginate :page => params[:page], :per_page => 20
         end
-       end
+      end
        @products = @search.results
     end
     @sale_products = SaleProduct.order(:started_at)
     @sale_products.each do |sale_product|
-      current_time = DateTime.now
-      new_product = Product.find(sale_product.product_id)
-      if sale_product.started_at <= current_time && sale_product.expired_at > current_time
-        new_product.on_sale = true
-      elsif sale_product.expired_at <= current_time
-        sale_product.destroy
-        new_product.on_sale = false
-      end
+    current_time = DateTime.now
+    new_product = Product.find(sale_product.product_id)
+    if sale_product.started_at <= current_time && sale_product.expired_at > current_time
+      new_product.on_sale = true
+    elsif sale_product.expired_at <= current_time
+      sale_product.destroy
+      new_product.on_sale = false
+    end
     new_product.save
-    end 
+    end
+    
   end
   
   def sort
     sort_type = SORT_TYPE[params[:sort]]
-    @products = Product.order(sort_type)
+    @products = Product.order(sort_type).paginate(page:params[:page], per_page:20)
     render 'index'
   end
 end
