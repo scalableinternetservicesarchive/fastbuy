@@ -17,11 +17,8 @@ module CurrentCart extend ActiveSupport::Concern
         current_buyer.save
       end  
       if session[:cart]
-        hashcart = session[:cart]
-        hashcart.each do |product_id, attributes|
-          quantity =  attributes.split(':')[0].to_i 
-          price =  attributes.split(':')[1].to_f
-          Cart.add_product(@cart, product_id.to_i, quantity, price)
+        session[:cart].each do |product_id, quantity|
+          Cart.add_product(@cart, {product_id: product_id.to_i, quantity: quantity.to_i})
         end
         session[:cart] = nil
       end

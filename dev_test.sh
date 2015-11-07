@@ -1,6 +1,7 @@
 #!/bin/bash
 # To run
 # . dev_test.sh
+
 if ps -ef | grep solr | grep -q test; then
   echo Solr Test is running!
 else
