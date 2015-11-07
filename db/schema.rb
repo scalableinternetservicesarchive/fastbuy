@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151106021407) do
+ActiveRecord::Schema.define(version: 20151107192937) do
 
   create_table "buyers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -42,16 +42,18 @@ ActiveRecord::Schema.define(version: 20151106021407) do
   add_index "carts", ["buyer_id"], name: "index_carts_on_buyer_id"
 
   create_table "line_items", force: :cascade do |t|
+    t.decimal  "price",      precision: 8, scale: 2, null: false
+    t.integer  "quantity",                           null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "order_id"
     t.integer  "product_id"
     t.integer  "cart_id"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.integer  "quantity",                           default: 1
-    t.integer  "order_id"
-    t.decimal  "price",      precision: 8, scale: 2
   end
 
+  add_index "line_items", ["cart_id"], name: "index_line_items_on_cart_id"
   add_index "line_items", ["order_id"], name: "index_line_items_on_order_id"
+  add_index "line_items", ["product_id"], name: "index_line_items_on_product_id"
 
   create_table "orders", force: :cascade do |t|
     t.string   "name"
@@ -63,12 +65,12 @@ ActiveRecord::Schema.define(version: 20151106021407) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
+    t.string   "title",                                                      null: false
+    t.text     "description",                                                null: false
     t.string   "image_url"
-    t.decimal  "price",              precision: 8, scale: 2
+    t.decimal  "price",              precision: 8, scale: 2,                 null: false
     t.decimal  "rating",             precision: 2, scale: 1
-    t.integer  "quantity"
+    t.integer  "quantity",                                                   null: false
     t.datetime "created_at",                                                 null: false
     t.datetime "updated_at",                                                 null: false
     t.boolean  "on_sale",                                    default: false
@@ -82,10 +84,10 @@ ActiveRecord::Schema.define(version: 20151106021407) do
   add_index "products", ["seller_id"], name: "index_products_on_seller_id"
 
   create_table "sale_products", force: :cascade do |t|
-    t.decimal  "price",      precision: 8, scale: 2
-    t.integer  "quantity"
-    t.datetime "started_at"
-    t.datetime "expired_at"
+    t.decimal  "price",      precision: 8, scale: 2, null: false
+    t.integer  "quantity",                           null: false
+    t.datetime "started_at",                         null: false
+    t.datetime "expired_at",                         null: false
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.integer  "product_id"

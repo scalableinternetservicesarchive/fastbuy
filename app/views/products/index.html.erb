@@ -1,4 +1,7 @@
 <h1>Products</h1>
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
 
 <table class="products_table">
 <% @products.each do |product| %>
