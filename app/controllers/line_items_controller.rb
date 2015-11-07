@@ -36,7 +36,7 @@ class LineItemsController < ApplicationController
   # POST /line_items
   # POST /line_items.json
   def create
-    @line_item = Cart.add_product(@cart, params[:product_id], params[:quantity].to_i, params[:price].to_f)
+    @line_item = Cart.add_product(@cart, line_item_params)
     respond_to do |format|
       if @line_item.class == LineItem || @line_item.class == Product
         format.html { redirect_to store_url }
@@ -62,7 +62,7 @@ class LineItemsController < ApplicationController
   # PATCH/PUT /line_items/1
   # PATCH/PUT /line_items/1.json
   def update
-    @line_item = Cart.add_product(@cart, params[:product_id], params[:quantity].to_i, params[:price].to_f)
+    @line_item = Cart.add_product(@cart, line_item_params)
     respond_to do |format|
       if @line_item.class == LineItem || @line_item.class == Product
         format.html { redirect_to store_url }

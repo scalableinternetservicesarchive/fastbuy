@@ -17,20 +17,16 @@
         <p><%= sanitize(product.description) %></p>
         <div class="price_line">
           <% if product.on_sale == true %>
-          <span class="price">Price: <s><%= number_to_currency(product.price) %></s></span>
-          <span class="sale_price"><%= number_to_currency(product.sale_products.first.price) %></span>
-          <span class="quantity">Quantity: <%= sprintf("%d", product.sale_products.first.quantity) %></span>
+            <span class="price">Price: <s><%= number_to_currency(product.price) %></s></span>
+            <span class="sale_price"><%= number_to_currency(product.sale_products.first.price) %></span>
+            <span class="quantity">Quantity: <%= sprintf("%d", product.sale_products.first.quantity) %></span>
           <% else %>
-          <span class="price">Price: <%= number_to_currency(product.price) %></span>
-          <span class="quantity">Quantity: <%= sprintf("%d", product.quantity) %></span>
+            <span class="price">Price: <%= number_to_currency(product.price) %></span>
+            <span class="quantity">Quantity: <%= sprintf("%d", product.quantity) %></span>
           <% end %>
           <span class="rating">Rating: <%= sprintf("%0.01f", product.rating) %></span>
           <% if product.quantity > 0 %>
-            <% if product.on_sale == true %>
-            <%= button_to 'Add to Cart', line_items_path(product_id: product, quantity: 1, price: product.sale_products.first.price), remote: true %>
-            <% else %>
-            <%= button_to 'Add to Cart', line_items_path(product_id: product, quantity: 1, price: product.price), remote: true %>
-            <% end %>
+            <%= button_to 'Add to Cart', line_items_path(product_id: product, quantity: 1), remote: true %>
           <% else %>
             <%= button_to 'Product Unavailable', '.', remote: true, disabled: true %>
           <% end %>
