@@ -19,14 +19,14 @@ class LineItemsControllerTest < ActionController::TestCase
   end
 
   test "should create product in hash cart" do
-    post :create, product_id: @product.id, quantity: 1
+    post :create, line_item: {product_id: @product.id, quantity: 1}
     assert_redirected_to store_path
   end
   
   test "should create line_item" do
     sign_in Buyer.first
     assert_difference('LineItem.count') do
-      post :create, product_id: @product.id, quantity: 1
+      post :create, line_item: {product_id: @product.id, quantity: 1}
     end
     assert_redirected_to store_path
   end
@@ -58,13 +58,13 @@ class LineItemsControllerTest < ActionController::TestCase
     cart[@product.id] = 1
     session[:cart] = cart
 
-    patch :update, id: @product, product_id: @product.id, quantity: 2
+    patch :update, id: @product, line_item: {product_id: @product.id, quantity: 2}
     assert_redirected_to store_url
   end
   
   test "should update line_item" do
     sign_in Buyer.first
-    patch :update, id: @line_item, product_id: @line_item.product_id, quantity: 2
+    patch :update, id: @line_item, line_item: {product_id: @line_item.product_id, quantity: 2}
     assert_redirected_to store_url
   end
   
@@ -87,7 +87,7 @@ class LineItemsControllerTest < ActionController::TestCase
   test "should create line_item via ajax" do
     sign_in Buyer.first
     assert_difference('LineItem.count') do
-      xhr :post, :create, product_id: @product.id, quantity: 1
+      xhr :post, :create, line_item: {product_id: @line_item.product_id, quantity: 1}
     end 
     assert_response :success
     assert_select_jquery :html, '#cart' do

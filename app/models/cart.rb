@@ -5,11 +5,12 @@ class Cart < ActiveRecord::Base
   def self.add_product(cart, line_item)
     product = Product.find(line_item[:product_id])
     price = product.on_sale ? SaleProduct.find_by(product_id: product.id).price : product.price
+    quantity = line_item[:quantity].to_i
     if cart.class == Hash
       if cart[product.id.to_s] == nil
         cart[product.id.to_s] = "0:" + price.to_s
       end
-      new_quantity = cart[product.id.to_s].split(':')[0].to_i + line_item[:quantity]
+      new_quantity = cart[product.id.to_s].split(':')[0].to_i + quantity
       if new_quantity == 0
         cart.delete(product.id.to_s)
         1
@@ -22,7 +23,7 @@ class Cart < ActiveRecord::Base
     else
       current_item = cart.line_items.find_by(product_id: product.id)
       if current_item
-        new_quantity = current_item.quantity + line_item[:quantity]
+        new_quantity = current_item.quantity + quantity
         if new_quantity == 0
           current_item.destroy
           1
@@ -38,7 +39,7 @@ class Cart < ActiveRecord::Base
           2
         end
       else
-        current_item = cart.line_items.create(product_id: product.id, quantity: line_item[:quantity], price: price)
+        current_item = cart.line_items.create(product_id: product.id, quantity: quantity, price: price)
       end
     end
   end
