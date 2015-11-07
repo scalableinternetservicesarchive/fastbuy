@@ -12,7 +12,6 @@ class ProductsController < ApplicationController
   def index
     if params[:search] == nil
         @products = current_seller.products.paginate(page:params[:page], per_page:20)
-   #    @products = current_seller.products
     else
       if params[:search] == 'sale'
         @search = Product.search do
