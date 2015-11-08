@@ -15,7 +15,7 @@ class StoreController < ApplicationController
         end
       else
         @search = Product.search do
-          fulltext psearch_param
+          fulltext search_param
           paginate :page => params[:page], :per_page => 20
         end
       end
