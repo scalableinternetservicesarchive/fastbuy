@@ -32,7 +32,6 @@ class SaleProductsController < ApplicationController
         format.html { redirect_to @sale_product, notice: 'Sale product was successfully created.' }
         format.json { render :show, status: :created, location: @sale_product }
       else
-        puts "@@@@@@@@@@@Create Failed@@@@@@@@@@@"
         format.html { render :new }
         format.json { render json: @sale_product.errors, status: :unprocessable_entity }
       end

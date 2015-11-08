@@ -4,11 +4,11 @@ Seller.delete_all
 Cart.delete_all
 Product.delete_all
 if Rails.env == 'production'
-  num = 4328
+  num = 4327
   usernames = (1..500).to_a
   provider = (1..20).to_a
 else
-  num = 4328
+  num = 4327
   usernames = (1..10).to_a
   provider = (1..2).to_a
 end
@@ -26,7 +26,7 @@ start_time = Time.now
 provider.length.times do |j|
   inserts = []
   usernames.length.times do |i| 
-    inserts << "('#{usernames[i]}@#{provider[j]}.com', '#{enpsswd}', '#{Date.today}', '#{Date.today}')"
+    inserts << "('#{usernames[i]}@#{provider[j]}.com', '#{enpsswd}', '#{Time.now}', '#{Time.now}')"
   end
   sql = "INSERT INTO buyers (email, encrypted_password, created_at, updated_at) VALUES #{inserts.join(", ")}"
   Buyer.connection.execute sql
@@ -46,9 +46,9 @@ num.times do |i|
   #image_url = "/assets/images/#{i}.jpg"    
   image_url = "https://raw.githubusercontent.com/Geurney/fastbuyimages/master/public/assets/images/#{i}.jpg"
   price = rand(0..9)*100 + rand(0..9)*10 + rand(1..9) + rand(1..99)/100.0
-  quantity = rand(1..100)
+  quantity = rand(200..500)
   rating = rand(1..4) + rand(1..9)/10.0
-  inserts << "('Item#{i}', '#{describe}', '#{image_url}', #{price}, #{rating}, #{quantity}, #{seller.id}, '#{Date.today}', '#{Date.today}')"
+  inserts << "('Item#{i}', '#{describe}', '#{image_url}', #{price}, #{rating}, #{quantity}, #{seller.id}, '#{Time.now}', '#{Time.now}')"
   if i % 500 == 0
     sql = "INSERT INTO products (title, description, image_url, price, rating, quantity, seller_id, created_at, updated_at) VALUES #{inserts.join(", ")}"
     Product.connection.execute sql
@@ -59,12 +59,10 @@ if inserts.length != 0
   sql = "INSERT INTO products (title, description, image_url, price, rating, quantity, seller_id, created_at, updated_at) VALUES #{inserts.join(", ")}"
   Product.connection.execute sql
 end
-SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at) VALUES (#{Product.first.id}, 20, 1.5, '#{Date.today}', '#{Date.today + 100000}', '#{Date.today}', '#{Date.today}')"
-SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at) VALUES (#{Product.second.id}, 12, 3.5, '#{Date.today}', '#{Date.today + 100000}', '#{Date.today}', '#{Date.today}')"
-SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at) VALUES (#{Product.third.id}, 15, 5.5, '#{Date.today}', '#{Date.today + 100000}', '#{Date.today}', '#{Date.today}')"
-SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at) VALUES (#{Product.fifth.id}, 18, 4.5, '#{Date.today}', '#{Date.today + 100000}', '#{Date.today}', '#{Date.today}')"
-
-
+SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at) VALUES (#{Product.first.id}, 20, 1.5, '#{Time.now}', '#{Time.now + 10000}', '#{Time.now}', '#{Time.now}')"
+SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at) VALUES (#{Product.second.id}, 12, 3.5, '#{Time.now}', '#{Time.now + 100000}', '#{Time.now}', '#{Time.now}')"
+SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at) VALUES (#{Product.third.id}, 15, 5.5, '#{Time.now}', '#{Time.now + 100000}', '#{Time.now}', '#{Time.now}')"
+SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at) VALUES (#{Product.fifth.id}, 18, 4.5, '#{Time.now}', '#{Time.now + 100000}', '#{Time.now}', '#{Time.now}')"
 
 end_time = Time.now
 elapse = (end_time - start_time)
