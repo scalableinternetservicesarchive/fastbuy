@@ -12,7 +12,7 @@
 </div>
 
 <div id='product_image'>
-  <%= image_tag(@product.image_url) %>
+  <%= link_to image_tag(@product.image_url),@product.image_url %>
 </div>
 
 <br></br>
@@ -45,10 +45,11 @@
 </span>
 
 <span id='add_button'>
-  <%= form_tag line_items_path(product_id: @product), remote: true, class: "product_button" do %>
-    <%= number_field_tag(:quantity, 1, in: 1..@product.quantity) %>
+  <% available_quantity = @product.on_sale ? @product.sale_products.first.quantity : @product.quantity %>
+  <%= form_tag line_items_path, remote: true, class: "product_button" do %>
+    <%= hidden_field_tag "line_item[product_id]", @product.id %>
+    <%= number_field_tag("line_item[quantity]", 1, in: 1..available_quantity) %>
     <%= submit_tag("Add to Cart") %>
   <% end %>
 </span>
 </div>
-

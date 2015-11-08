@@ -8,21 +8,21 @@ class LineItemsControllerTest < ActionController::TestCase
   end
 
   test "should create product in hash cart" do
-    post :create, product_id: @product.id, quantity: 1
+    post :create, line_item: {product_id: @product.id, quantity: 1}
     assert_redirected_to store_path
   end
   
   test "should create line_item" do
     sign_in Buyer.first
     assert_difference('LineItem.count') do
-      post :create, product_id: @product.id, quantity: 1
+      post :create,  line_item: {product_id: @product.id, quantity: 1}
     end
     assert_redirected_to store_path
   end
 
  
   test "should destroy hash cart item" do
-    delete :destroy, id: @product.id, product_id: @product_id
+    delete :destroy, id: @product.id, line_item: {product_id: @product_id}
     cart = session[:cart]
     assert_nil cart[products(:one).id.to_s]
     assert_redirected_to store_url
@@ -40,7 +40,7 @@ class LineItemsControllerTest < ActionController::TestCase
   test "should create line_item via ajax" do
     sign_in Buyer.first
     assert_difference('LineItem.count') do
-      xhr :post, :create, product_id: @line_item.product_id, quantity: 1
+      xhr :post, :create, line_item: {product_id: @line_item.product_id, quantity: 1}
     end 
     assert_response :success
     assert_select_jquery :html, '#cart' do

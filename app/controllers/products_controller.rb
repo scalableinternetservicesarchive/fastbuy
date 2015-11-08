@@ -13,12 +13,10 @@ class ProductsController < ApplicationController
     if params[:search] == nil
         @products = current_seller.products.paginate(page: params[:page], per_page: 20)
     else
-      if params[:search] == 'sale'
+      if params[:search] == 'on_sale'
         @search = Product.search do
-          any_of do
-            with(:seller_id, current_seller.id)
-            with(:on_sale, true)
-          end
+          with(:seller_id, current_seller.id)
+          with(:on_sale, true)
           paginate page: params[:page], per_page: 20
         end
       else

@@ -1,19 +1,18 @@
 Rails.application.routes.draw do
-  get 'navigation/store'
-  get 'navigation/sales'
-  get 'navigation/cart'
-  get 'navigation/buyer'
-  get 'navigation/seller'
-  get 'navigation/contact'
   get 'store/index'
   get 'store/sort' 
-  
+  get 'contact', to: 'navigation#contact'
+
   resources :products
   resources :sale_products
   resources :line_items, only: [:create, :destroy]
   resources :carts, only: [:show, :destroy]
  
   devise_for :buyers, controllers: { registrations: "buyers/registrations", sessions: "buyers/sessions", passwords: "buyers/passwords" }
+  devise_scope :buyer do
+    get 'buyers/show', to: "buyers/sessions#show", as: 'buyer'
+    match 'buyer', to: 'buyers/sessions#show', via: 'get'
+  end
   devise_for :sellers, controllers: { registrations: "sellers/registrations", sessions: "sellers/sessions", passwords: "sellers/passwords" }
   resources :orders
 

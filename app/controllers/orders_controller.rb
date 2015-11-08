@@ -1,4 +1,7 @@
 class OrdersController < ApplicationController
+  before_action do
+    redirect_to store_path if !current_seller.nil?
+  end
   before_action :authenticate_buyer!
   include CurrentCart
   before_action :set_cart, only: [:new, :create]
@@ -7,7 +10,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.where(buyer: current_buyer)
   end
 
   # GET /orders/1
@@ -32,6 +35,7 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
+    @order.buyer = current_buyer
     @order.add_line_items_from_cart(@cart)
 
     respond_to do |format|

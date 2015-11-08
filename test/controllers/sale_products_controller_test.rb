@@ -3,15 +3,16 @@ require 'test_helper'
 class SaleProductsControllerTest < ActionController::TestCase
   setup do
     @sale_product = sale_products(:one)
+    @product = @sale_product.product
+    @seller = @sale_product.seller
     @update = {
-      product_id: @sale_product.product_id,
-      price: 1.99,
+      product_id: @product.id,
+      seller_id:  @seller.id,
+      price: 0.1,
       quantity: 1,
-      started_at: '2015-11-10 12:12:12',
-      expired_at: '2015-11-11 12:12:12'
+      started_at: Time.now + 10,
+      expired_at: Time.now + 1000
     }
-    @seller = sellers(:one)
-    @buyer = buyers(:one)
   end
 
   test "should get index" do

@@ -80,22 +80,17 @@
       <thinktime value="2" random="true"></thinktime>
 
       <!-- pick a product randomly -->
-      <setdynvars sourcetype="random_number" start="1" end="100">
+      <setdynvars sourcetype="random_number" start="1" end="1999">
         <var name="random_product" />
-      </setdynvars>
-
-      <!-- pick a product price randomly -->
-      <setdynvars sourcetype="random_number" start="100" end="1000">
-        <var name="random_price" />
       </setdynvars>
 
       <!-- Add product to cart -->
       <request subst="true">
         <http
-          url='/line_items?price=%%_random_price%%&amp;product_id=%%_random_product%%&amp;quantity=1'
+          url='/line_items?product_id=%%_random_product%%'
           version='1.1'
           method='POST'
-          contents='price=%%_random_price%%&amp;product_id=%%_random_product%%&amp;quantity=1&amp;commit=Add+to+Cart'>
+          contents='product_id=%%_random_product%%&amp;quantity=1&amp;commit=Add+to+Cart'>
         </http>
       </request>
 
@@ -169,7 +164,7 @@
       </request>
 
       <!-- pick a product randomly -->
-      <setdynvars sourcetype="random_number" start="1" end="100">
+      <setdynvars sourcetype="random_number" start="2000" end="4000">
         <var name="random_product" />
       </setdynvars>
 
@@ -217,7 +212,7 @@
       </request>
 
       <!-- pick a product randomly -->
-      <setdynvars sourcetype="random_number" start="1" end="100">
+      <setdynvars sourcetype="random_number" start="1" end="1999">
         <var name="random_sale" />
       </setdynvars>
 
@@ -233,7 +228,7 @@
             url='/sale_products'
           version='1.1'
           method='POST'
-          contents='utf8=%E2%9C%93&amp;sale_product%5Bproduct_id%5D=%%_random_sale%%&amp;sale_product%5Bprice%5D=100&amp;sale_product%5Bquantity%5D=1&amp;sale_product%5Bstarted_at%281i%29%5D=2015&amp;sale_product%5Bstarted_at%282i%29%5D=11&amp;sale_product%5Bstarted_at%283i%29%5D=6&amp;sale_product%5Bstarted_at%284i%29%5D=01&amp;sale_product%5Bstarted_at%285i%29%5D=09&amp;sale_product%5Bexpired_at%281i%29%5D=2015&amp;sale_product%5Bexpired_at%282i%29%5D=11&amp;sale_product%5Bexpired_at%283i%29%5D=6&amp;sale_product%5Bexpired_at%284i%29%5D=01&amp;sale_product%5Bexpired_at%285i%29%5D=10&amp;commit=Create+Sale+Product'>
+          contents='utf8=%E2%9C%93&amp;sale_product%5Bproduct_id%5D=%%_random_sale%%&amp;sale_product%5Bprice%5D=100&amp;sale_product%5Bquantity%5D=1&amp;sale_product%5Bstarted_at%281i%29%5D=2015&amp;sale_product%5Bstarted_at%282i%29%5D=11&amp;sale_product%5Bstarted_at%283i%29%5D=6&amp;sale_product%5Bstarted_at%284i%29%5D=01&amp;sale_product%5Bstarted_at%285i%29%5D=09&amp;sale_product%5Bexpired_at%281i%29%5D=2015&amp;sale_product%5Bexpired_at%282i%29%5D=11&amp;sale_product%5Bexpired_at%283i%29%5D=6&amp;sale_product%5Bexpired_at%284i%29%5D=01&amp;sale_product%5Bexpired_at%285i%29%5D=10&amp;commit=Create+Sale+product'>
         </http>
       </request>
 

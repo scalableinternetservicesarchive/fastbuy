@@ -10,6 +10,8 @@ class OrderTest < ActiveSupport::TestCase
     assert order.invalid?
     assert order.errors[:name].any?
     assert order.errors[:address].any?
+    assert order.errors[:line_items].any?
+    assert order.errors[:buyer].any?
     assert order.errors[:email].any?
     assert order.errors[:pay_type].any?
   end

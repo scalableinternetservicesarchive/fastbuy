@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151107192937) do
+ActiveRecord::Schema.define(version: 20151109013247) do
 
   create_table "buyers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20151107192937) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "cart_id"
+    t.string   "name"
+    t.string   "address"
   end
 
   add_index "buyers", ["cart_id"], name: "index_buyers_on_cart_id"
@@ -60,16 +62,20 @@ ActiveRecord::Schema.define(version: 20151107192937) do
     t.text     "address"
     t.string   "email"
     t.string   "pay_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.integer  "buyer_id"
+    t.decimal  "total",      precision: 15, scale: 2, default: 0.0
   end
+
+  add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id"
 
   create_table "products", force: :cascade do |t|
     t.string   "title",                                                      null: false
     t.text     "description",                                                null: false
     t.string   "image_url"
     t.decimal  "price",              precision: 8, scale: 2,                 null: false
-    t.decimal  "rating",             precision: 2, scale: 1
+    t.decimal  "rating",             precision: 2, scale: 1, default: 0.0
     t.integer  "quantity",                                                   null: false
     t.datetime "created_at",                                                 null: false
     t.datetime "updated_at",                                                 null: false
@@ -81,6 +87,7 @@ ActiveRecord::Schema.define(version: 20151107192937) do
     t.datetime "image_updated_at"
   end
 
+  add_index "products", ["on_sale"], name: "index_products_on_on_sale"
   add_index "products", ["seller_id"], name: "index_products_on_seller_id"
 
   create_table "sale_products", force: :cascade do |t|
@@ -91,9 +98,11 @@ ActiveRecord::Schema.define(version: 20151107192937) do
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.integer  "product_id"
+    t.integer  "seller_id"
   end
 
   add_index "sale_products", ["product_id"], name: "index_sale_products_on_product_id"
+  add_index "sale_products", ["seller_id"], name: "index_sale_products_on_seller_id"
 
   create_table "sellers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

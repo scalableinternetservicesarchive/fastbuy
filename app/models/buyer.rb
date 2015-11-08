@@ -4,6 +4,7 @@ class Buyer < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   has_one :cart
+  has_many :orders
 end
 
 def send_reset_password_instructions(reset_password_instructions, *args)

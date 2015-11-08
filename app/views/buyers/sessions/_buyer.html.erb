@@ -1,0 +1,35 @@
+<h2> My Account </h2>
+<p>
+ <strong>Email:</strong>
+  <%= current_buyer.email %>
+</p>
+<p>
+  <strong>Name:</strong>
+<%= current_buyer.name %>
+</p>
+<p>
+  <strong>Address:</strong>
+  <%= current_buyer.address %>
+</p>
+<p>
+<strong>Orders:</strong><br />
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <th>Email</th>
+      <th>Pay type</th>
+      <th>Date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% current_buyer.orders.each do |order| %>
+      <%= render 'orders/order', order: order %>
+    <% end %>
+  </tbody>
+</table>
+<p>
+<%= link_to 'Edit', edit_buyer_registration_path %>

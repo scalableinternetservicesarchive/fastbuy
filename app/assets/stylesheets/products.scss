@@ -61,10 +61,14 @@
 }
 
 #product_image{
-  display: block;
-  margin: auto;
-  max-width: 300px;
-  float: left;
+border:0;    
+margin:0;    
+padding:0;
+img{    
+max-width:300px;    
+width:expression(this.width>300?"300px":this.width);    
+max-height:300px;    
+height:expression(this.height>300?"300px":this.height);} 
 }
 
 .price_line {
