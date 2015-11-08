@@ -10,7 +10,6 @@ class ProductsControllerTest < ActionController::TestCase
       rating:      1.0,
       price:       19.95,
       sale:        false,
-      seller:      @product.seller_id
     }
     @seller = sellers(:one)
     sign_in @seller

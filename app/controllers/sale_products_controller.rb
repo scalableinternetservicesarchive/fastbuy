@@ -6,7 +6,7 @@ class SaleProductsController < ApplicationController
   # GET /sale_products
   # GET /sale_products.json
   def index
-    @sale_products = SaleProduct.all
+    @sale_products = SaleProduct.where(seller: current_seller)
   end
 
   # GET /sale_products/1
@@ -80,6 +80,6 @@ class SaleProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sale_product_params
-      params.require(:sale_product).permit(:product_id, :price, :quantity, :started_at, :expired_at)
+      params.require(:sale_product).permit(:product_id, :seller_id, :price, :quantity, :started_at, :expired_at)
     end
 end

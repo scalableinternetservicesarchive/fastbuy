@@ -2,14 +2,16 @@
 
 one:
   product: one
+  seller: one
   price: 5.99
   quantity: 10
-  started_at: 2010-02-11 11:02:57
-  expired_at: 2010-02-12 11:02:57
+  started_at: <%= Time.now %>
+  expired_at: <%= Time.now + 100000 %>
 
 two:
   product: two
+  seller: two
   price: 6.99
   quantity: 100
-  started_at: 2010-03-11 11:02:57
-  expired_at: 2010-03-12 11:02:57
+  started_at: <%= Time.now %>
+  expired_at: <%= Time.now + 100000 %>

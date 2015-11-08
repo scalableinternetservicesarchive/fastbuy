@@ -23,17 +23,17 @@ class ProductTest < ActiveSupport::TestCase
     assert product.invalid?
     assert product.errors[:seller].any?
  
-    product.seller_id = Seller.first.id
+    product.seller_id = sellers(:one).id
     assert product.valid?
-    assert_equal product.seller, Seller.first
+    assert_equal product.seller, sellers(:one)
    
-    product.seller = Seller.second
+    product.seller = sellers(:two)
     assert product.valid?
-    assert_equal product.seller_id, Seller.second.id
+    assert_equal product.seller_id, sellers(:two).id
   end
 
   test "product price must be positive" do
-    seller = Seller.first
+    seller = sellers(:one)
     product = Product.new(title:       "My Book Title",
                           description: "yyy",
                           image_url:   "zzz.jpg",
@@ -54,7 +54,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test "product quantity must be positive" do
-    seller = Seller.first
+    seller = sellers(:one)
     product = Product.new(title:       "My Book Title",
                           description: "yyy",
                           image_url:   "zzz.jpg",
@@ -73,7 +73,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   test "product rating must be positive" do
-    seller = Seller.first
+    seller = sellers(:one)
     product = Product.new(title:       "My Book Title",
                           description: "yyy",
                           image_url:   "zzz.jpg",
@@ -95,7 +95,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   def new_product(image_url)
-    seller = Seller.first
+    seller = sellers(:one)
     Product.new(title:       "My Book Title",
                 description: "yyy",
                 price:       1,

@@ -1,0 +1,14 @@
+<h2> My Profile </h2>
+<p>
+ <strong>Email:</strong>
+  <%= current_buyer.email %>
+</p>
+<p>
+  <strong>Name:</strong>
+<%= current_buyer.name %>
+</p>
+<p>
+  <strong>Address:</strong>
+  <%= current_buyer.address %>
+</p>
+<%= link_to 'Edit', edit_buyer_registration_path %>

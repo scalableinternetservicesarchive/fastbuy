@@ -1,4 +1,7 @@
 class OrdersController < ApplicationController
+  before_action do
+    redirect_to store_path if !current_seller.nil?
+  end
   before_action :authenticate_buyer!
   include CurrentCart
   before_action :set_cart, only: [:new, :create]

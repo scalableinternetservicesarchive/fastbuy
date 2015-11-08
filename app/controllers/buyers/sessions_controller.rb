@@ -5,6 +5,9 @@ class Buyers::SessionsController < Devise::SessionsController
   # def new
   #   super
   # end
+  
+  def show
+  end
 
   # POST /resource/sign_in
   # def create
