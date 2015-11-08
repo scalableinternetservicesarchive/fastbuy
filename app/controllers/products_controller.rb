@@ -51,7 +51,7 @@ class ProductsController < ApplicationController
   def create
     @product = Product.new(product_params)
     @product.seller_id = current_seller.id
-    if @product.image != nil
+    if @product.image.exists?
       @product.image_url = @product.image.url
     end
     respond_to do |format|
