@@ -20,7 +20,7 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
     buyer = FactoryGirl.create(:buyer)
     login_as(buyer, scope: :buyer)
 
-    xhr :post, '/line_items', line_item: {product_id: ruby_book.id, quantity: 1}
+    xhr :post, '/line_items', product_id: ruby_book.id, quantity: 1
     assert_response :success
 
     cart = Cart.find(buyer.cart_id)
