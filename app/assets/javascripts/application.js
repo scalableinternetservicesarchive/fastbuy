@@ -15,3 +15,10 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+$(function() {
+  $(".sort_paginate_ajax").on("click", ".pagination a", function(){
+    $.getScript(this.href);
+    $('body,html').animate({scrollTop:0},1000); 
+    return false;
+  });
+});
