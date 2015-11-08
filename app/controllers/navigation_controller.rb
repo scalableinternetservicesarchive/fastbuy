@@ -7,7 +7,7 @@ class NavigationController < ApplicationController
     if seller_signed_in?    
       redirect_to sale_products_path
     else 
-      redirect_to store_path(search: "sale")
+      redirect_to store_path(search: "on_sale")
     end
   end
 
