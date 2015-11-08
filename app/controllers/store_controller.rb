@@ -7,17 +7,17 @@ class StoreController < ApplicationController
     search_param = params[:search] ? params[:search].squish : nil
     if search_param == nil
       @products = Product.paginate(page:params[:page], per_page:20)
-    elsif search_param == 'sale'
-      @search = Product.search do
-        any_of do
-          with(:on_sale, true)
-        end
-        paginate :page => params[:page], :per_page => 20
-      end
     else
-      @search = Product.search do
-        fulltext psearch_param
-        paginate :page => params[:page], :per_page => 20
+      if search_param == 'on_sale'
+        @search = Product.search do
+          with(:on_sale, true)
+          paginate :page => params[:page], :per_page => 20
+        end
+      else
+        @search = Product.search do
+          fulltext search_param
+          paginate :page => params[:page], :per_page => 20
+        end
       end
       @products = @search.results
     end
