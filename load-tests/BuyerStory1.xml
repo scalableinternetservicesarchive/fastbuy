@@ -68,7 +68,7 @@
 	  <thinktime value="2" random="true"></thinktime>
 	  
       <!-- Add a product to cart  -->
-      <setdynvars sourcetype="random_number" start="0" end="4326">
+      <setdynvars sourcetype="random_number" start="1" end="4327">
         <var name="random_product" />
       </setdynvars>
       <request subst="true">
