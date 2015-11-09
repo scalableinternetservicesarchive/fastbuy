@@ -87,10 +87,10 @@
       <!-- Add product to cart -->
       <request subst="true">
         <http
-          url='/line_items?product_id=%%_random_product%%'
+          url='/line_items?line_item%5Bproduct_id%5D=%%_random_product%%&amp;line_item%5Bquantity%5D=1'
           version='1.1'
           method='POST'
-          contents='product_id=%%_random_product%%&amp;quantity=1&amp;commit=Add+to+Cart'>
+          contents='line_item%5Bproduct_id%5D=%%_random_product%%&amp;line_item%5Bquantity%5D=1'>
         </http>
       </request>
 
