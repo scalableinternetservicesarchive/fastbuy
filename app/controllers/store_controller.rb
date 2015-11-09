@@ -29,3 +29,4 @@ class StoreController < ApplicationController
     render 'index'
   end
 end
+
