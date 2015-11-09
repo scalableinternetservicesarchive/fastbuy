@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
         # related to the line items of this cart
         update_product_count()
 
-        Cart.destroy(@cart.id)
+        @cart.line_items.destroy
         
         OrderNotifier.received(@order).deliver_later(wait: 2.second)
         OrderNotifier.shipped(@order).deliver_later(wait: 4.second)
