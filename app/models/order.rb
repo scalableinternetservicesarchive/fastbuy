@@ -2,7 +2,7 @@ class Order < ActiveRecord::Base
   PAYMENT_TYPES = [ "Check" , "Credit card" , "Purchase order" ]
   has_many :line_items 
   belongs_to :buyer
-  validates :buyer, :name, :address, presence: true
+  validates :buyer, :name, :address, :line_items,  presence: true
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true, length: {maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX }
