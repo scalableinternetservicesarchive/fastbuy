@@ -1,7 +1,7 @@
 class StoreController < ApplicationController
   SORT_TYPE = { "title" => :title, "price" => :price, "quantity" => :quantity, "rating" => :rating}
   include CurrentCart, CurrentSales
-  before_action :set_cart, #:get_sales
+  before_action :set_cart, :get_sales
   
   def index
     search_param = params[:search] ? params[:search].squish : nil
