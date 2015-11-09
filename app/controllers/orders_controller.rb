@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.where(buyer: current_buyer)
   end
 
   # GET /orders/1

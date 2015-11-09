@@ -5,6 +5,7 @@ one:
   address: NewYork
   email: john@site.com
   pay_type: Check
+  buyer: one
 
 two:
   name: David
