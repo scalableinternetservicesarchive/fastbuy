@@ -43,3 +43,4 @@ class SaleProduct < ActiveRecord::Base
     end
   end
 end
+

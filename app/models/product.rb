@@ -1,7 +1,7 @@
 class Product < ActiveRecord::Base
   has_many :line_items
   has_many :orders, through: :line_items
-  has_many :sale_products
+  has_many :sale_products, dependent: :destroy
   belongs_to :seller
   has_attached_file :image, use_timestamp: false
 
@@ -49,3 +49,4 @@ class Product < ActiveRecord::Base
     end
   end
 end
+
