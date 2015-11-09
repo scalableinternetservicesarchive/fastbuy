@@ -2,6 +2,4 @@ sudo yum install -y patch
 sudo yum install -y sqlite-devel
 sudo yum install -y tcl
 . install_redis.sh 
-user_sudo bundle install --without test development || error_exit 'Failed to install bundle'
-rake sunspot:solr:start
 . start_sidekiq.sh
