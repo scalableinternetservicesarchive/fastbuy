@@ -16,12 +16,13 @@ class SaleProductsController < ApplicationController
 
   # GET /sale_products/new
   def new
-    if params[:product_id] 
+    if params[:sale_product]
       product = Product.find(sale_product_params[:product_id])
       if current_seller != product.seller
         redirect_to sale_products_path, notice: "You are not the owner of the sale product."
       else
         @sale_product = SaleProduct.new(sale_product_params)
+        @sale_product.seller = product.seller
       end
     else
       @sale_product = SaleProduct.new

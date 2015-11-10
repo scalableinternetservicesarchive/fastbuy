@@ -13,7 +13,6 @@
   
   <div class="field">
     <%= f.label :product_id %><br>
-    <%= f.hidden_field :seller_id, value: @sale_product.seller_id %>
     <%= f.collection_select :product_id, Product.where(seller: @sale_product.seller), :id, :title, selected: @sale_product.product_id, prompt: true %>
   </div>
   <div class="field">
