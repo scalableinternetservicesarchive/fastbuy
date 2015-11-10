@@ -25,7 +25,7 @@ class SaleProductsController < ApplicationController
         @sale_product.seller = product.seller
       end
     else
-      @sale_product = SaleProduct.new
+      @sale_product = SaleProduct.new({seller: current_seller})
     end
   end
 
