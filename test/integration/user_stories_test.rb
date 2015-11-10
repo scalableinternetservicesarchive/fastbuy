@@ -137,7 +137,7 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
     assert_equal 199.99, product.price
     assert_equal 20, product.quantity
 
-    get "/sale_products/new?product_id=#{product.id}"
+    get "/sale_products/new?sale_product%5Bproduct_id=#{product.id}"
     assert_response :success
     assert_template layout: 'layouts/application'
     assert_template 'sale_products/new'

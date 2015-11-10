@@ -51,9 +51,7 @@ class LineItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_line_item
-      if @cart.class == Hash
-        @line_item = nil
-      else 
+      if @cart.class == Cart
         @line_item = LineItem.find(params[:id])
       end
     end

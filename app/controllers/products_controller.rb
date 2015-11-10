@@ -1,11 +1,12 @@
 class ProductsController < ApplicationController
   include CurrentCart
   before_action :set_cart, only: [:show]
-  before_action :authenticate_seller!, except: [:show] 
+  before_action :authenticate_seller!, except: [:show]
   before_action except: [:show ] do
     sign_out current_buyer if !current_buyer.nil?
   end
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :seller_verification, only: [:edit, :update, :destroy]
 
   # GET /products
   # GET /products.json
@@ -81,23 +82,31 @@ class ProductsController < ApplicationController
   # DELETE /products/1
   # DELETE /products/1.json
   def destroy
-    @product.destroy
-    rescue Exception => msg
-     respond_to do |format|
-       format.html { redirect_to products_url, notice: msg.message }
-       format.json { head :no_content }
-     end
+    begin
+      @product.destroy
+      rescue Exception => msg
+       respond_to do |format|
+         format.html { redirect_to products_url, notice: msg.message }
+         format.json { head :no_content }
+       end
     else 
       respond_to do |format|
         format.html { redirect_to products_url, notice: 'Product was successfully destroyed.' }
         format.json { head :no_content }
       end
+    end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
+    end
+
+    def seller_verification
+      if @product.seller != current_seller
+        redirect_to products_path, notice: 'You are not the owner of the product.'
+      end  
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

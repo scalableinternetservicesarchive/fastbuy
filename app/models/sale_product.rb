@@ -9,9 +9,6 @@ class SaleProduct < ActiveRecord::Base
   validate :start_time_cannot_be_in_the_past, :expiration_time_cannot_be_earlier_than_start_time, :has_not_expired 
   validate :sale_price_cannot_be_greater_than_original_price
 
-  def self.newSale(product)
-    new(seller_id: product.seller.id, product_id: product.id, price: product.price, quantity: product.quantity)
-  end
 
   def start_time_cannot_be_in_the_past
     if started_at.present? && created_at.nil? && started_at < Time.now - 60
