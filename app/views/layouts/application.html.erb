@@ -46,8 +46,41 @@
     <% end %>
   </div>
 </div>
-  <div id="columns">
-    <div id="side">
+<div id="countdown">
+  <script type="application/javascript">
+    var myCountdown = new Countdown({
+      year: (new Date().getFullYear()),
+      month: 12, 
+      day: 25,
+      hour: 4,
+      ampm: "pm",
+      width: 320, 
+      height: 60, 
+      rangeHi: "day",
+      hideLine: 1,
+      numbers: {
+        font: "Arial",
+	color: "#FFFFFF",
+	bkgd: "#ff8f00",
+	rounded: 0.15,
+	shadow: {
+	  x: 0,
+	  y: 3,
+	  s: 4,
+	  c: "#000000",
+	  a: 0.4	
+	}
+      },
+      labels: {
+        font: "Arial",
+        color: "#a8a8a8",
+	weight: "normal"
+      }
+  });
+  </script>
+</div>
+<div id="columns">
+  <div id="side">
 <!-- START_HIGHLIGHT -->
       <!-- START:hidden_div -->
     <% if @cart.class == Cart %>
@@ -61,11 +94,11 @@
     <% end %>
     <!-- END:hidden_div -->
 <!-- END_HIGHLIGHT -->
-    </div>
-    <div id="main">
-      <%= yield %>
-    </div>
   </div>
+  <div id="main">
+    <%= yield %>
+  </div>
+</div>
 </body>
 </html>
 
