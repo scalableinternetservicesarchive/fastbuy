@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery-ui/effect-blind
 //= require jquery_ujs
-//= require turbolinks
 //= require_tree .
 $(function() {
   $(".sort_paginate_ajax").on("click", ".pagination a", function(){

@@ -6,6 +6,7 @@ gem 'rails', '4.2.4'
 gem 'bootstrap-sass', '3.3.5.1'
 gem 'will_paginate', '3.0.7'
 gem 'bootstrap-will_paginate', '0.0.10'
+gem 'turbolinks'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use mysql2 as the database for production. The 0.4 doesn't fit rails 4.2.4 yet.
