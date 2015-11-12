@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<!DOCTYPE tsung SYSTEM "/home/ec2-user/opt/tsung-1.5.0/share/tsung/tsung-1.0.dtd">
+<tsung loglevel="debug" version="1.0">
+  <clients>
+    <client host="localhost" use_controller_vm="true" maxusers="15000"/>
+  </clients>
+
+  <servers>
+    <server host="54.172.170.227" port="80" type="tcp"/>
+  </servers>
+
+
+  <load>
+    <arrivalphase phase="1" duration="30" unit="second">
+      <users arrivalrate="1" unit="second"/>
+    </arrivalphase>
+    <arrivalphase phase="2" duration="30" unit="second">
+      <users arrivalrate="2" unit="second"/>
+    </arrivalphase>
+    <arrivalphase phase="3" duration="30" unit="second">
+      <users arrivalrate="4" unit="second"/>
+    </arrivalphase>
+</load>
+
+  <options>
+    <option name="global_ack_timeout" value="2000"/>
+
+    <option type="ts_http" name="user_agent">
+      <user_agent probability="100">Mozilla/5.0 (Windows; U; Windows NT 5.2; fr-FR; rv:1.7.8) Gecko/20050511 Firefox/1.0.4</user_agent>
+    </option>
+  </options>
+
+  <sessions>
+    <session name="buyer_stories" probability="100" type="ts_http">
+      <request>
+        <http url="/" version="1.1" method="GET"/>
+      </request>
+
+      <thinktime value="2" random="true"/>
+
+      <setdynvars sourcetype="random_number" start="1" end="2088">
+        <var name="first_product_id"/>
+      </setdynvars>
+      <setdynvars sourcetype="random_number" start="1" end="2088">
+        <var name="second_product_id"/>
+      </setdynvars>
+      <setdynvars sourcetype="random_number" start="1" end="2088">
+        <var name="third_product_id"/>
+      </setdynvars>
+
+      <request subst="true">
+        <http url="/line_items?line_item%5Bproduct_id%5D=%%_first_product_id%%&amp;line_item%5Bquantity%5D=1" version="1.1" method="POST" contents="line_item%5Bproduct_id%5D=1&amp;line_item%5Bquantity%5D=1">
+        </http>
+      </request>
+
+      <thinktime value="2" random="true"/>
+
+      <request>
+        <http url="/buyers/sign_in" version="1.1" method="GET"/>
+      </request>
+
+      <thinktime value="2" random="true"/>
+
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="username"/>
+      </setdynvars>
+      <setdynvars sourcetype="random_number" start="1" end="20">
+        <var name="site"/>
+      </setdynvars>
+
+      <request subst="true">
+        <http url="/buyers/sign_in" version="1.1" method="POST" contents="utf8=%E2%9C%93&amp;buyer%5Bemail%5D=%%_username%%%40%%_site%%.com&amp;buyer%5Bpassword%5D=12345678&amp;buyer%5Bremember_me%5D=0&amp;commit=Log+in">
+        </http>
+      </request>
+
+      <thinktime value="2" random="true"/>
+
+      <request subst="true">
+        <http url="/line_items?line_item%5Bproduct_id%5D=%%_second_product_id%%&amp;line_item%5Bquantity%5D=1" version="1.1" method="POST" contents="line_item%5Bproduct_id%5D=1&amp;line_item%5Bquantity%5D=1">
+        </http>
+      </request>
+
+      <thinktime value="2" random="true"/>
+
+      <request subst="true">
+        <http url="/line_items?line_item%5Bproduct_id%5D=%%_third_product_id%%&amp;line_item%5Bquantity%5D=1" version="1.1" method="POST" contents="line_item%5Bproduct_id%5D=1&amp;line_item%5Bquantity%5D=1">
+        </http>
+      </request>
+
+      <thinktime value="2" random="true"/>
+
+      <request>
+        <http url="/orders/new" version="1.1" method="GET"/>
+      </request>
+
+      <thinktime value="2" random="true"/>
+
+      <setdynvars sourcetype="random_string" length="14">
+        <var name="order_name"/>
+      </setdynvars>
+      <setdynvars sourcetype="random_string" length="40">
+        <var name="address"/>
+      </setdynvars>
+      <setdynvars sourcetype="random_string" length="10">
+        <var name="order_username"/>
+      </setdynvars>
+      <setdynvars sourcetype="random_string" length="6">
+        <var name="order_site"/>
+      </setdynvars>
+
+      <request subst="true">
+        <http url="/orders" version="1.1" method="POST" contents="utf8=%E2%9C%93&amp;order%5Bname%5D=%%_name%%&amp;order%5Baddress%5D=%%_address%%&amp;order%5Bemail%5D=%%_order_username%%%40%%_order_username%%.com&amp;order%5Bpay_type%5D=Check&amp;commit=Place+Order">
+        </http>
+      </request>
+
+      <thinktime value="2" random="true"/>
+
+    </session>
+
+  </sessions>
+</tsung>
