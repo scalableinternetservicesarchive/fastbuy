@@ -3,3 +3,4 @@ sleep 10
 rake db:seed
 rake sunspot:solr:reindex
 . start_sidekiq.sh
+
