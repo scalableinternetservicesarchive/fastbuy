@@ -34,11 +34,14 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    fresh_when([@product, @product.sale_products, current_seller])
   end
 
   # GET /products/new
   def new
-    @product = Product.new
+    if stale?(current_seller)
+      @product = Product.new
+    end
   end
 
   # GET /products/1/edit
