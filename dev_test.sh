@@ -8,3 +8,4 @@ else
   rake sunspot:solr:start RAILS_ENV=test 
 fi
 rake test RAILS_ENV=test
+

@@ -73,8 +73,11 @@ gem 'tzinfo-data'
 # Used for AWS. Comment it under Windows
 # gem 'therubyracer'
 
-gem 'sidekiq'
-
 # Used for file attachment
 # sudo yum install ImageMagick
 gem "paperclip", "~> 4.3"
+
+gem 'daemons'
+
+gem 'delayed_job_active_record'
+

@@ -4,6 +4,7 @@ fi
 if ps -ef | grep solr | grep -q test; then
   rake sunspot:solr:stop RAILS_ENV=test
 fi
-if ps -ef | grep redis | grep -q server; then
-  . shutdown_sidekiq.sh
+if ps -ef | grep delayed | grep -q job; then
+  RAILS_ENV=development bin/delayed_job stop
 fi
+
