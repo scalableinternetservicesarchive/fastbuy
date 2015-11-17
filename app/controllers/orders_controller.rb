@@ -47,7 +47,7 @@ class OrdersController < ApplicationController
         @cart.line_items.destroy
         
         OrderNotifier.received(@order).deliver_later(wait: 2.second)
-        OrderNotifier.shipped(@order).deliver_later(wait: 4.second)
+        OrderNotifier.shipped(@order).deliver_later(wait: 8.second)
 
         format.html { redirect_to store_url, notice: 
           'Thank you for your order.' }

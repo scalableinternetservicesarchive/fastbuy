@@ -2,3 +2,5 @@ rake sunspot:solr:start
 sleep 10
 rake db:seed
 rake sunspot:solr:reindex
+bin/delayed_job -n 2 start
+
