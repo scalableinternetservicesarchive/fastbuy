@@ -73,10 +73,10 @@ if inserts.length != 0
   sql = "INSERT INTO products (title, description, image_url, price, rating, quantity, seller_id, created_at, updated_at) VALUES #{inserts.join(", ")}"
   Product.connection.execute sql
 end
-SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at) VALUES (#{Product.first.id}, 20, 1.5, '#{Date.today}', '#{Date.today + 10000}', '#{Date.today}', '#{Date.today}')"
-SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at) VALUES (#{Product.second.id}, 12, 3.5, '#{Date.today}', '#{Date.today + 100000}', '#{Date.today}', '#{Date.today}')"
-SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at) VALUES (#{Product.third.id}, 15, 5.5, '#{Date.today}', '#{Date.today + 100000}', '#{Date.today}', '#{Date.today}')"
-SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at) VALUES (#{Product.fifth.id}, 18, 4.5, '#{Date.today}', '#{Date.today + 100000}', '#{Date.today}', '#{Date.today}')"
+SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at, seller_id) VALUES (#{Product.first.id}, 20, 1.5, '#{Date.today}', '#{Date.today + 10000}', '#{Date.today}', '#{Date.today}', 1)"
+SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at, seller_id) VALUES (#{Product.second.id}, 12, 3.5, '#{Date.today}', '#{Date.today + 100000}', '#{Date.today}', '#{Date.today}', 1)"
+SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at, seller_id) VALUES (#{Product.third.id}, 15, 5.5, '#{Date.today}', '#{Date.today + 100000}', '#{Date.today}', '#{Date.today}', 1)"
+SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at, seller_id) VALUES (#{Product.fifth.id}, 18, 4.5, '#{Date.today}', '#{Date.today + 100000}', '#{Date.today}', '#{Date.today}', 1)"
 
 end_time = Time.now
 elapse = (end_time - start_time)
