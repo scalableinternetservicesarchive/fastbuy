@@ -1,6 +1,4 @@
 sudo yum install -y patch
 sudo yum install -y sqlite-devel
-sudo yum install -y tcl
 sudo yum install -y ImageMagick
-. install_redis.sh 
-. start_sidekiq.sh
+
