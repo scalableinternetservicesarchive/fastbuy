@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151106021407) do
+ActiveRecord::Schema.define(version: 20151113193516) do
 
   create_table "buyers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -27,6 +27,8 @@ ActiveRecord::Schema.define(version: 20151106021407) do
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.integer  "cart_id"
+    t.string   "name"
+    t.string   "address"
   end
 
   add_index "buyers", ["cart_id"], name: "index_buyers_on_cart_id"
@@ -41,34 +43,56 @@ ActiveRecord::Schema.define(version: 20151106021407) do
 
   add_index "carts", ["buyer_id"], name: "index_carts_on_buyer_id"
 
-  create_table "line_items", force: :cascade do |t|
-    t.integer  "product_id"
-    t.integer  "cart_id"
-    t.datetime "created_at",                                     null: false
-    t.datetime "updated_at",                                     null: false
-    t.integer  "quantity",                           default: 1
-    t.integer  "order_id"
-    t.decimal  "price",      precision: 8, scale: 2
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
+  add_index "delayed_jobs", ["priority", "run_at"], name: "delayed_jobs_priority"
+
+  create_table "line_items", force: :cascade do |t|
+    t.decimal  "price",      precision: 8, scale: 2, null: false
+    t.integer  "quantity",                           null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "order_id"
+    t.integer  "product_id"
+    t.integer  "cart_id"
+  end
+
+  add_index "line_items", ["cart_id"], name: "index_line_items_on_cart_id"
   add_index "line_items", ["order_id"], name: "index_line_items_on_order_id"
+  add_index "line_items", ["product_id"], name: "index_line_items_on_product_id"
 
   create_table "orders", force: :cascade do |t|
     t.string   "name"
     t.text     "address"
     t.string   "email"
     t.string   "pay_type"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+    t.integer  "buyer_id"
+    t.decimal  "total",      precision: 15, scale: 2, default: 0.0
   end
 
+  add_index "orders", ["buyer_id"], name: "index_orders_on_buyer_id"
+
   create_table "products", force: :cascade do |t|
-    t.string   "title"
-    t.text     "description"
+    t.string   "title",                                                      null: false
+    t.text     "description",                                                null: false
     t.string   "image_url"
-    t.decimal  "price",              precision: 8, scale: 2
-    t.decimal  "rating",             precision: 2, scale: 1
-    t.integer  "quantity"
+    t.decimal  "price",              precision: 8, scale: 2,                 null: false
+    t.decimal  "rating",             precision: 2, scale: 1, default: 0.0
+    t.integer  "quantity",                                                   null: false
     t.datetime "created_at",                                                 null: false
     t.datetime "updated_at",                                                 null: false
     t.boolean  "on_sale",                                    default: false
@@ -79,19 +103,22 @@ ActiveRecord::Schema.define(version: 20151106021407) do
     t.datetime "image_updated_at"
   end
 
+  add_index "products", ["on_sale"], name: "index_products_on_on_sale"
   add_index "products", ["seller_id"], name: "index_products_on_seller_id"
 
   create_table "sale_products", force: :cascade do |t|
-    t.decimal  "price",      precision: 8, scale: 2
-    t.integer  "quantity"
-    t.datetime "started_at"
-    t.datetime "expired_at"
+    t.decimal  "price",      precision: 8, scale: 2, null: false
+    t.integer  "quantity",                           null: false
+    t.datetime "started_at",                         null: false
+    t.datetime "expired_at",                         null: false
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
     t.integer  "product_id"
+    t.integer  "seller_id"
   end
 
   add_index "sale_products", ["product_id"], name: "index_sale_products_on_product_id"
+  add_index "sale_products", ["seller_id"], name: "index_sale_products_on_seller_id"
 
   create_table "sellers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

@@ -10,10 +10,10 @@
       </ul>
     </div>
   <% end %>
-
+  
   <div class="field">
     <%= f.label :product_id %><br>
-    <%= f.collection_select :product_id, Product.order(:title),:id,:title, selected: @sale_product.product_id, prompt: true %>
+    <%= f.collection_select :product_id, Product.where(seller: @sale_product.seller), :id, :title, selected: @sale_product.product_id, prompt: true %>
   </div>
   <div class="field">
     <%= f.label :price %><br>

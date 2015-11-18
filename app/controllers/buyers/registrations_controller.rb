@@ -8,13 +8,9 @@ class Buyers::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  def create    
-    super do
-      cart = resource.create_cart
-      resource.cart_id = cart.id
-      resource.save
-    end
-  end
+  # def create    
+  #  super 
+  # end
 
   # GET /resource/edit
   # def edit
@@ -44,12 +40,12 @@ class Buyers::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
-  #   devise_parameter_sanitizer.for(:sign_up) << :attribute
+  #   devise_parameter_sanitizer.for(:sign_up) << :name, :address
   # end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
-  #   devise_parameter_sanitizer.for(:account_update) << :attribute
+  #   devise_parameter_sanitizer.for(:account_update) << :name, :address
   # end
 
   # The path used after sign up.

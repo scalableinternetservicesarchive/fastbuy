@@ -25,9 +25,9 @@
     <td><%= quantity.to_i %>&times;</td>
     <td><%= product.title %></td>
     <td class="item_price"><%= number_to_currency(item_total_price) %></td>
-    <td><%= button_to '+', line_item_path(product.id), method: :put, params: { product_id: product.id, quantity: 1, price: price }, remote: true %><td/>
-      <td><%= button_to '-', line_item_path(product.id), method: :put, params: { product_id: product.id, quantity: -1,price: price }, remote: true %><td/>
-    <td><%= button_to 'Remove item', line_item_path(product.id), method: :delete, params: { product_id: product.id }, data: { confirm: 'Are you sure?' } %></td> 
+    <td><%= button_to '+', line_items_path(line_item: {product_id: product.id, quantity: 1} ), method: :post, remote: true %><td/>
+      <td><%= button_to '-',line_items_path(line_item: {product_id: product.id, quantity: -1} ), method: :post, remote: true %><td/>
+    <td><%= button_to 'Remove item', line_item_path(product.id, line_item: {product_id: product.id} ), method: :delete, data: { confirm: 'Are you sure?' } %></td> 
     <% total_price += item_total_price %>
   <% end %> 
   <tr class="total_line">

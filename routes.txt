@@ -1,4 +1,15 @@
                     Prefix Verb   URI Pattern                       Controller#Action
+               store_index GET    /store/index(.:format)            store#index
+                store_sort GET    /store/sort(.:format)             store#sort
+                   contact GET    /contact(.:format)                navigation#contact
+                  products GET    /products(.:format)               products#index
+                           POST   /products(.:format)               products#create
+               new_product GET    /products/new(.:format)           products#new
+              edit_product GET    /products/:id/edit(.:format)      products#edit
+                   product GET    /products/:id(.:format)           products#show
+                           PATCH  /products/:id(.:format)           products#update
+                           PUT    /products/:id(.:format)           products#update
+                           DELETE /products/:id(.:format)           products#destroy
              sale_products GET    /sale_products(.:format)          sale_products#index
                            POST   /sale_products(.:format)          sale_products#create
           new_sale_product GET    /sale_products/new(.:format)      sale_products#new
@@ -7,12 +18,10 @@
                            PATCH  /sale_products/:id(.:format)      sale_products#update
                            PUT    /sale_products/:id(.:format)      sale_products#update
                            DELETE /sale_products/:id(.:format)      sale_products#destroy
-          navigation_store GET    /navigation/store(.:format)       navigation#store
-          navigation_sales GET    /navigation/sales(.:format)       navigation#sales
-           navigation_cart GET    /navigation/cart(.:format)        navigation#cart
-          navigation_buyer GET    /navigation/buyer(.:format)       navigation#buyer
-         navigation_seller GET    /navigation/seller(.:format)      navigation#seller
-        navigation_contact GET    /navigation/contact(.:format)     navigation#contact
+                line_items POST   /line_items(.:format)             line_items#create
+                 line_item DELETE /line_items/:id(.:format)         line_items#destroy
+                      cart GET    /carts/:id(.:format)              carts#show
+                           DELETE /carts/:id(.:format)              carts#destroy
          new_buyer_session GET    /buyers/sign_in(.:format)         buyers/sessions#new
              buyer_session POST   /buyers/sign_in(.:format)         buyers/sessions#create
      destroy_buyer_session DELETE /buyers/sign_out(.:format)        buyers/sessions#destroy
@@ -28,6 +37,8 @@
                            PATCH  /buyers(.:format)                 buyers/registrations#update
                            PUT    /buyers(.:format)                 buyers/registrations#update
                            DELETE /buyers(.:format)                 buyers/registrations#destroy
+                     buyer GET    /buyers/show(.:format)            buyers/sessions#show
+                           GET    /buyer(.:format)                  buyers/sessions#show
         new_seller_session GET    /sellers/sign_in(.:format)        sellers/sessions#new
             seller_session POST   /sellers/sign_in(.:format)        sellers/sessions#create
     destroy_seller_session DELETE /sellers/sign_out(.:format)       sellers/sessions#destroy
@@ -51,30 +62,4 @@ cancel_seller_registration GET    /sellers/cancel(.:format)         sellers/regi
                            PATCH  /orders/:id(.:format)             orders#update
                            PUT    /orders/:id(.:format)             orders#update
                            DELETE /orders/:id(.:format)             orders#destroy
-                line_items GET    /line_items(.:format)             line_items#index
-                           POST   /line_items(.:format)             line_items#create
-             new_line_item GET    /line_items/new(.:format)         line_items#new
-            edit_line_item GET    /line_items/:id/edit(.:format)    line_items#edit
-                 line_item GET    /line_items/:id(.:format)         line_items#show
-                           PATCH  /line_items/:id(.:format)         line_items#update
-                           PUT    /line_items/:id(.:format)         line_items#update
-                           DELETE /line_items/:id(.:format)         line_items#destroy
-                     carts GET    /carts(.:format)                  carts#index
-                           POST   /carts(.:format)                  carts#create
-                  new_cart GET    /carts/new(.:format)              carts#new
-                 edit_cart GET    /carts/:id/edit(.:format)         carts#edit
-                      cart GET    /carts/:id(.:format)              carts#show
-                           PATCH  /carts/:id(.:format)              carts#update
-                           PUT    /carts/:id(.:format)              carts#update
-                           DELETE /carts/:id(.:format)              carts#destroy
-                  products GET    /products(.:format)               products#index
-                           POST   /products(.:format)               products#create
-               new_product GET    /products/new(.:format)           products#new
-              edit_product GET    /products/:id/edit(.:format)      products#edit
-                   product GET    /products/:id(.:format)           products#show
-                           PATCH  /products/:id(.:format)           products#update
-                           PUT    /products/:id(.:format)           products#update
-                           DELETE /products/:id(.:format)           products#destroy
-               store_index GET    /store/index(.:format)            store#index
-                store_sort GET    /store/sort(.:format)             store#sort
                      store GET    /                                 store#index

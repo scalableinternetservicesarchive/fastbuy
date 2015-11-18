@@ -1,8 +1,14 @@
 class Product < ActiveRecord::Base
+  has_many :line_items
+  has_many :orders, through: :line_items
+  has_many :sale_products, dependent: :destroy
   belongs_to :seller
   has_attached_file :image, use_timestamp: false
+
+  before_destroy :ensure_not_referenced_by_any_line_item
+
   # Validation restrictions
-  validates :title, :description, :image_url, :quantity, :seller_id, presence: true
+  validates :title, :description, :image_url, :quantity, :seller, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 0.01}
   validates :rating, allow_blank: true, numericality: {greater_than_or_equal_to: 0.0, less_than_or_equal_to: 5.0}
   validates :quantity, numericality: {greater_than_or_equal_to: 0}
@@ -11,6 +17,7 @@ class Product < ActiveRecord::Base
     message: 'must be a URL for GIF, JPG or PNG image.'
   }
   validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
+
   # Solr Search
   searchable do
     text :title, :as => :title_textp
@@ -25,21 +32,9 @@ class Product < ActiveRecord::Base
     end
   end
 
-  # Link with line_item table
-  has_many :line_items
-  has_many :orders, through: :line_items
-  has_many :sale_products
-  before_destroy :ensure_not_referenced_by_any_line_item
-  
-  after_initialize :init
-
-    def init
-      self.rating ||= 0.0           #will set the default value only if it's nil
-    end
-
-    def self.latest
-        Product.order(:updated_at).last
-    end
+  def self.latest
+      Product.order(:updated_at).last
+  end
 
   private
   # ensure that there are no line items referencing this product
@@ -49,7 +44,9 @@ class Product < ActiveRecord::Base
     else
       errors.add(:base, 'Line Items present')
       logger.error "Line Items Present, Destroy it First"
+      raise "Cannot Destroy the product. References of product #{title} exists!"
       return false
     end
   end
 end
+

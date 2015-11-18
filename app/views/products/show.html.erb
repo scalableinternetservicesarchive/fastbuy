@@ -12,50 +12,45 @@
 </div>
 
 <div id='product_image'>
-  <%= image_tag(@product.image_url) %>
+  <%= link_to image_tag(@product.image_url),@product.image_url %>
 </div>
 
 <br></br>
 
 <div class="price_line">
-<span id='product_price'>
-<% if @product.on_sale == false %>
-  <strong>Price:</strong>
-  <%= number_to_currency(@product.price) %>
-<% else %>
-  <strong>Price:</strong>
-  <s><%= number_to_currency(@product.price) %></s>
-  <span class='sale_price'><%= number_to_currency(@product.sale_products.first.price) %></span>
-<% end %>
-</span>
-
-<span id= 'product_quantity'>
-<% if @product.on_sale == false %>  
-  <strong>Quantity:</strong>
-  <%= @product.quantity %>
-<% else %>
-   <strong>Quantity:</strong>
-   <%= @product.sale_products.first.quantity %>
-<% end %>
-</span>
-
-<span id='product_rating'>
-  <strong>Rating:</strong>
-  <%= @product.rating %>
-</span>
-
-<span id='add_button'>
-<% if @product.on_sale == false %>
-  <%= form_tag line_items_path(product_id: @product, price: @product.price), remote: true, class: "product_button" do %>
-    <%= number_field_tag(:quantity, 1, in: 1..@product.quantity) %>
-    <%= submit_tag("Add to Cart") %>
-  <% end %>
-<% else %>
-  <%= form_tag line_items_path(product_id: @product, price: @product.sale_products.first.price), remote: true, class: "product_button" do %>
-    <%= number_field_tag(:quantity, 1, in: 1..@product.quantity) %>
-    <%= submit_tag("Add to Cart") %>
-  <% end %>
-<% end %>
-</span>
+  <span id='product_price'>
+    <% if @product.on_sale == false %>
+      <strong>Price:</strong>
+      <%= number_to_currency(@product.price) %>
+    <% else %>
+      <strong>Price:</strong>
+      <s><%= number_to_currency(@product.price) %></s>
+      <span class='sale_price'><%= number_to_currency(@product.sale_products.first.price) %></span>
+    <% end %>
+  </span>
+  
+  <span id= 'product_quantity'>
+    <% if @product.on_sale == false %>  
+      <strong>Quantity:</strong>
+      <%= @product.quantity %>
+    <% else %>
+       <strong>Quantity:</strong>
+       <%= @product.sale_products.first.quantity %>
+    <% end %>
+  </span>
+  
+  <span id='product_rating'>
+    <strong>Rating:</strong>
+    <%= @product.rating %>
+  </span>
+  
+  <span id='add_button'>
+    <% available_quantity = @product.on_sale ? @product.sale_products.first.quantity : @product.quantity %>
+    <%= form_tag line_items_path, remote: true, class: "product_button" do %>
+      <%= hidden_field_tag "line_item[product_id]", @product.id %>
+      <%= number_field_tag("line_item[quantity]", 1, in: 1..available_quantity) %>
+      <%= submit_tag("Add to Cart") %>
+    <% end %>
+  </span>
 </div>
 

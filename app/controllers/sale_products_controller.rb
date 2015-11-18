@@ -1,12 +1,12 @@
 class SaleProductsController < ApplicationController
-  before_action :authenticate_seller!, except: [:index]
-  before_action :set_sale_product, only: [:show, :edit, :update, :destroy]
-  before_action :set_product, only: [:new]
+  before_action :authenticate_seller!
+  before_action :set_sale_product, except: [:index, :new, :create]
+  before_action :seller_verification, except: [:index, :new, :create]
 
   # GET /sale_products
   # GET /sale_products.json
   def index
-    @sale_products = SaleProduct.all
+    @sale_products = SaleProduct.where(seller: current_seller)
   end
 
   # GET /sale_products/1
@@ -16,7 +16,17 @@ class SaleProductsController < ApplicationController
 
   # GET /sale_products/new
   def new
-    @sale_product = @product.nil? ? SaleProduct.new() : SaleProduct.newSale(@product)
+    if params[:sale_product]
+      product = Product.find(sale_product_params[:product_id])
+      if current_seller != product.seller
+        redirect_to sale_products_path, notice: "You are not the owner of the sale product."
+      else
+        @sale_product = SaleProduct.new(sale_product_params)
+        @sale_product.seller = product.seller
+      end
+    else
+      @sale_product = SaleProduct.new({seller: current_seller})
+    end
   end
 
   # GET /sale_products/1/edit
@@ -26,14 +36,27 @@ class SaleProductsController < ApplicationController
   # POST /sale_products
   # POST /sale_products.json
   def create
-    @sale_product = SaleProduct.new(sale_product_params)
-    respond_to do |format|
-      if @sale_product.save
-        format.html { redirect_to @sale_product, notice: 'Sale product was successfully created.' }
-        format.json { render :show, status: :created, location: @sale_product }
+    if product = Product.find_by_id(sale_product_params[:product_id])
+      if current_seller != product.seller
+        redirect_to sale_products_path, notice: "You are not the owner of the product."
       else
-        puts "@@@@@@@@@@@Create Failed@@@@@@@@@@@"
-        format.html { render :new }
+        @sale_product = SaleProduct.new(sale_product_params)
+        @sale_product.seller = product.seller
+        @sale_product.product.on_sale = true
+        respond_to do |format|
+          if @sale_product.save
+             @sale_product.product.save
+            format.html { redirect_to @sale_product, notice: 'Sale product was successfully created.' }
+            format.json { render :show, status: :created, location: @sale_product }
+          else
+            format.html { render :new, notice: 'Sale product is invalid!' }
+            format.json { render json: @sale_product.errors, status: :unprocessable_entity }
+          end
+        end
+      end
+    else
+      respond_to do |format|
+        format.html { render :new, notice: 'Product does not exist!' }
         format.json { render json: @sale_product.errors, status: :unprocessable_entity }
       end
     end
@@ -69,14 +92,11 @@ class SaleProductsController < ApplicationController
       @sale_product = SaleProduct.find(params[:id])
     end
 
-    def set_product
-      if params[:product_id] == nil
-        @product = nil
-      else
-        @product = Product.find(params[:product_id])
+    def seller_verification
+      if current_seller != @sale_product.seller
+        redirect_to sale_products_path, notice: "You are not the owner of the sale product."
       end
     end
-
     # Never trust parameters from the scary internet, only allow the white list through.
     def sale_product_params
       params.require(:sale_product).permit(:product_id, :price, :quantity, :started_at, :expired_at)

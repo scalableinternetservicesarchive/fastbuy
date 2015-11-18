@@ -1,6 +1,6 @@
 rake sunspot:solr:start
-rake db:migrate
+sleep 10
 rake db:seed
 rake sunspot:solr:reindex
-bash start_sidekiq.sh
+bin/delayed_job -n 2 start
 

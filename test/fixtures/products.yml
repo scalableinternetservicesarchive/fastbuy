@@ -4,7 +4,7 @@ one:
   title: Product1
   description: This is product 1.
   image_url: product1.jpg
-  price: 9.99
+  price: 29.99
   rating: 3.9
   quantity: 51
   on_sale: false
@@ -14,7 +14,7 @@ two:
   title: Product2
   description: This is product 2.
   image_url: product2.jpg
-  price: 9.99
+  price: 39.99
   rating: 4.4
   quantity: 41
   on_sale: false
@@ -28,7 +28,7 @@ three:
     delivered fast, you should add Ruby to your toolbox.
   price: 49.50
   image_url: product3.jpg
-  rating: 9.9
+  rating: 3.9
   quantity: 5
   on_sale: false
   seller: three

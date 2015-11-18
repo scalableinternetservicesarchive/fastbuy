@@ -1,0 +1,50 @@
+[11/Nov/2015:05:32:50 -0000] access to /assets/ico/favicon.ico failed for 0:0:0:0:0:FFFF:A9E7:1BB7, reason: 
+"httpd_file: Can't access /home/ec2-user/.tsung/log/20151111-0529/assets/ico/favicon.ico: File not found"
+[11/Nov/2015:05:32:59 -0000] access to /es/images/graphes-Transactions-mean_tn.png failed for 0:0:0:0:0:FFFF:A9E7:1BB7, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-Transactions-mean_tn.png"
+[11/Nov/2015:05:32:59 -0000] access to /es/images/graphes-Perfs-mean_tn.png failed for 0:0:0:0:0:FFFF:A9E7:1BB7, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-Perfs-mean_tn.png"
+[11/Nov/2015:05:32:59 -0000] access to /es/images/graphes-Perfs-rate_tn.png failed for 0:0:0:0:0:FFFF:A9E7:1BB7, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-Perfs-rate_tn.png"
+[11/Nov/2015:05:32:59 -0000] access to /es/images/graphes-Size-rate_tn.png failed for 0:0:0:0:0:FFFF:A9E7:1BB7, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-Size-rate_tn.png"
+[11/Nov/2015:05:32:59 -0000] access to /es/images/graphes-Transactions-rate_tn.png failed for 0:0:0:0:0:FFFF:A9E7:1BB7, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-Transactions-rate_tn.png"
+[11/Nov/2015:05:32:59 -0000] access to /es/images/graphes-Users_Arrival-rate_tn.png failed for 0:0:0:0:0:FFFF:A9E7:1BB7, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-Users_Arrival-rate_tn.png"
+[11/Nov/2015:05:33:00 -0000] access to /es/images/graphes-Users-simultaneous_tn.png failed for 0:0:0:0:0:FFFF:A9E7:1BB7, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-Users-simultaneous_tn.png"
+[11/Nov/2015:05:33:00 -0000] access to /es/images/graphes-cpu-mean_tn.png failed for 0:0:0:0:0:FFFF:A9E7:1BB7, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-cpu-mean_tn.png"
+[11/Nov/2015:05:33:00 -0000] access to /es/images/graphes-load-mean_tn.png failed for 0:0:0:0:0:FFFF:A9E7:1BB7, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-load-mean_tn.png"
+[11/Nov/2015:05:33:00 -0000] access to /es/images/graphes-freemem-mean_tn.png failed for 0:0:0:0:0:FFFF:A9E7:1BB7, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-freemem-mean_tn.png"
+[11/Nov/2015:05:33:00 -0000] access to /es/images/graphes-HTTP_CODE-rate_tn.png failed for 0:0:0:0:0:FFFF:A9E7:1BB7, reason: 
+"mod_esi: Client not authorized to evaluate: images/graphes-HTTP_CODE-rate_tn.png"
+[11/Nov/2015:05:37:21 -0000] access to /assets/ico/favicon.ico failed for 0:0:0:0:0:FFFF:A9E7:439, reason: 
+"httpd_file: Can't access /home/ec2-user/.tsung/log/20151111-0529/assets/ico/favicon.ico: File not found"
+[11/Nov/2015:05:37:25 -0000] access to /icons/image2.gif failed for 0:0:0:0:0:FFFF:A9E7:439, reason: 
+"httpd_file: Can't access /home/ec2-user/.tsung/log/20151111-0529/icons/image2.gif: File not found"
+[11/Nov/2015:05:37:25 -0000] access to /icons/blank.gif failed for 0:0:0:0:0:FFFF:A9E7:439, reason: 
+"httpd_file: Can't access /home/ec2-user/.tsung/log/20151111-0529/icons/blank.gif: File not found"
+[11/Nov/2015:05:37:25 -0000] access to /favicon.ico failed for 0:0:0:0:0:FFFF:A9E7:439, reason: 
+"httpd_file: Can't access /home/ec2-user/.tsung/log/20151111-0529/favicon.ico: File not found"
+[11/Nov/2015:05:40:04 -0000] server crash for 0:0:0:0:0:FFFF:A9E7:439, reason: 
+"Error reading request: No request received on keep-alive connection before server side timeout"
+
+[11/Nov/2015:05:43:38 -0000] server crash for 0:0:0:0:0:FFFF:A9E7:439, reason: 
+"Error reading request: No request received on keep-alive connection before server side timeout"
+
+[11/Nov/2015:05:43:38 -0000] server crash for 0:0:0:0:0:FFFF:A9E7:439, reason: 
+"Error reading request: No request received on keep-alive connection before server side timeout"
+
+[11/Nov/2015:05:43:38 -0000] server crash for 0:0:0:0:0:FFFF:A9E7:439, reason: 
+"Error reading request: No request received on keep-alive connection before server side timeout"
+
+[11/Nov/2015:05:43:38 -0000] server crash for 0:0:0:0:0:FFFF:A9E7:439, reason: 
+"Error reading request: No request received on keep-alive connection before server side timeout"
+
+[11/Nov/2015:05:43:38 -0000] server crash for 0:0:0:0:0:FFFF:A9E7:439, reason: 
+"Error reading request: No request received on keep-alive connection before server side timeout"
+
