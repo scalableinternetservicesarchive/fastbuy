@@ -4,8 +4,8 @@ class CartsController < ApplicationController
   
   # GET /cart
   def show
-   if stale?([@cart, LineItem.all, current_seller, current_buyer])
-    if @cart.class == Hash
+   if stale?([@cart, current_seller, current_buyer])
+     if @cart.class == Hash
       render "carts/_cart" 
     end
    end
