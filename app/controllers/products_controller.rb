@@ -34,7 +34,7 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
-    fresh_when([@product, current_seller, current_buyer, @cart])
+    fresh_when([@product, @cart, @cart.class == Cart ? @cart.line_items : nil, current_seller, current_buyer])
   end
 
   # GET /products/new

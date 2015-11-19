@@ -4,9 +4,9 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 gem 'bootstrap-sass', '3.3.5.1'
+# Use for pageinage
 gem 'will_paginate', '3.0.7'
 gem 'bootstrap-will_paginate', '0.0.10'
-gem 'turbolinks'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use mysql2 as the database for production. The 0.4 doesn't fit rails 4.2.4 yet.
@@ -76,8 +76,6 @@ gem 'tzinfo-data'
 # Used for file attachment
 # sudo yum install ImageMagick
 gem "paperclip", "~> 4.3"
-
+# Used for delayed job
 gem 'daemons'
-
 gem 'delayed_job_active_record'
-
