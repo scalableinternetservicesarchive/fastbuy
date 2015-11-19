@@ -1,5 +1,7 @@
+<% cache(cache_key_for_products) do %>
 <table class="products_table">
 <% @products.each do |product| %>
+  <% cache(cache_key_for_product(product)) do %>
   <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
 
     <td>
@@ -22,6 +24,7 @@
                   data: { confirm: 'Are you sure?' } %>
     </td>
   </tr>
+ <% end %>
 <% end %>
 </table>
 
@@ -29,3 +32,4 @@
 
 <%= link_to 'New product', new_product_path %>
 <div class="flickr_pagination"><%= will_paginate @products %><div>
+<% end %>
