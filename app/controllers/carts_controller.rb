@@ -4,9 +4,11 @@ class CartsController < ApplicationController
   
   # GET /cart
   def show
-    if @cart.class == Hash
+   if stale?([@cart, current_seller, current_buyer])
+     if @cart.class == Hash
       render "carts/_cart" 
     end
+   end
   end
 
   # DELETE /carts/1
