@@ -4,8 +4,10 @@ class CartsController < ApplicationController
   
   # GET /cart
   def show
-    if @cart.class == Hash
-      render "carts/_cart" 
+    if stale?(@cart)
+      if @cart.class == Hash
+        render "carts/_cart" 
+      end
     end
   end
 

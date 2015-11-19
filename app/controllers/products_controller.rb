@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     if params[:search] == nil
-        @products = current_seller.products.paginate(page: params[:page], per_page: 20)
+        @products = current_seller.products.paginate(page: params[:page], per_page: 20) if stale?([current_seller.products.paginate(page: params[:page], per_page: 20), current_seller])
     else
       if params[:search] == 'on_sale'
         @search = Product.search(include: [:sale_products]) do
@@ -27,13 +27,14 @@ class ProductsController < ApplicationController
           paginate page: params[:page], per_page: 20
         end
       end
-      @products = @search.results
+      @products = @search.results if stale?([@search, current_seller])
     end
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
+    fresh_when(@product)
   end
 
   # GET /products/new

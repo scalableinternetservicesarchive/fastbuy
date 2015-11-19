@@ -6,7 +6,7 @@ class StoreController < ApplicationController
   def index
     search_param = params[:search] ? params[:search].squish : nil
     if search_param == nil
-      @products = Product.paginate(page:params[:page], per_page:20)   
+      @products = Product.includes(:sale_products).paginate(page:params[:page], per_page:20) if stale?([Product.includes(:sale_products).paginate(page:params[:page], per_page:20), current_seller, current_buyer])
      else
       if search_param == 'on_sale'
         @search = Product.search(include: [:sale_products]) do
@@ -19,14 +19,16 @@ class StoreController < ApplicationController
           paginate :page => params[:page], :per_page => 20
         end
       end
-      @products = @search.results
+      @products = @search.results if stale?([current_seller, current_buyer])
     end
   end
   
   def sort
     sort_type = SORT_TYPE[params[:sort]]
-    @products = Product.order(sort_type).paginate(page:params[:page], per_page:20)
-    render 'index'
+    if stale?(Product.order(sort_type).paginate(page:params[:page], per_page:20)) 
+      @products = Product.order(sort_type).paginate(page:params[:page], per_page:20)
+      render 'index'
+    end
   end
 end
 
