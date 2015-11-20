@@ -12,31 +12,31 @@ set xlabel "time (sec of the running test)"
 set ylabel "cpu"
 show title
 set key left top
-plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-176.txt" using  1:2 title "cpu@tsung_controller@ip-172-30-3-176" ls 1
+plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-237.txt" using  1:2 title "cpu@tsung_controller@ip-172-30-3-237" ls 1
 set output "images/graphes-cpu-mean.png"
 set title " mean"
 set xlabel "time (sec of the running test)"
 show title
 set key left top
-plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-176.txt" using  1:3 title "cpu@tsung_controller@ip-172-30-3-176" ls 1
+plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-237.txt" using  1:3 title "cpu@tsung_controller@ip-172-30-3-237" ls 1
 set output "images/graphes-cpu-stddev.png"
 set title " stddev"
 set xlabel "time (sec of the running test)"
 show title
 set key left top
-plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-176.txt" using  1:4 title "cpu@tsung_controller@ip-172-30-3-176" ls 1
+plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-237.txt" using  1:4 title "cpu@tsung_controller@ip-172-30-3-237" ls 1
 set output "images/graphes-cpu-max_sample.png"
 set title " max_sample"
 set xlabel "time (sec of the running test)"
 show title
 set key left top
-plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-176.txt" using  1:5 title "cpu@tsung_controller@ip-172-30-3-176" ls 1
+plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-237.txt" using  1:5 title "cpu@tsung_controller@ip-172-30-3-237" ls 1
 set output "images/graphes-cpu-min_sample.png"
 set title " min_sample"
 set xlabel "time (sec of the running test)"
 show title
 set key left top
-plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-176.txt" using  1:6 title "cpu@tsung_controller@ip-172-30-3-176" ls 1
+plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-237.txt" using  1:6 title "cpu@tsung_controller@ip-172-30-3-237" ls 1
 set style data  linespoint
 set terminal png  tiny size 320,240
 set grid
@@ -51,28 +51,28 @@ set xlabel "time (sec of the running test)"
 set ylabel "cpu"
 show title
 set key left top
-plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-176.txt" using  1:2 title "cpu@tsung_controller@ip-172-30-3-176" ls 1
+plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-237.txt" using  1:2 title "cpu@tsung_controller@ip-172-30-3-237" ls 1
 set output "images/graphes-cpu-mean_tn.png"
 set title " mean"
 set xlabel "time (sec of the running test)"
 show title
 set key left top
-plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-176.txt" using  1:3 title "cpu@tsung_controller@ip-172-30-3-176" ls 1
+plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-237.txt" using  1:3 title "cpu@tsung_controller@ip-172-30-3-237" ls 1
 set output "images/graphes-cpu-stddev_tn.png"
 set title " stddev"
 set xlabel "time (sec of the running test)"
 show title
 set key left top
-plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-176.txt" using  1:4 title "cpu@tsung_controller@ip-172-30-3-176" ls 1
+plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-237.txt" using  1:4 title "cpu@tsung_controller@ip-172-30-3-237" ls 1
 set output "images/graphes-cpu-max_sample_tn.png"
 set title " max_sample"
 set xlabel "time (sec of the running test)"
 show title
 set key left top
-plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-176.txt" using  1:5 title "cpu@tsung_controller@ip-172-30-3-176" ls 1
+plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-237.txt" using  1:5 title "cpu@tsung_controller@ip-172-30-3-237" ls 1
 set output "images/graphes-cpu-min_sample_tn.png"
 set title " min_sample"
 set xlabel "time (sec of the running test)"
 show title
 set key left top
-plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-176.txt" using  1:6 title "cpu@tsung_controller@ip-172-30-3-176" ls 1
+plot  "data/cpu:os_mon@tsung_controller@ip-172-30-3-237.txt" using  1:6 title "cpu@tsung_controller@ip-172-30-3-237" ls 1

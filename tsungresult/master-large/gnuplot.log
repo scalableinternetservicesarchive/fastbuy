@@ -179,6 +179,7 @@ Warning: empty y range [0:0], adjusting to [-1:1]
 
 	title is " max_sample", offset at ((character units) 0, 0, 0)
 
+Warning: empty y range [11.3167:11.3167], adjusting to [11.2036:11.4299]
 
 	title is " min_sample", offset at ((character units) 0, 0, 0)
 
@@ -197,6 +198,7 @@ Warning: empty y range [0:0], adjusting to [-1:1]
 
 	title is " max_sample", offset at ((character units) 0, 0, 0)
 
+Warning: empty y range [11.3167:11.3167], adjusting to [11.2036:11.4299]
 
 	title is " min_sample", offset at ((character units) 0, 0, 0)
 
@@ -215,7 +217,7 @@ Warning: empty y range [0:0], adjusting to [-1:1]
 
 	title is " max_sample", offset at ((character units) 0, 0, 0)
 
-Warning: empty y range [3168.96:3168.96], adjusting to [3137.27:3200.65]
+Warning: empty y range [3167.23:3167.23], adjusting to [3135.56:3198.9]
 
 	title is " min_sample", offset at ((character units) 0, 0, 0)
 
@@ -234,7 +236,7 @@ Warning: empty y range [0:0], adjusting to [-1:1]
 
 	title is " max_sample", offset at ((character units) 0, 0, 0)
 
-Warning: empty y range [3168.96:3168.96], adjusting to [3137.27:3200.65]
+Warning: empty y range [3167.23:3167.23], adjusting to [3135.56:3198.9]
 
 	title is " min_sample", offset at ((character units) 0, 0, 0)
 
@@ -253,6 +255,7 @@ Warning: empty y range [0:0], adjusting to [-1:1]
 
 	title is " max_sample", offset at ((character units) 0, 0, 0)
 
+Warning: empty y range [0.0898438:0.0898438], adjusting to [0.0889453:0.0907422]
 
 	title is " min_sample", offset at ((character units) 0, 0, 0)
 
@@ -271,6 +274,7 @@ Warning: empty y range [0:0], adjusting to [-1:1]
 
 	title is " max_sample", offset at ((character units) 0, 0, 0)
 
+Warning: empty y range [0.0898438:0.0898438], adjusting to [0.0889453:0.0907422]
 
 	title is " min_sample", offset at ((character units) 0, 0, 0)
 
