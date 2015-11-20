@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113193516) do
+ActiveRecord::Schema.define(version: 20151120075915) do
 
   create_table "buyers", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20151113193516) do
 
   add_index "products", ["on_sale"], name: "index_products_on_on_sale"
   add_index "products", ["seller_id"], name: "index_products_on_seller_id"
+  add_index "products", ["updated_at"], name: "index_products_on_updated_at"
 
   create_table "sale_products", force: :cascade do |t|
     t.decimal  "price",      precision: 8, scale: 2, null: false
