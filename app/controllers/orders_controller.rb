@@ -41,10 +41,11 @@ class OrdersController < ApplicationController
     _has_succeeded = true
     @order.transaction do
       _has_succeeded = @order.save
+      sleep(rand(5..15))
+      puts "Order save successfully"
+      _has_succeeded = _has_succeeded && update_product_count()
       # Before deleting the cart, we need to update the quantity of the products
       # related to the line items of this cart
-      update_product_count()
-
       @cart.line_items.destroy
     end
 
@@ -102,7 +103,10 @@ class OrdersController < ApplicationController
     def update_product_count
         @order.line_items.each do |item|
         item.product.quantity -= item.quantity
-        item.product.save
+        if !item.product.save?
+          return false
+        end
+        return true
         end
     end
 end
