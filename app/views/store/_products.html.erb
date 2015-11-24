@@ -1,4 +1,5 @@
-<% cache(cache_key_for_products) do %>
+<p><strong><i>Page <%= @page %></i></strong></p>
+<% cache [cache_key_for_products, @page] do %>
   <% @products.each do |product| %>
     <% cache(cache_key_for_product(product)) do %>    
       <div class="entry">
@@ -27,3 +28,4 @@
   <% end %>
 <div class="flickr_pagination"><%= will_paginate @products %><div>
 <% end %>
+

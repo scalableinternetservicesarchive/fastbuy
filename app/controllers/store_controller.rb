@@ -4,6 +4,7 @@ class StoreController < ApplicationController
   before_action :set_cart, :get_sales
   
   def index
+    expires_in 3.minutes, public: true, must_revalidate: true
     search_param = params[:search] ? params[:search].squish : nil
     if search_param == nil
       @products = Product.includes(:sale_products).paginate(page:params[:page], per_page:20) if stale?([Product.includes(:sale_products).paginate(page:params[:page], per_page:20), @cart, @cart.class == Cart ? @cart.line_items : nil, current_seller, current_buyer])
@@ -21,6 +22,7 @@ class StoreController < ApplicationController
       end
       @products = @search.results if stale?([@search, @cart, @cart.class == Cart ? @cart.line_items : nil, current_seller, current_buyer])
     end
+      @page = params[:page]
   end
   
   def sort
@@ -31,3 +33,4 @@ class StoreController < ApplicationController
     end
   end
 end
+
