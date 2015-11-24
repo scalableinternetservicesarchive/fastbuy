@@ -114,19 +114,85 @@
           contents='order%5Bname%5D=Joe+Gaucho&amp;order%5Baddress%5D=Santa+Barbara+CA+93106&amp;order%5Bemail%5D=a%40a.com&amp;order%5Bpay_type%5D=Check&amp;commit=Place+Order'>
         </http>
       </request>
-
-      <!-- Uncomment the following to debug print your dynamic variables  --> 
-      <!--
-                 <setdynvars sourcetype="eval" code="fun( {Pid, DynVars} ) ->
-        io:format([126, $p, 126, $n, 126, $n], [DynVars]),
-        ok end.">
-        <var name="dump" />
-      </setdynvars>
-      -->
-
     </session>
 
-    <session name="Seller edit products" probability="15" type="ts_http">
+
+
+    <session name="Seller create products" probability="10" type="ts_http">
+      <!-- start out at the dashboard. -->
+      <request>
+        <http url='/' version='1.1' method='GET'></http>
+      </request>
+
+      <!-- visit the login page -->
+      <request>
+        <http url="/sellers/sign_in" version="1.1" method="GET"></http>
+      </request>
+      
+      <!-- create a random number to represent username -->
+      <setdynvars sourcetype="random_number" start="1" end="500">
+        <var name="username" />
+      </setdynvars>
+      <setdynvars sourcetype="random_number" start="1" end="20">
+        <var name="provider" />
+      </setdynvars>
+
+      <!-- wait for up to 2 seconds, user is filling out login information -->
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- Perform login -->
+      <request subst="true">
+        <http
+          url='/sellers/sign_in'
+          version='1.1'
+          method='POST'
+          contents='utf8=%E2%9C%93&amp;seller%5Bemail%5D=%%_username%%%40%%_provider%%.com&amp;seller%5Bpassword%5D=12345678&amp;seller%5Bremember_me%5D=0&amp;commit=Log+in'>
+        </http>
+      </request>
+
+      <!-- visit the products page -->
+      <request>
+        <http url="/products" version="1.1" method="GET"></http>
+      </request>
+      
+       <!-- wait for up to 2 seconds, browse products -->
+      <thinktime value="2" random="true"></thinktime>
+      
+      <!-- Now create product -->
+      <request>
+          <http url="/products/new" version="1.1" method="GET"></http>
+      </request>
+
+      <setdynvars sourcetype="random_string" length="5">
+          <var name="prod_name" />
+      </setdynvars>
+      <setdynvars sourcetype="random_string" length="15">
+          <var name="prod_desc" />
+      </setdynvars>
+      <setdynvars sourcetype="random_number" start="100" end="1000">
+        <var name="price" />
+      </setdynvars>
+      <setdynvars sourcetype="random_number" start="1" end="100">
+        <var name="quantity" />
+      </setdynvars>
+
+      <request subst="true">
+        <http
+          url='/products'
+          version='1.1'
+          method='POST'
+          contents='utf8=%E2%9C%93&amp;product%5Btitle%5D=%%_prod_name%%&amp;product%5Bdescription%5D=%%_prod_desc%%&amp;product%5Bimage_url%5D=a.jpg&amp;product%5Bprice%5D=%%_price%%&amp;product%5Bquantity%5D=%%_quantity%%&amp;commit=Create+Product'>
+        </http>
+      </request>
+      
+      <!-- start out at the dashboard. -->
+      <request>
+        <http url='/' version='1.1' method='GET'></http>
+      </request>
+    </session>
+    
+    
+    <session name="Seller put on sale products" probability="10" type="ts_http">
       <!-- start out at the dashboard. -->
       <request>
         <http url='/' version='1.1' method='GET'></http>
@@ -148,6 +214,11 @@
           method='POST'
           contents='utf8=%E2%9C%93&amp;seller%5Bemail%5D=seller%40g.com&amp;seller%5Bpassword%5D=12345678&amp;seller%5Bremember_me%5D=0&amp;commit=Log+in'>
         </http>
+      </request>
+      
+      <!-- visit the products page -->
+      <request>
+        <http url="/products" version="1.1" method="GET"></http>
       </request>
 
       <!-- Now create product -->
@@ -197,57 +268,11 @@
           contents='utf8=%E2%9C%93&amp;sale_product%5Bproduct_id%5D=%%_random_sale%%&amp;sale_product%5Bprice%5D=100&amp;sale_product%5Bquantity%5D=1&amp;sale_product%5Bstarted_at%281i%29%5D=2015&amp;sale_product%5Bstarted_at%282i%29%5D=11&amp;sale_product%5Bstarted_at%283i%29%5D=6&amp;sale_product%5Bstarted_at%284i%29%5D=01&amp;sale_product%5Bstarted_at%285i%29%5D=09&amp;sale_product%5Bexpired_at%281i%29%5D=2015&amp;sale_product%5Bexpired_at%282i%29%5D=11&amp;sale_product%5Bexpired_at%283i%29%5D=6&amp;sale_product%5Bexpired_at%284i%29%5D=01&amp;sale_product%5Bexpired_at%285i%29%5D=10&amp;commit=Create+Sale+product'>
         </http>
       </request>
-
-    </session>
-
-    <session name="Seller delete products" probability="5" type="ts_http">
+      
       <!-- start out at the dashboard. -->
       <request>
         <http url='/' version='1.1' method='GET'></http>
       </request>
-
-      <!-- visit the login page -->
-      <request>
-        <http url="/sellers/sign_in" version="1.1" method="GET"></http>
-      </request>
-
-      <!-- wait for up to 2 seconds, user is filling out login information -->
-      <thinktime value="2" random="true"></thinktime>
-
-      <!-- Perform login -->
-      <request subst="true">
-        <http
-          url='/sellers/sign_in'
-          version='1.1'
-          method='POST'
-          contents='utf8=%E2%9C%93&amp;seller%5Bemail%5D=seller%40g.com&amp;seller%5Bpassword%5D=12345678&amp;seller%5Bremember_me%5D=0&amp;commit=Log+in'>
-        </http>
-      </request>
-
-      <!-- wait for up to 2 seconds, seller decides to delete an existing product -->
-      <thinktime value="2" random="true"></thinktime>
-
-      <!-- visit the products page -->
-      <request>
-        <http url="/products" version="1.1" method="GET"></http>
-      </request>
-
-      <!-- pick a product randomly -->
-      <setdynvars sourcetype="random_number" start="2000" end="4000">
-        <var name="random_product" />
-      </setdynvars>
-
-      <!-- Delete product -->
-      <request subst="true">
-        <http
-          url='/products/%%_random_product%%'
-          version='1.1'
-          method='DELETE'
-          contents='product_id=%%_random_product%%'>
-        </http>
-      </request>
-
     </session>
-  </sessions>
 </tsung>
 
