@@ -1,12 +1,9 @@
 language: ruby
 rvm:
   - "2.2.1"
-services:
-  - redis-server
 script:
-  - RAILS_ENV=test rake sunspot:solr:start
+  - rake sunspot:solr:start RAILS_ENV=test
   - rake test
 addons:
   code_climate:
   repo_token: b9f88d12628c03bc6deb1db3c3ac4c54c6e1cee59ff7c282e3b7878c77c9f180
-
