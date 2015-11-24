@@ -60,8 +60,8 @@ gem "codeclimate-test-reporter", group: :test, require: nil
 gem 'devise'
 
 # Support solr search
-gem 'sunspot_rails'
-gem 'sunspot_solr'
+gem 'sunspot_rails', '~> 2.2.0'
+gem 'sunspot_solr', '~> 2.2.0'
 gem 'progress_bar'
 
 # tzinfo-data is needed under Windows OS
