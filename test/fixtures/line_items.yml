@@ -5,11 +5,11 @@ one:
   order: one
   cart: one
   quantity: 1
-  price: 8.88
+  price: 29.99
 
 two:
   product: two
   order: two
   cart: two
   quantity: 1
-  price: 8.88
+  price: 39.99
