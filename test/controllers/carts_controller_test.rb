@@ -24,7 +24,7 @@ class CartsControllerTest < ActionController::TestCase
   
   test "should destroy buyer cart" do
     sign_in @buyer
-    assert_difference('Cart.count', -1) do
+    assert_difference('@buyer.cart.line_items.count', 0) do
       delete :destroy, id: @buyer.cart_id, cart: {id: @buyer.cart_id}
     end
     assert_redirected_to store_path
