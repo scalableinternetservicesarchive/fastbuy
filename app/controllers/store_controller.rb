@@ -17,7 +17,7 @@ class StoreController < ApplicationController
         end
       else
         @search = Product.search do
-          fulltext @search_param
+          fulltext params[:search] ? params[:search].squish : nil
           paginate :page => params[:page], :per_page => 20
         end
       end
@@ -28,11 +28,10 @@ class StoreController < ApplicationController
   def sort
     @sort_type = SORT_TYPE[params[:sort]]
     @page = params[:page] ? params[:page] : 1
-   # if stale?([sort_type, Product.order(sort_type).paginate(page:params[:page], per_page:20),@cart, @cart.class == Cart ? @cart.line_items : nil, current_seller, current_buyer]) 
+   if stale?([Product.order(@sort_type).paginate(page:params[:page], per_page:20),@cart, @cart.class == Cart ? @cart.line_items : nil, current_seller, current_buyer]) 
     @products = Product.order(@sort_type).paginate(page: @page, per_page:20)
-    #  puts "Sort is Stale!"
     render 'index'
-   # end
+   end
   end
 end
 
