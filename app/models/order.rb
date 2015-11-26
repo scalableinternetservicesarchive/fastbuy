@@ -30,11 +30,11 @@ class Order < ActiveRecord::Base
     line_items.each do |item|
       if item.product.on_sale?
         if item.price != item.product.sale_products.first.price
-          errors.add(:price, "of #{item.product.title} price is invalid")
+          errors.add(:price, "of #{item.product.title} price has been changed")
         end
       else
         if item.price != item.product.price
-          errors.add(:price, "of #{item.product.title} price is invalid")
+          errors.add(:price, "of #{item.product.title} price has been changed")
         end
       end
     end

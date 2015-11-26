@@ -35,11 +35,11 @@ class OrdersController < ApplicationController
   # POST /orders.json
   def create
     @order = Order.new(order_params)
-    @order.buyer = current_buyer
-    @order.add_line_items_from_cart(@cart)
 
     _has_succeeded = true
     @order.transaction do
+      @order.buyer = current_buyer
+      @order.add_line_items_from_cart(@cart)
       _has_succeeded = @order.save && update_product_count()
       # Before deleting the cart, we need to update the quantity of the products
       # related to the line items of this cart
@@ -89,7 +89,7 @@ class OrdersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_order
-      @order = Order.find(params[:id])
+      @order = Order.includes(:line_items).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -98,12 +98,12 @@ class OrdersController < ApplicationController
     end
 
     def update_product_count
-        @order.line_items.each do |item|
-          item.product.quantity -= item.quantity
-          if !item.product.save
-            return false
-          end
-          return true
+      @order.line_items.each do |item|
+        item.product.quantity -= item.quantity
+        if !item.product.save
+          return false
         end
+      end
+      return true
     end
 end

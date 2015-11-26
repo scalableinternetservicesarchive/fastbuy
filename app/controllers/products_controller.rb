@@ -101,7 +101,7 @@ class ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find(params[:id])
+      @product = Product.includes(:seller, :sale_products).find(params[:id])
     end
 
     def seller_verification
