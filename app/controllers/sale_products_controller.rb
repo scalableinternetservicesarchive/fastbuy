@@ -40,12 +40,17 @@ class SaleProductsController < ApplicationController
       if current_seller != product.seller
         redirect_to sale_products_path, notice: "You are not the owner of the product."
       else
+        
         @sale_product = SaleProduct.new(sale_product_params)
-        @sale_product.seller = product.seller
-        @sale_product.product.on_sale = true
+        _has_succeeded = true
+        @sale_product.transaction do
+          @sale_product.seller = product.seller
+          @sale_product.product.on_sale = true
+          _has_succeeded = @sale_product.save && @sale_product.product.save
+        end
+
         respond_to do |format|
-          if @sale_product.save
-             @sale_product.product.save
+          if _has_succeeded
             format.html { redirect_to @sale_product, notice: 'Sale product was successfully created.' }
             format.json { render :show, status: :created, location: @sale_product }
           else
