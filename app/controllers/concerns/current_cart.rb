@@ -11,17 +11,8 @@ module CurrentCart extend ActiveSupport::Concern
         session[:cart] = @cart
       end
     else 
-      if (@cart = current_buyer.cart) == nil
-        @cart = current_buyer.create_cart
-        current_buyer.cart_id = @cart.id
-        current_buyer.save
-      end  
-      if session[:cart]
-        session[:cart].each do |product_id, quantity|
-          Cart.add_product(@cart, {product_id: product_id.to_i, quantity: quantity.to_i})
-        end
-        session[:cart] = nil
-      end
+      @cart = current_buyer.cart
     end
   end
+
 end
