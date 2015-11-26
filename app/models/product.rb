@@ -8,7 +8,7 @@ class Product < ActiveRecord::Base
   before_destroy :ensure_not_referenced_by_any_line_item
 
   # Validation restrictions
-  validates :title, :description, :image_url, :quantity, :seller, presence: true
+  validates :title, :description, :quantity, :seller, presence: true
   validates :price, numericality: {greater_than_or_equal_to: 0.01}
   validates :rating, allow_blank: true, numericality: {greater_than_or_equal_to: 0.0, less_than_or_equal_to: 5.0}
   validates :quantity, numericality: {greater_than_or_equal_to: 0}
