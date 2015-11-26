@@ -47,7 +47,7 @@ class SaleProductsController < ApplicationController
           @sale_product.seller = product.seller
           @sale_product.product.on_sale = true
           _has_succeeded = @sale_product.save && @sale_product.product.save
-        end  
+        end
 
         respond_to do |format|
           if _has_succeeded
