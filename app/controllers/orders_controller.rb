@@ -103,7 +103,7 @@ class OrdersController < ApplicationController
           if !item.product.save
             return false
           end
-          return true
         end
+        return true
     end
 end
