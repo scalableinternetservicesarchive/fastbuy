@@ -17,7 +17,7 @@ class CartsController < ApplicationController
     if @cart.class == Hash
        session[:cart] = nil
     else @cart.class == Cart
-      @cart.line_items.destroy
+      @cart.line_items.destroy_all
     end
     respond_to do |format|
       format.html { redirect_to store_url  }
