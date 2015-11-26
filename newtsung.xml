@@ -67,6 +67,17 @@
         </http>
       </request>
       
+      <!-- wait for up to 2 seconds, user is looking at products -->
+      <thinktime value="2" random="true"></thinktime>
+
+      <!-- View a product -->
+      <setdynvars sourcetype="random_number" start="1" end="1999">
+        <var name="random_product1" />
+      </setdynvars>
+      <request subst="true">
+        <http url='/products/%%_random_product1%%' version='1.1' method='GET'></http>
+      </request>
+      
       <!-- pick a product randomly -->
       <setdynvars sourcetype="random_number" start="1" end="4327">
         <var name="random_product" />
