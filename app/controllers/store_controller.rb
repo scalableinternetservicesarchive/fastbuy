@@ -8,7 +8,7 @@ class StoreController < ApplicationController
     @page = params[:page] ? params[:page] : 1
     @search_param = params[:search] ? params[:search].squish : nil
     if @search_param == nil
-      @products = Product.includes(:sale_products).paginate(page: @page, per_page:20)
+      @products = Product.paginate(page: @page, per_page:20)
      else
       if @search_param == 'on_sale'
         @search = Product.search do
