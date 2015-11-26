@@ -4,10 +4,8 @@ class CartsController < ApplicationController
   
   # GET /cart
   def show
-    if stale?([@cart, @cart.class == Cart ? @cart.line_items : nil, current_buyer, current_seller])
-      if @cart.class == Hash
-        render "carts/_cart" 
-      end
+    if @cart.class == Hash
+      render "carts/_cart" 
     end
   end
 
@@ -17,7 +15,7 @@ class CartsController < ApplicationController
     if @cart.class == Hash
        session[:cart] = nil
     else @cart.class == Cart
-      @cart.line_items.destroy
+      @cart.line_items.destroy_all
     end
     respond_to do |format|
       format.html { redirect_to store_url  }

@@ -12,10 +12,10 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     if params[:search] == nil
-        @products = current_seller.products.paginate(page: params[:page], per_page: 20) if stale?([current_seller.products.paginate(page: params[:page], per_page: 20), current_seller])
+        @products = current_seller.products.paginate(page: params[:page], per_page: 20)
     else
       if params[:search] == 'on_sale'
-        @search = Product.search(include: [:sale_products]) do
+        @search = Product.search do
           with(:seller_id, current_seller.id)
           with(:on_sale, true)
           paginate page: params[:page], per_page: 20
@@ -27,21 +27,18 @@ class ProductsController < ApplicationController
           paginate page: params[:page], per_page: 20
         end
       end
-      @products = @search.results if stale?([@search, current_seller])
+      @products = @search.results
     end
   end
 
   # GET /products/1
   # GET /products/1.json
   def show
-    fresh_when([@product, @cart, @cart.class == Cart ? @cart.line_items : nil, current_seller, current_buyer])
   end
 
   # GET /products/new
   def new
-    if stale?(current_seller)
-      @product = Product.new
-    end
+    @product = Product.new
   end
 
   # GET /products/1/edit
