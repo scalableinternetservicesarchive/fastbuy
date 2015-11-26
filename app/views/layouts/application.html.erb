@@ -18,15 +18,15 @@
     <%= link_to "Contact", contact_path %>
   </div>
   <div id="search">
-    <% if seller_signed_in? && controller.controller_name == "ProductsController" %>
-      <%= form_tag product_path, :method => :get do %>
+    <% if seller_signed_in? && controller.controller_name == "products" %>
+      <%= form_tag products_path, method: :get do %>
         <%= text_field_tag :search, params[:search] %>
-        <%= submit_tag "", :name => nil %>
+        <%= submit_tag "", name: nil %>
       <% end %>
     <% else %>
-      <%= form_tag store_path, :method => :get do %>
+      <%= form_tag store_path, method: :get do %>
         <%= text_field_tag :search, params[:search] %>
-        <%= submit_tag "", :name => nil %>
+        <%= submit_tag "", name: nil %>
       <% end %>
     <% end %>
   </div>
