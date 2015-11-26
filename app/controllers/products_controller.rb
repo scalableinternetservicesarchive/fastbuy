@@ -1,5 +1,5 @@
 class ProductsController < ApplicationController
-  include CurrentCart
+  include CurrentCart, SearchParams
   before_action :set_cart, only: [:show]
   before_action :authenticate_seller!, except: [:show]
   before_action except: [:show ] do
@@ -7,6 +7,7 @@ class ProductsController < ApplicationController
   end
   before_action :set_product, only: [:show, :edit, :update, :destroy]
   before_action :seller_verification, only: [:edit, :update, :destroy]
+  before_action :set_search_params
 
   # GET /products
   # GET /products.json
