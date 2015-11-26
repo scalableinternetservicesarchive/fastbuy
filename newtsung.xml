@@ -9,7 +9,7 @@
 
   <!-- Server side setup -->
   <servers>
-    <server host="54.208.19.164" port="80" type="tcp"></server>
+    <server host="52.91.106.144" port="80" type="tcp"></server>
   </servers>
 
 
@@ -18,8 +18,20 @@
       <users arrivalrate="1" unit="second"></users>
     </arrivalphase>
     <arrivalphase phase="2" duration="60" unit="second">
-      <users arrivalrate="1" unit="second"></users>
+      <users arrivalrate="2" unit="second"></users>
     </arrivalphase>
+    <arrivalphase phase="3" duration="30" unit="second">
+      <users arrivalrate="4" unit="second"></users>
+    </arrivalphase>
+   <arrivalphase phase="4" duration="30" unit="second">
+     <users arrivalrate="8" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="5" duration="30" unit="second">
+     <users arrivalrate="16" unit="second"></users>
+   </arrivalphase>
+   <arrivalphase phase="6" duration="35" unit="second">
+     <users arrivalrate="2" unit="second"></users>
+   </arrivalphase>
   </load>
 
   <options>
@@ -32,7 +44,7 @@
   </options>
 
   <sessions>
-    <session name="User login and buy product" probability="100" type="ts_http"> 
+    <session name="User login and buy product" probability="80" type="ts_http"> 
       <request>
         <http url='/' version='1.1' method='GET'></http>
       </request>
@@ -122,7 +134,7 @@
 
 
 
-    <session name="Seller create products" probability="0" type="ts_http">
+    <session name="Seller create products" probability="10" type="ts_http">
       <!-- start out at the dashboard. -->
       <request>
         <http url='/' version='1.1' method='GET'></http>
@@ -196,7 +208,7 @@
     </session>
     
     
-    <session name="Seller put on sale products" probability="0" type="ts_http">
+    <session name="Seller put on sale products" probability="10" type="ts_http">
       <!-- start out at the dashboard. -->
       <request>
         <http url='/' version='1.1' method='GET'></http>
