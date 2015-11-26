@@ -14,20 +14,20 @@
 
 
   <load>
-    <arrivalphase phase="1" duration="60" unit="second">
-      <users arrivalrate="70" unit="second"></users>
-    </arrivalphase>
-    <arrivalphase phase="2" duration="60" unit="second">
+    <arrivalphase phase="1" duration="30" unit="second">
       <users arrivalrate="60" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="3" duration="30" unit="second">
-      <users arrivalrate="70" unit="second"></users>
+    <arrivalphase phase="2" duration="30" unit="second">
+      <users arrivalrate="55" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="3" duration="60" unit="second">
+      <users arrivalrate="50" unit="second"></users>
     </arrivalphase>
    <arrivalphase phase="4" duration="30" unit="second">
-     <users arrivalrate="80" unit="second"></users>
+     <users arrivalrate="60" unit="second"></users>
    </arrivalphase>
    <arrivalphase phase="5" duration="30" unit="second">
-     <users arrivalrate="70" unit="second"></users>
+     <users arrivalrate="55" unit="second"></users>
    </arrivalphase>
    <arrivalphase phase="6" duration="35" unit="second">
      <users arrivalrate="60" unit="second"></users>
