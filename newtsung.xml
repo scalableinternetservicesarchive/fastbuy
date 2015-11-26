@@ -9,7 +9,7 @@
 
   <!-- Server side setup -->
   <servers>
-    <server host="54.164.184.153" port="80" type="tcp"></server>
+    <server host="54.208.19.164" port="80" type="tcp"></server>
   </servers>
 
 
@@ -17,7 +17,7 @@
     <arrivalphase phase="1" duration="60" unit="second">
       <users arrivalrate="1" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="1" duration="60" unit="second">
+    <arrivalphase phase="2" duration="60" unit="second">
       <users arrivalrate="1" unit="second"></users>
     </arrivalphase>
   </load>
@@ -32,7 +32,14 @@
   </options>
 
   <sessions>
-    <session name="User login and buy product" probability="80" type="ts_http">
+    <session name="User login and buy product" probability="100" type="ts_http"> 
+      <request>
+        <http url='/' version='1.1' method='GET'></http>
+      </request>
+           
+      <!-- wait for up to 2 seconds, user is looking at products -->
+      <thinktime value="2" random="true"></thinktime>
+      
      <!-- create a random number to represent username -->
       <setdynvars sourcetype="random_number" start="1" end="500">
         <var name="username" />
@@ -64,7 +71,7 @@
       <setdynvars sourcetype="random_number" start="1" end="4327">
         <var name="random_product" />
       </setdynvars>
-
+      
       <!-- Add product to cart -->
       <request subst="true">
         <http
@@ -74,6 +81,7 @@
           contents=''>
         </http>
       </request>
+      
       <!-- wait for up to 2 seconds, user decides to checkout -->
       <thinktime value="2" random="true"></thinktime>
 
@@ -82,11 +90,28 @@
         <http url='/orders/new' version='1.1' method='GET'></http>
       </request>
       
+      <!-- wait for up to 10 seconds, user is filling out the delivery information -->
+      <thinktime value="3" random="true"></thinktime>
+
+      <!-- Place order -->
+      <request subst="true">
+        <http
+          url='/orders'
+          version='1.1'
+          method='POST'
+          contents='order%5Bname%5D=Joe+Gaucho&amp;order%5Baddress%5D=Santa+Barbara+CA+93106&amp;order%5Bemail%5D=a%40a.com&amp;order%5Bpay_type%5D=Check&amp;commit=Place+Order'>
+        </http>
+      </request>
+      
+      <request>
+        <http url='/' version='1.1' method='GET'></http>
+      </request>
+      
     </session>
 
 
 
-    <session name="Seller create products" probability="10" type="ts_http">
+    <session name="Seller create products" probability="0" type="ts_http">
       <!-- start out at the dashboard. -->
       <request>
         <http url='/' version='1.1' method='GET'></http>
@@ -160,7 +185,7 @@
     </session>
     
     
-    <session name="Seller put on sale products" probability="10" type="ts_http">
+    <session name="Seller put on sale products" probability="0" type="ts_http">
       <!-- start out at the dashboard. -->
       <request>
         <http url='/' version='1.1' method='GET'></http>
@@ -244,5 +269,3 @@
     </session>
   </sessions>
 </tsung>
-
-
