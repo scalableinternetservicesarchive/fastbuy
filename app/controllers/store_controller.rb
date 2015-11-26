@@ -6,10 +6,10 @@ class StoreController < ApplicationController
 
   def index
     if params[:search] == nil
-      @products = Product.paginate(page: params[:page], per_page: 20)
+      @products = Product.include(:sale_products).paginate(page: params[:page], per_page: 20)
      else
       if @search_param == 'on_sale'
-        @search = Product.search do
+        @search = Product.search(include: [:sale_products]) do
           with(:on_sale, true)
           paginate page: params[:page], per_page: 20
         end
