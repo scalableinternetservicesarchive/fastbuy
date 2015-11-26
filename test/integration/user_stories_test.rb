@@ -21,6 +21,9 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
 
     buyer = FactoryGirl.create(:buyer)
     login_as(buyer, scope: :buyer)
+    buyer.create_cart
+    buyer.cart_id = buyer.cart.id
+    buyer.save
 
     xhr :post, "/line_items", line_item: { product_id: ruby_book.id, quantity: 1 }
     assert_response :success

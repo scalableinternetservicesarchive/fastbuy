@@ -99,11 +99,11 @@ class OrdersController < ApplicationController
 
     def update_product_count
         @order.line_items.each do |item|
-        item.product.quantity -= item.quantity
-        if !item.product.save
-          return false
-        end
-        return true
+          item.product.quantity -= item.quantity
+          if !item.product.save
+            return false
+          end
+          return true
         end
     end
 end
