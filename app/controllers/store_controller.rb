@@ -4,7 +4,6 @@ class StoreController < ApplicationController
   before_action :set_cart, :get_sales
   
   def index
-    expires_in 3.minutes, public: true, must_revalidate: true
     @page = params[:page] ? params[:page] : 1
     @search_param = params[:search] ? params[:search].squish : nil
     if @search_param == nil
