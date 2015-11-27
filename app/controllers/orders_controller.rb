@@ -10,12 +10,13 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.where(buyer: current_buyer)
+    @orders = Order.where(buyer: current_buyer) if stale?([current_buyer, Order.where(buyer: current_buyer)])
   end
 
   # GET /orders/1
   # GET /orders/1.json
   def show
+    fresh_when([current_buyer, Order.find(params[:id])])
   end
 
   # GET /orders/new
@@ -24,7 +25,7 @@ class OrdersController < ApplicationController
       redirect_to store_url, notice: "Your cart is empty"
       return
     end
-    @order = Order.new
+    @order = Order.new if stale?([current_buyer, @cart.line_items])
   end
 
   # GET /orders/1/edit
