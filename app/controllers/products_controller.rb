@@ -50,13 +50,18 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
-    @product.seller_id = current_seller.id
+
+    _has_succeeded = false
+    @product.transaction do
+      @product.seller_id = current_seller.id
+      if @product.image.path
+         @product.image_url = @product.image.url
+      end
+      _has_succeeded = @product.save
+    end
+
     respond_to do |format|
-      if @product.save   
-        if @product.image.path
-           @product.image_url = @product.image.url
-        end
-        @product.save
+      if _has_succeeded
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
