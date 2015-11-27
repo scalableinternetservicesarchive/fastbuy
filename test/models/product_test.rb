@@ -7,7 +7,6 @@ class ProductTest < ActiveSupport::TestCase
     assert product.errors[:title].any?
     assert product.errors[:description].any?
     assert product.errors[:price].any?
-    assert product.errors[:image_url].any?
     assert product.errors[:quantity].any?
     assert product.errors[:seller].any?
   end
