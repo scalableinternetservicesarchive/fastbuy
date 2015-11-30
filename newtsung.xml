@@ -91,7 +91,7 @@
       </request>
       
       <!-- pick a product randomly -->
-      <setdynvars sourcetype="random_number" start="1" end="4327">
+      <setdynvars sourcetype="random_number" start="1" end="200">
         <var name="random_product" />
       </setdynvars>
       
