@@ -14,7 +14,6 @@ class Buyers::SessionsController < Devise::SessionsController
   def create
      super
      if current_buyer != nil
-       puts "Current Buyer is not nil"
        cart = current_buyer.cart
        if cart == nil
           cart = current_buyer.create_cart
