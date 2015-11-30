@@ -27,10 +27,10 @@ class StoreController < ApplicationController
   
   def sort
     sort_type = SORT_TYPE[params[:sort]]
-    if stale?([Product.order(sort_type).paginate(page:params[:page], per_page:20),@cart, @cart.class == Cart ? @cart.line_items : nil, current_seller, current_buyer]) 
+  #  if stale?([Product.includes(:sale_products).paginate(page:params[:page], per_page:20), @cart, @cart.class == Cart ? @cart.line_items : nil, current_seller, current_buyer])
       @products = Product.order(sort_type).paginate(page:params[:page], per_page:20)
       render 'index'
-    end
+  #  end
   end
 end
 
