@@ -1,5 +1,6 @@
-<p><strong><i>Page <%= @page %></i></strong></p>
+<% cache([cache_key_for_products, @page, @search_param, @sort_type]) do %>  
   <% @products.each do |product| %>
+    <% cache(cache_key_for_product(product)) do %> 
       <div class="entry">
         <%= link_to image_tag(product.image_url), product_path(product.id) %>
         <h3><%= link_to product.title, product_path(product.id) %></h3>
@@ -21,6 +22,8 @@
           <% end %>
          <div class="on_sale"><% if product.on_sale == true %>On Sale<% end %></div>
         </div>
-     </div>
-   <% end %>
-<div class="flickr_pagination"><%= will_paginate @products %><div>
+      </div>
+    <% end %>
+  <% end %>
+ <div class="flickr_pagination"><%= will_paginate @products %><div>
+<% end %>

@@ -11,25 +11,14 @@
 <!-- END:head -->
 <body class="<%= controller.controller_name %>">
 <div id="nav">
+  <% cache([current_seller, current_buyer]) do %>
   <div id="page_nav">
     <%= link_to "Store", store_path %>
     <%= link_to "Sales", seller_signed_in? ? sale_products_path : store_path(search: "on_sale")
  %>
     <%= link_to "Contact", contact_path %>
   </div>
-  <div id="search">
-    <% if seller_signed_in? && controller.controller_name == "products" %>
-      <%= form_tag products_path, method: :get do %>
-        <%= text_field_tag :search, params[:search] %>
-        <%= submit_tag "", name: nil %>
-      <% end %>
-    <% else %>
-      <%= form_tag store_path, method: :get do %>
-        <%= text_field_tag :search, params[:search] %>
-        <%= submit_tag "", name: nil %>
-      <% end %>
-    <% end %>
-  </div>
+  
   <div id="user">
     <% if buyer_signed_in? %>
       <%= link_to "#{current_buyer.email}", buyer_path %>
@@ -43,6 +32,21 @@
       <%= link_to 'Sign Up', new_buyer_registration_path %>
       <%= link_to 'Cart', cart_path(id: 'temp') %>
       <%= link_to 'Seller', new_seller_session_path %> 
+    <% end %>
+  </div>
+  <% end %>
+
+  <div id="search">
+    <% if seller_signed_in? && controller.controller_name == "products" %>
+      <%= form_tag products_path, method: :get do %>
+        <%= text_field_tag :search, params[:search] %>
+        <%= submit_tag "", name: nil %>
+      <% end %>
+    <% else %>
+      <%= form_tag store_path, method: :get do %>
+        <%= text_field_tag :search, params[:search] %>
+        <%= submit_tag "", name: nil %>
+      <% end %>
     <% end %>
   </div>
 </div>

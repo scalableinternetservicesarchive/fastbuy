@@ -1,3 +1,4 @@
+<% cache(cache_key_for_product(@product)) do %>
 <div id='product_title'>
   <strong><%= @product.title %></strong>
 </div>
@@ -53,4 +54,4 @@
     <% end %>
   </span>
 </div>
-
+<% end %>
