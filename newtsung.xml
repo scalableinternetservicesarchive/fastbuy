@@ -83,7 +83,7 @@
       <thinktime value="2" random="true"></thinktime>
 
       <!-- View a product -->
-      <setdynvars sourcetype="random_number" start="1" end="4327">
+      <setdynvars sourcetype="random_number" start="1" end="200">
         <var name="random_product1" />
       </setdynvars>
       <request subst="true">
@@ -91,7 +91,7 @@
       </request>
       
       <!-- pick a product randomly -->
-      <setdynvars sourcetype="random_number" start="1" end="200">
+      <setdynvars sourcetype="random_number" start="1" end="4327">
         <var name="random_product" />
       </setdynvars>
       
