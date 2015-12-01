@@ -13,10 +13,10 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     if params[:search] == nil
-        @products = current_seller.products.paginate(page: params[:page], per_page: 20)
+        @products = current_seller.products.includes(:sale_products).paginate(page: params[:page], per_page: 20)
     else
       if params[:search] == 'on_sale'
-        @search = Product.search do
+        @search = Product.search(include: [:sale_products]) do
           with(:seller_id, current_seller.id)
           with(:on_sale, true)
           paginate page: params[:page], per_page: 20
@@ -106,7 +106,7 @@ class ProductsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_product
-      @product = Product.find(params[:id])
+      @product = Product.includes(:seller, :sale_products).find(params[:id])
     end
 
     def seller_verification

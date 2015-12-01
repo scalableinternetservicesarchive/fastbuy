@@ -9,11 +9,13 @@ class Buyers::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create    
-    super
-    if current_buyer != nil
-	cart = current_buyer.create_cart
-        current_buyer.cart_id = cart.id
-        current_buyer.save!
+    Buyer.transaction do
+      super
+      if current_buyer != nil
+     	 cart = current_buyer.create_cart
+         current_buyer.cart_id = cart.id
+         current_buyer.save!
+      end
     end
   end
 

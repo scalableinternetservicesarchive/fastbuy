@@ -40,7 +40,7 @@ class SaleProductsController < ApplicationController
       if current_seller != product.seller
         redirect_to sale_products_path, notice: "You are not the owner of the product."
       else
-        
+
         @sale_product = SaleProduct.new(sale_product_params)
         _has_succeeded = true
         @sale_product.transaction do
