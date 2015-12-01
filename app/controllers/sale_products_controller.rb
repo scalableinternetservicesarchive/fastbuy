@@ -6,12 +6,13 @@ class SaleProductsController < ApplicationController
   # GET /sale_products
   # GET /sale_products.json
   def index
-    @sale_products = SaleProduct.where(seller: current_seller)
+    @sale_products = SaleProduct.where(seller: current_seller) if stale?([current_seller, SaleProduct.where(seller: current_seller)])
   end
 
   # GET /sale_products/1
   # GET /sale_products/1.json
   def show
+    fresh_when([current_seller, SaleProduct.find(params[:id])])
   end
 
   # GET /sale_products/new

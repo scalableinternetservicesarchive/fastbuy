@@ -5,8 +5,9 @@ class StoreController < ApplicationController
   before_action :set_search_params
 
   def index
+    expires_in 3.minutes, public: true, must_revalidate: true
     if params[:search] == nil
-      @products = Product.includes(:sale_products).paginate(page: params[:page], per_page: 20)
+      @products = Product.paginate(page: params[:page], per_page: 20) if stale?([Product.paginate(page: params[:page], per_page: 20), @cart.class == Cart ? @cart.line_items : nil, current_seller, current_buyer])
      else
       if @search_param == 'on_sale'
         @search = Product.search(include: [:sale_products]) do
@@ -25,8 +26,10 @@ class StoreController < ApplicationController
   
   def sort
     @sort_type = SORT_TYPE[params[:sort]]
-    @products = Product.order(@sort_type).paginate(page: params[:page], per_page: 20)
-    render 'index'
+    if stale?([Product.order(@sort_type).paginate(page:params[:page], per_page:20), @cart.class == Cart ? @cart.line_items : nil, current_seller, current_buyer]) 
+      @products = Product.order(@sort_type).paginate(page: params[:page], per_page:20)
+      render 'index'
+    end
   end
 
 end
