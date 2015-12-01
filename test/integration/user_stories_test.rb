@@ -175,6 +175,20 @@ class UserStoriesTest < ActionDispatch::IntegrationTest
     assert_equal product.id, sale_product.product_id
     assert_equal 199.98, sale_product.price
     assert_equal 5, sale_product.quantity
+    assert_equal "UTC", sale_product.started_at.zone
+    assert_equal 2018, sale_product.started_at.year
+    assert_equal 1, sale_product.started_at.month
+    assert_equal 1, sale_product.started_at.day
+    assert_equal 1, sale_product.started_at.wday
+    assert_equal 8, sale_product.started_at.hour
+    assert_equal 0, sale_product.started_at.min
+    assert_equal "UTC", sale_product.expired_at.zone
+    assert_equal 2018, sale_product.expired_at.year
+    assert_equal 1, sale_product.expired_at.month
+    assert_equal 5, sale_product.expired_at.day
+    assert_equal 5, sale_product.expired_at.wday
+    assert_equal 7, sale_product.expired_at.hour
+    assert_equal 45, sale_product.expired_at.min
 
     logout(:seller)
 
