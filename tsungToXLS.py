@@ -82,7 +82,7 @@ for index in range(len(folder_names) / 2):
     sheet.append(alist)
 
 # 503
-sheet.append(['503', 'Basic', 'Sql'])
+sheet.append(['503 Ratio', 'Basic', 'Sql'])
 for index in range(len(folder_names) / 2):
     alist = []
     alist.append(rows_name[index])
@@ -126,7 +126,7 @@ sheet.add_chart(response_chart, "G16")
 response_chart = BarChart()
 response_chart.type = "col"
 response_chart.style = 10
-response_chart.title = "503"
+response_chart.title = "503 Ratio"
 
 data = Reference(sheet, min_col=2, min_row=13, max_row=18, max_col=3)
 cats = Reference(sheet, min_col=1, min_row=14, max_row=18)
