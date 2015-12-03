@@ -3,6 +3,7 @@
 Created on Fri Nov 20 17:06:42 2015
 
 @author: Dongqiao Ma
+pip install [--upgrade] openpyxl
 """
 
 from bs4 import BeautifulSoup
