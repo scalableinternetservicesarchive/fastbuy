@@ -22,7 +22,7 @@ class StoreController < ApplicationController
       end
       @products = @search.results
     end
-    get_sales @products
+    get_sales
   end
   
   def sort
