@@ -13,7 +13,7 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     if params[:search] == nil
-        @products = current_seller.products.paginate(page: params[:page], per_page: 20) if stale?([current_seller, current_seller.products.paginate(page: params[:page], per_page: 20)])
+        @products = current_seller.products.includes(:sale_products).paginate(page: params[:page], per_page: 20) if stale?([current_seller, current_seller.products.includes(:sale_products).paginate(page: params[:page], per_page: 20)])
     else
       if params[:search] == 'on_sale'
         @search = Product.search(include: [:sale_products]) do
