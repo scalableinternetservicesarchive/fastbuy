@@ -6,15 +6,10 @@ Buyer.delete_all
 SaleProduct.delete_all
 Product.delete_all
 Seller.delete_all
-if Rails.env == 'production'
-  num = 4327
-  usernames = (1..500).to_a
-  provider = (1..20).to_a
-else
-  num = 4327
-  usernames = (1..10).to_a
-  provider = (1..2).to_a
-end
+num = 10000
+sale_num = 1000
+usernames = (1..500).to_a
+provider = (1..20).to_a
 words = 50
 
 # Seed buyers and sellers
@@ -58,26 +53,45 @@ num.times do |i|
   describe=""
   words.times{ describe << string[rand(0...string.length)] +" "} 
   #image_url = "/assets/images/#{i}.jpg"    
-  image_url = "https://raw.githubusercontent.com/Geurney/fastbuyimages/master/public/assets/images/#{i}.jpg"
+  image_url = "https://raw.githubusercontent.com/Geurney/fastbuyimages/master/public/assets/images/#{i%4327}.jpg"
   price = rand(0..9)*100 + rand(0..9)*10 + rand(1..9) + rand(1..99)/100.0
   quantity = rand(200..500)
   rating = rand(1..4) + rand(1..9)/10.0
-  inserts << "('Item#{i}', '#{describe}', '#{image_url}', #{price}, #{rating}, #{quantity}, #{seller.id}, '#{Date.today}', '#{Date.today}')"
+  on_sale = false
+  if i < sale_num
+    on_sale = true
+  end
+  inserts << "('Item#{i}', '#{describe}', '#{image_url}', #{price}, #{rating}, #{quantity}, #{seller.id}, '#{on_sale}', '#{Date.today}', '#{Date.today}')"
   if i % 500 == 0
-    sql = "INSERT INTO products (title, description, image_url, price, rating, quantity, seller_id, created_at, updated_at) VALUES #{inserts.join(", ")}"
+    sql = "INSERT INTO products (title, description, image_url, price, rating, quantity, seller_id, on_sale, created_at, updated_at) VALUES #{inserts.join(", ")}"
     Product.connection.execute sql
     inserts = []
   end
 end
 if inserts.length != 0
-  sql = "INSERT INTO products (title, description, image_url, price, rating, quantity, seller_id, created_at, updated_at) VALUES #{inserts.join(", ")}"
+  sql = "INSERT INTO products (title, description, image_url, price, rating, quantity, seller_id, on_sale, created_at, updated_at) VALUES #{inserts.join(", ")}"
   Product.connection.execute sql
 end
-SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at, seller_id) VALUES (#{Product.first.id}, 20, 1.5, '#{Date.today}', '#{Date.today + 10000}', '#{Date.today}', '#{Date.today}', 1)"
-SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at, seller_id) VALUES (#{Product.second.id}, 12, 3.5, '#{Date.today}', '#{Date.today + 100000}', '#{Date.today}', '#{Date.today}', 1)"
-SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at, seller_id) VALUES (#{Product.third.id}, 15, 5.5, '#{Date.today}', '#{Date.today + 100000}', '#{Date.today}', '#{Date.today}', 1)"
-SaleProduct.connection.execute "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at, seller_id) VALUES (#{Product.fifth.id}, 18, 4.5, '#{Date.today}', '#{Date.today + 100000}', '#{Date.today}', '#{Date.today}', 1)"
-
 end_time = Time.now
 elapse = (end_time - start_time)
 puts "#{num} products in #{elapse.round(4)}s!"
+
+start_time = Time.now
+inserts = []
+sale_num.times do |i|
+  price = rand(1..9) + rand(1..99)/100.0
+  quantity = rand(120..200)
+  inserts << "(#{i + 1}, #{quantity}, #{price}, '#{Date.today}', '#{Date.today + 10000}', '#{Date.today}', '#{Date.today}', 1)"
+  if i % 500 == 0
+    sql = "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at, seller_id) VALUES #{inserts.join(", ")}"
+    SaleProduct.connection.execute sql
+    inserts = []
+  end
+end
+if inserts.length != 0
+    sql = "INSERT INTO sale_products (product_id, quantity, price, started_at, expired_at, created_at, updated_at, seller_id) VALUES #{inserts.join(", ")}"
+    SaleProduct.connection.execute sql
+end
+end_time = Time.now
+elapse = (end_time - start_time)
+puts "#{sale_num} sale products in #{elapse.round(4)}s!"
