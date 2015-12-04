@@ -21,13 +21,13 @@ class StoreController < ApplicationController
       end
       @products = @search.results
     end
-    get_sales @products
+    get_sales
   end
   
   def sort
     @sort_type = SORT_TYPE[params[:sort]]
     @products = Product.order(@sort_type).paginate(page: params[:page], per_page: 20)
-    get_sales @products
+    get_sales
     render 'index'
   end
 
