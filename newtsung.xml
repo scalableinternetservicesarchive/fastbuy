@@ -78,7 +78,12 @@
        >
         </http>
       </request>
-      
+ 
+      <!-- Find on sale products -->
+      <request>
+        <http url='/?search=on_sale' version='1.1' method='GET'></http>
+      </request>     
+
       <!-- wait for up to 2 seconds, user is looking at products -->
       <thinktime value="2" random="true"></thinktime>
 
@@ -91,7 +96,7 @@
       </request>
       
       <!-- pick a product randomly -->
-      <setdynvars sourcetype="random_number" start="1" end="4327">
+      <setdynvars sourcetype="random_number" start="1" end="10000">
         <var name="random_product" />
       </setdynvars>
       
@@ -104,7 +109,7 @@
           contents=''>
         </http>
       </request>
-      
+
       <!-- wait for up to 2 seconds, user decides to checkout -->
       <thinktime value="2" random="true"></thinktime>
 
@@ -271,7 +276,7 @@
       </request>
 
       <!-- pick a product randomly -->
-      <setdynvars sourcetype="random_number" start="5" end="4327">
+      <setdynvars sourcetype="random_number" start="1001" end="10000">
         <var name="random_sale" />
       </setdynvars>
       

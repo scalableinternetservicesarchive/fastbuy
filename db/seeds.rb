@@ -61,7 +61,11 @@ num.times do |i|
   if i < sale_num
     on_sale = true
   end
-  inserts << "('Item#{i}', '#{describe}', '#{image_url}', #{price}, #{rating}, #{quantity}, #{seller.id}, '#{on_sale}', '#{Date.today}', '#{Date.today}')"
+  if Rails.env == 'development'
+     inserts << "('Item#{i}', '#{describe}', '#{image_url}', #{price}, #{rating}, #{quantity}, #{seller.id}, '#{on_sale}', '#{Date.today}', '#{Date.today}')"
+  else
+     inserts << "('Item#{i}', '#{describe}', '#{image_url}', #{price}, #{rating}, #{quantity}, #{seller.id}, #{on_sale}, '#{Date.today}', '#{Date.today}')"
+  end
   if i % 500 == 0
     sql = "INSERT INTO products (title, description, image_url, price, rating, quantity, seller_id, on_sale, created_at, updated_at) VALUES #{inserts.join(", ")}"
     Product.connection.execute sql
