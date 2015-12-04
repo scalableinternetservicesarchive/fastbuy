@@ -26,7 +26,7 @@ class StoreController < ApplicationController
   
   def sort
     @sort_type = SORT_TYPE[params[:sort]]
-    @products = Product.order(@sort_type).paginate(page: params[:page], per_page: 20)
+    @products = Product.includes(:sale_products).order(@sort_type).paginate(page: params[:page], per_page: 20)
     get_sales
     render 'index'
   end
