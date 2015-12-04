@@ -2,9 +2,9 @@ module CurrentSales extend ActiveSupport::Concern
 
   private
 
-  def get_sales(products)
+  def get_sales
    @products.each do |product|
-     sale_product = product.sale_products.first
+     sale_product = product.sale_products.where("started_at < ?", Time.now).first
      if sale_product.nil?
         next
      end
