@@ -22,7 +22,7 @@ class ProductsController < ApplicationController
           paginate page: params[:page], per_page: 20
         end
       else
-        @search = Product.search do
+        @search = Product.search(include: [:sale_products]) do
           fulltext params[:search]
           with(:seller_id, current_seller.id)
           paginate page: params[:page], per_page: 20
