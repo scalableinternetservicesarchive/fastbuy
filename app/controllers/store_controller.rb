@@ -1,7 +1,7 @@
 class StoreController < ApplicationController
   SORT_TYPE = { "title" => :title, "price" => :price, "quantity" => :quantity, "rating" => :rating}
   include CurrentCart, CurrentSales, SearchParams
-  before_action :set_cart, :get_sales
+  before_action :set_cart
   before_action :set_search_params
 
   def index
@@ -21,11 +21,13 @@ class StoreController < ApplicationController
       end
       @products = @search.results
     end
+    get_sales @products
   end
   
   def sort
     @sort_type = SORT_TYPE[params[:sort]]
     @products = Product.order(@sort_type).paginate(page: params[:page], per_page: 20)
+    get_sales @products
     render 'index'
   end
 
