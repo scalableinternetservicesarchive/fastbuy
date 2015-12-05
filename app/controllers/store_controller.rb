@@ -7,7 +7,10 @@ class StoreController < ApplicationController
   def index
     expires_in 3.minutes, public: true, must_revalidate: true
     if params[:search] == nil
-      @products = Product.paginate(page: params[:page], per_page: 20) if stale?([Product.paginate(page: params[:page], per_page: 20), @cart.class == Cart ? @cart.line_items : nil, current_seller, current_buyer])
+      if stale?([Product.paginate(page: params[:page], per_page: 20), @cart.class == Cart ? @cart.line_items : nil, current_seller, current_buyer])
+        @products = Product.paginate(page: params[:page], per_page: 20)
+        get_sales
+      end
      else
       if @search_param == 'on_sale'
         @search = Product.search do
@@ -22,7 +25,6 @@ class StoreController < ApplicationController
       end
       @products = @search.results
     end
-    get_sales
   end
   
   def sort
