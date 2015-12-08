@@ -4,7 +4,7 @@ module CurrentSales extend ActiveSupport::Concern
 
   def get_sales
    @products.each do |product|
-     sale_product = product.sale_products.where("started_at < ?", Time.now).first
+     sale_product = product.sale_products.first
      if sale_product.nil?
         next
      end
