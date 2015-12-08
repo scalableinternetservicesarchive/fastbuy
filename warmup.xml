@@ -9,18 +9,34 @@
 
   <!-- Server side setup -->
   <servers>
-    <server host="52.91.106.144" port="80" type="tcp"></server>
+    <server host="54.84.57.80" port="80" type="tcp"></server>
   </servers>
 
+
   <load>
-    <arrivalphase phase="1" duration="50" unit="second">
-      <users arrivalrate="1" unit="second"></users>
+    <arrivalphase phase="1" duration="90" unit="second">
+      <users arrivalrate="2" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="2" duration="50" unit="second">
-      <users interarrival="0.5" unit="second"></users>
+    <arrivalphase phase="2" duration="10" unit="second">
+      <users arrivalrate="3" unit="second"></users>
     </arrivalphase>
-    <arrivalphase phase="3" duration="50" unit="second">
-      <users interarrival="0.25" unit="second"></users>
+    <arrivalphase phase="3" duration="10" unit="second">
+      <users arrivalrate="2" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="4" duration="10" unit="second">
+      <users arrivalrate="4" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="5" duration="20" unit="second">
+      <users arrivalrate="2" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="6" duration="10" unit="second">
+      <users arrivalrate="4" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="7" duration="30" unit="second">
+      <users arrivalrate="2" unit="second"></users>
+    </arrivalphase>
+    <arrivalphase phase="8" duration="10" unit="second">
+      <users arrivalrate="3" unit="second"></users>
     </arrivalphase>
   </load>
 
@@ -85,42 +101,6 @@
         <http url='/products/%%_random_product1%%' version='1.1' method='GET'></http>
       </request>
       
-      <!-- pick a product randomly -->
-      <setdynvars sourcetype="random_number" start="1" end="10000">
-        <var name="random_product" />
-      </setdynvars>
-      
-      <!-- Add product to cart -->
-      <request subst="true">
-        <http
-          url='/line_items?line_item%5Bproduct_id%5D=%%_random_product%%&amp;line_item%5Bquantity%5D=1'
-          version='1.1'
-          method='POST'
-          contents=''>
-        </http>
-      </request>
-
-      <!-- wait for up to 2 seconds, user decides to checkout -->
-      <thinktime value="2" random="true"></thinktime>
-
-      <!-- Checkout action -->
-      <request>
-        <http url='/orders/new' version='1.1' method='GET'></http>
-      </request>
-      
-      <!-- wait for up to 10 seconds, user is filling out the delivery information -->
-      <thinktime value="3" random="true"></thinktime>
-
-      <!-- Place order -->
-      <request subst="true">
-        <http
-          url='/orders'
-          version='1.1'
-          method='POST'
-          contents='order%5Bname%5D=Joe+Gaucho&amp;order%5Baddress%5D=Santa+Barbara+CA+93106&amp;order%5Bemail%5D=a%40a.com&amp;order%5Bpay_type%5D=Check&amp;commit=Place+Order'>
-        </http>
-      </request>
-      
       <request>
         <http url='/' version='1.1' method='GET'></http>
       </request>
@@ -174,28 +154,6 @@
           <http url="/products/new" version="1.1" method="GET"></http>
       </request>
 
-      <setdynvars sourcetype="random_string" length="5">
-          <var name="prod_name" />
-      </setdynvars>
-      <setdynvars sourcetype="random_string" length="15">
-          <var name="prod_desc" />
-      </setdynvars>
-      <setdynvars sourcetype="random_number" start="100" end="1000">
-        <var name="price" />
-      </setdynvars>
-      <setdynvars sourcetype="random_number" start="1" end="100">
-        <var name="quantity" />
-      </setdynvars>
-
-      <request subst="true">
-        <http
-          url='/products'
-          version='1.1'
-          method='POST'
-          contents='utf8=%E2%9C%93&amp;product%5Btitle%5D=%%_prod_name%%&amp;product%5Bdescription%5D=%%_prod_desc%%&amp;product%5Bimage_url%5D=a.jpg&amp;product%5Bprice%5D=%%_price%%&amp;product%5Bquantity%5D=%%_quantity%%&amp;commit=Create+Product'>
-        </http>
-      </request>
-      
       <!-- start out at the dashboard. -->
       <request>
         <http url='/' version='1.1' method='GET'></http>
@@ -237,33 +195,6 @@
           <http url="/products/new" version="1.1" method="GET"></http>
       </request>
 
-      <setdynvars sourcetype="random_string" length="5">
-          <var name="prod_name" />
-      </setdynvars>
-      <setdynvars sourcetype="random_string" length="15">
-          <var name="prod_desc" />
-      </setdynvars>
-      <setdynvars sourcetype="random_number" start="100" end="1000">
-        <var name="price" />
-      </setdynvars>
-      <setdynvars sourcetype="random_number" start="1" end="100">
-        <var name="quantity" />
-      </setdynvars>
-
-      <request subst="true">
-        <http
-          url='/products'
-          version='1.1'
-          method='POST'
-          contents='utf8=%E2%9C%93&amp;product%5Btitle%5D=%%_prod_name%%&amp;product%5Bdescription%5D=%%_prod_desc%%&amp;product%5Bimage_url%5D=a.jpg&amp;product%5Bprice%5D=%%_price%%&amp;product%5Bquantity%5D=%%_quantity%%&amp;commit=Create+Product'>
-        </http>
-      </request>
-
-      <!-- Put a product on sale -->
-      <!-- visit the products page -->
-      <request>
-        <http url="/products" version="1.1" method="GET"></http>
-      </request>
 
       <!-- pick a product randomly -->
       <setdynvars sourcetype="random_number" start="1001" end="10000">
@@ -272,16 +203,6 @@
       
       <request subst="true">
         <http url='/sale_products/new?sale_product%5Bproduct_id%5D=%%_random_sale%%' version='1.1' method='GET'></http>
-      </request>
-
-      <!-- Create sale -->
-      <request subst="true">
-        <http
-            url='/sale_products'
-          version='1.1'
-          method='POST'
-          contents='utf8=%E2%9C%93&amp;sale_product%5Bproduct_id%5D=%%_random_sale%%&amp;sale_product%5Bprice%5D=100&amp;sale_product%5Bquantity%5D=1&amp;sale_product%5Bstarted_at%281i%29%5D=2015&amp;sale_product%5Bstarted_at%282i%29%5D=11&amp;sale_product%5Bstarted_at%283i%29%5D=6&amp;sale_product%5Bstarted_at%284i%29%5D=01&amp;sale_product%5Bstarted_at%285i%29%5D=09&amp;sale_product%5Bexpired_at%281i%29%5D=2015&amp;sale_product%5Bexpired_at%282i%29%5D=11&amp;sale_product%5Bexpired_at%283i%29%5D=6&amp;sale_product%5Bexpired_at%284i%29%5D=01&amp;sale_product%5Bexpired_at%285i%29%5D=10&amp;commit=Create+Sale+product'>
-        </http>
       </request>
       
       <!-- start out at the dashboard. -->
