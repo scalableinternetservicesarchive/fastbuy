@@ -11,7 +11,7 @@ module CurrentCart extend ActiveSupport::Concern
         session[:cart] = @cart
       end
     else 
-      @cart = Cart.includes(:line_items,line_items: [:product, product: [:sale_products]]).find(current_buyer.cart_id)
+      @cart = current_buyer.cart
     end
   end
 
