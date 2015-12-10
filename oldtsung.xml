@@ -290,5 +290,6 @@
         <http url='/' version='1.1' method='GET'></http>
       </request>
     </session>
+  </sessions>
 </tsung>
 

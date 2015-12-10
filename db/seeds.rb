@@ -1,6 +1,6 @@
 # Initiliazation
-Order.delete_all
 LineItem.delete_all
+Order.delete_all
 Cart.delete_all
 Buyer.delete_all
 SaleProduct.delete_all

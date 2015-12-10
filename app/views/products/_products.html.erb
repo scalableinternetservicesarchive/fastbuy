@@ -11,8 +11,13 @@
     <td class="list_description">
       <dl>
         <dt><%= product.title %></dt>
-        <dd><%= truncate(strip_tags(product.description),
-               length: 80) %></dd>
+        <dd><%= truncate(strip_tags(product.description), length: 80) %></dd>
+        <% if product.on_sale == true %>
+          <dd>Price: <s><%= number_to_currency(product.price) %></s> <font color = "red"> <%= number_to_currency(product.sale_products.first.price) %> </font> Quantity: <%= sprintf("%d", product.sale_products.first.quantity) %>
+        <% else %>
+          <dd>Price: <%= number_to_currency(product.price) %> Quantity: <%= sprintf("%d", product.quantity) %>
+        <% end %>
+        Rating: <%= sprintf("%0.01f", product.rating) %></dd>
       </dl>
     </td>
 

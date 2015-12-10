@@ -22,7 +22,7 @@ class ProductsController < ApplicationController
         end
       else
         @search = Product.search do
-          fulltext params[:search]
+          fulltext params[:search] ? params[:search].squish : nil
           with(:seller_id, current_seller.id)
           paginate page: params[:page], per_page: 20
         end

@@ -38,22 +38,22 @@ class OrdersController < ApplicationController
     @order.buyer = current_buyer
     @order.add_line_items_from_cart(@cart)
 
-    respond_to do |format|
-      if @order.save
-        # Before deleting the cart, we need to update the quantity of the products
-        # related to the line items of this cart
-        update_product_count()
+    _has_succeeded = true
+    @order.transaction do
+      _has_succeeded = @order.save && update_product_count()
+      # Before deleting the cart, we need to update the quantity of the products
+      # related to the line items of this cart
+      @cart.line_items.destroy
+    end
 
-        @cart.line_items.destroy
-        
+    respond_to do |format|
+      if _has_succeeded
         OrderNotifier.received(@order).deliver_later(wait: 2.second)
         OrderNotifier.shipped(@order).deliver_later(wait: 8.second)
-
         format.html { redirect_to store_url, notice: 
           'Thank you for your order.' }
         format.json { render action: 'show', status: :created,
           location: @order }
-
       else
         format.html { render action: 'new' }
         format.json { render json: @order.errors,
@@ -99,8 +99,11 @@ class OrdersController < ApplicationController
 
     def update_product_count
         @order.line_items.each do |item|
-        item.product.quantity -= item.quantity
-        item.product.save
+          item.product.quantity -= item.quantity
+          if !item.product.save
+            return false
+          end
+          return true
         end
     end
 end
